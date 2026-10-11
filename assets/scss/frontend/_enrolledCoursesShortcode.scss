@@ -1,0 +1,98 @@
+// Styles for the [academy_enrolled_courses] shortcode.
+// The course grid, cards and pagination are already covered by
+// `frontend/_courses.scss` + `vendor/grid.scss` and are intentionally NOT
+// restyled here. This partial only fills the gap for the markup the
+// shortcode builds itself: the login-required notice, the empty state and
+// its "Browse Courses" button.
+
+// Login-required notice (logged-out visitor).
+.academy-message {
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--academy-text-color);
+	background: var(--academy-gray-color);
+	border: 1px solid var(--academy-border-color);
+	border-left: 4px solid var(--academy-primary-color);
+	border-radius: 4px;
+	padding: 16px 20px;
+	margin: 0 0 20px;
+
+	&--info {
+		background: var(--academy-secondary-color);
+		border-left-color: var(--academy-primary-color);
+	}
+}
+
+// Empty state (logged-in user with no enrolled courses, or no status matches).
+.academy-empty-state {
+	text-align: center;
+	padding: 48px 20px;
+
+	&__message {
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--academy-secondary-gray-color);
+		margin: 0 0 24px;
+	}
+
+	// "Browse Courses" call-to-action. The shortcode emits `.academy-button`
+	// only inside the empty state, so the styling is scoped here.
+	.academy-button {
+		display: inline-block;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.4;
+		text-decoration: none;
+		padding: 12px 28px;
+		border: 1px solid transparent;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+
+		&--primary {
+			color: var(--academy-surface-color);
+			background: var(--academy-primary-color);
+		}
+
+		&:hover,
+		&:focus {
+			opacity: 0.9;
+			box-shadow: 0 10px 20px var(--academy-secondary-color);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--academy-primary-color);
+			outline-offset: 2px;
+		}
+	}
+}
+
+// Responsive: only the shortcode-owned blocks. The grid collapses via the
+// existing `academy-col-*` classes and `_global.scss` breakpoints.
+@media (max-width: 768px) {
+
+	.academy-empty-state {
+		padding: 40px 16px;
+	}
+
+	.academy-message {
+		padding: 14px 16px;
+	}
+}
+
+@media (max-width: 576px) {
+
+	.academy-empty-state {
+		padding: 32px 12px;
+
+		&__message {
+			font-size: 15px;
+		}
+
+		.academy-button {
+			display: block;
+			width: 100%;
+			padding: 14px 20px;
+		}
+	}
+}

@@ -1,0 +1,41 @@
+.academy-btn {
+    &--ai-generate {
+        padding: 0px !important;
+        svg {
+            width: 16px;
+        }
+    }
+}
+
+.academy-react-modal--generate-text {
+    .academy-react-modal__content {
+        // min-height: 400px;
+        overflow: hidden;
+        textarea {
+            min-height: 100px;
+            padding: 12px;
+        }
+        .academy-text-generate {
+            &__input-container {
+                &--actions {
+                    display: flex;
+                    align-items: flex-end;
+                    gap: 10px;
+                    height: 100%;
+                }
+            }
+
+            &__configurations {
+                .academy-select {
+                    width: 100%;
+                }
+            }
+
+            &__response {
+                margin: 0 0 16px 0;
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
+    }
+}

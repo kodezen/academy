@@ -1,0 +1,38 @@
+.academy-preloader {
+	overflow: visible;
+    width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	svg {
+		width: 45px;
+		height: 45px;
+		overflow: visible !important;
+		margin: 15px !important;
+		circle {
+			stroke-width: 4px;
+		}
+		path {
+			stroke-width: 4px;
+			color: var(--academy-primary-color);
+		}
+	}
+
+	// Used for inline/contained loading states (e.g. inside a dropdown panel)
+	// where the default 45px size — sized for full-section/page loading — is
+	// too large for the available space.
+	&--sm {
+		svg {
+			width: 18px;
+			height: 18px;
+			margin: 8px !important;
+			circle {
+				stroke-width: 5px;
+			}
+			path {
+				stroke-width: 5px;
+			}
+		}
+	}
+}

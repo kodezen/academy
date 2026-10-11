@@ -1,0 +1,132 @@
+// Admin type scale, matched to GemCRM: 12/16, 13/18, 14/20, 16/24, 18/28,
+// 20/28, 24/32. Descriptions read at 14px, labels and headings carry weight
+// 600, and plain values in tables stay at 400.
+//
+// The shared classes (.academy-title, .academy-sub-title, .academy-heading)
+// also style the front-end dashboard, which follows the theme, so the admin
+// sizes are set here, in the admin bundles only. `.wp-admin` keeps them ahead
+// of the shared definitions whatever order the stylesheets load in.
+
+:root {
+	// Labels sit between body text and headings.
+	--academy-label-color: color-mix(in srgb, var(--academy-text-color-black) 82%, var(--academy-surface-color));
+}
+
+// WordPress sets admin paragraphs to 13px / 1.5. Inside Academy's screens a
+// plain paragraph uses the 14 / 20 body size; any class that sets a size wins.
+:where(#academywrap, [class*="academy-"]) p {
+	font-size: 14px;
+	line-height: 20px;
+}
+
+body.wp-admin {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+.wp-admin {
+
+	// Section heading in a settings card.
+	.academy-heading {
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 28px;
+		color: var(--academy-text-color-black);
+	}
+
+	// Setting and field labels.
+	.academy-title {
+		font-weight: 600;
+	}
+
+	// Setting and field descriptions.
+	.academy-sub-title {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	// Compact descriptions: table footers and pagination.
+	.academy-table__footer .academy-sub-title,
+	.academy-pagination .academy-sub-title {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.academy-radio-label {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	// Page title under the top bar.
+	.academy-sub-top-header__title {
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 28px;
+		color: var(--academy-text-color-black);
+	}
+
+	// Breadcrumb title in the top bar.
+	.academy-topbar-heading {
+		font-weight: 600;
+		color: var(--academy-label-color);
+	}
+
+	// Settings side menu.
+	.academy-tab-item {
+		font-weight: 600;
+		line-height: 20px;
+	}
+
+	// List tables: bold headers, regular values.
+	.academy-table__head .academy-table__row-cell {
+		font-weight: 600;
+		color: var(--academy-text-color-black);
+	}
+
+	.academy-table__body .academy-table__row-cell {
+		font-weight: 400;
+	}
+
+	.academy-table__footer-left {
+		line-height: 20px;
+	}
+
+	// Status tabs above list tables.
+	.academy-table-sub-header-tabs .tab {
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 20px;
+	}
+
+	// Small and extra-small buttons.
+	.academy-btn--sm {
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.academy-btn--xs {
+		font-size: 13px;
+		line-height: 18px;
+	}
+
+	// Status pills keep their weight inside regular table cells.
+	.academy-table__body .academy-table__row-cell .label {
+		font-weight: 500;
+	}
+
+	// Pills and badges: readable, not heavy.
+	.academy-pro-badge-gradient,
+	.academy-off-badge {
+		font-size: 11px;
+		font-weight: 600;
+		line-height: 14px;
+		letter-spacing: 0.2px;
+	}
+
+	.academy-pro-text {
+		font-size: 10px;
+		font-weight: 600;
+		line-height: 12px;
+	}
+}

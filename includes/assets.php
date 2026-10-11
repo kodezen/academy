@@ -1,0 +1,304 @@
+<?php
+namespace Academy;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+use Academy\Classes\ScriptsBase;
+
+class Assets extends ScriptsBase {
+
+	public static function init() {
+		$self = new self();
+		add_action( 'admin_enqueue_scripts', [ $self, 'backend_scripts' ], defined( 'ACADEMY_BACKEND_SCRIPTS_PRIORITY' ) ? ACADEMY_BACKEND_SCRIPTS_PRIORITY : 10 );
+		add_action( 'wp_enqueue_scripts', [ $self, 'frontend_scripts' ], defined( 'ACADEMY_FRONTEND_SCRIPTS_PRIORITY' ) ? ACADEMY_FRONTEND_SCRIPTS_PRIORITY : 10 );
+		// Runs after the theme has enqueued its own styles (default priority 10)
+		// so there is something to strip back off the standalone learn page.
+		add_action( 'wp_enqueue_scripts', [ $self, 'maybe_dequeue_theme_styles_on_learn_page' ], 100 );
+	}
+
+	/**
+	 * Enqueue Files on Start Plugin
+	 *
+	 * @param string $hook
+	 * @function backend_scripts
+	 */
+	public function backend_scripts( $hook ) {
+		if ( \Academy\Helper::plugin_page_hook_suffix( $hook ) ) {
+			// Remove Notices
+			remove_all_actions( 'admin_notices' );
+			// dequeue third party plugin assets
+			add_action(
+				'wp_print_scripts',
+				function () {
+					$isSkip = apply_filters( 'academy/skip_no_conflict_backend_scripts', Helper::is_dev_mode_enable() );
+
+					if ( $isSkip ) {
+						return;
+					}
+
+					global $wp_scripts;
+					if ( ! $wp_scripts ) {
+						return;
+					}
+
+					$pluginUrl = plugins_url();
+					// Allowlist of plugin slugs (yours is already included by default)
+					$allowed_plugins = apply_filters(
+						'academy/allowed_third_party_plugins_assets',
+						[ ACADEMY_PLUGIN_SLUG ]
+					);
+
+					foreach ( $wp_scripts->queue as $script ) {
+						$src = $wp_scripts->registered[ $script ]->src;
+
+						if ( strpos( $src, $pluginUrl ) !== false ) {
+							// Check if this script matches any allowed plugin slug
+							$is_allowed = false;
+							foreach ( $allowed_plugins as $slug ) {
+								if ( strpos( $src, $slug ) !== false ) {
+									$is_allowed = true;
+									break;
+								}
+							}
+
+							// Dequeue if not allowed
+							if ( ! $is_allowed ) {
+								wp_dequeue_script( $wp_scripts->registered[ $script ]->handle );
+							}
+						}
+					}
+				}, 1
+			);
+
+			$this->load_web_font_and_icon();
+			wp_enqueue_style( 'academy-admin-style', ACADEMY_ASSETS_URI . 'build/backend.css', array( 'wp-components' ), filemtime( ACADEMY_ASSETS_DIR_PATH . 'build/backend.css' ), 'all' );
+
+			if ( ! did_action( 'wp_enqueue_media' ) ) {
+				wp_enqueue_media();
+			}
+
+			// js
+			$dependencies = include ACADEMY_ASSETS_DIR_PATH . sprintf( 'build/backend.%s.asset.php', ACADEMY_VERSION );
+			wp_enqueue_script(
+				'academy-admin-scripts',
+				ACADEMY_ASSETS_URI . sprintf( 'build/backend.%s.js', ACADEMY_VERSION ),
+				$dependencies['dependencies'],
+				$dependencies['version'],
+				true
+			);
+			wp_localize_script( 'academy-admin-scripts', 'AcademyGlobal', $this->get_backend_scripts_data() );
+			wp_set_script_translations( 'academy-admin-scripts', 'academy', ACADEMY_ROOT_DIR_PATH . 'languages' );
+		}//end if
+		$this->add_backend_inline_style();
+	}
+
+	/**
+	 * Enqueue Files on Start Plugin
+	 *
+	 * @function frontend_scripts
+	 */
+	public function frontend_scripts() {
+		// Shortcode
+		if ( apply_filters( 'academy/is_load_common_scripts', $this->is_academy_common_pages() ) ) {
+			$this->frontend_common_assets();
+		}
+
+		if ( apply_filters( 'academy/is_load_frontend_dashboard_scripts', $this->is_frontend_dashboard_page() ) ) {
+			if ( is_user_logged_in() ) {
+				$this->frontend_dashboard_assets();
+			} else {
+				// if not logged in then also load common assets for login form
+				$this->frontend_common_assets();
+			}
+		}
+
+		// Pages
+		if ( apply_filters( 'academy/is_load_course_lessons_scripts', $this->is_course_lesson_page() ) ) {
+			$this->frontend_lessons_assets();
+		}
+		if ( apply_filters( 'academy/is_load_course_lessons_php_render_scripts', $this->is_course_php_render_lesson_page() ) ) {
+			$this->frontend_lessons_php_render_assets();
+		}
+	}
+
+	public function frontend_common_assets() {
+		$this->load_web_font_and_icon();
+		$dependencies = include ACADEMY_ASSETS_DIR_PATH . sprintf( 'build/frontendCommon.%s.asset.php', ACADEMY_VERSION );
+		// CSS
+		wp_enqueue_style( 'academy-plyr', ACADEMY_ASSETS_URI . 'lib/css/plyr.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'lib/css/plyr.css' ), 'all' );
+		wp_enqueue_style( 'academy-common-styles', ACADEMY_ASSETS_URI . 'build/frontendCommon.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'build/frontendCommon.css' ), 'all' );
+		// js
+		wp_enqueue_script( 'academy-sticksy', ACADEMY_ASSETS_URI . 'lib/js/sticksy.min.js', array( 'jquery' ), $dependencies['version'], false );
+		wp_enqueue_script( 'academy-plyr', ACADEMY_ASSETS_URI . 'lib/js/plyr.js', array( 'jquery' ), $dependencies['version'], false );
+
+		// JS
+		if ( apply_filters( 'academy/is_load_common_js_scripts', true ) ) {
+			wp_enqueue_script(
+				'academy-common-scripts',
+				ACADEMY_ASSETS_URI . sprintf( 'build/frontendCommon.%s.js', ACADEMY_VERSION ),
+				$dependencies['dependencies'],
+				$dependencies['version'],
+				true
+			);
+			wp_localize_script( 'academy-common-scripts', 'AcademyGlobal', $this->get_frontend_scripts_data() );
+			wp_set_script_translations( 'academy-common-scripts', 'academy', ACADEMY_ROOT_DIR_PATH . 'languages' );
+		}
+	}
+
+	public function frontend_dashboard_assets() {
+		$this->load_web_font_and_icon();
+		$dependencies = include ACADEMY_ASSETS_DIR_PATH . sprintf( 'build/frontendDashboard.%s.asset.php', ACADEMY_VERSION );
+		wp_enqueue_style( 'academy-frontend-dashboard-styles', ACADEMY_ASSETS_URI . 'build/frontendDashboard.css', array( 'wp-components' ), filemtime( ACADEMY_ASSETS_DIR_PATH . 'build/frontendDashboard.css' ), 'all' );
+
+		if ( ! did_action( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
+
+		$this->load_block_editor_scripts();
+
+		wp_enqueue_script(
+			'academy-frontend-dashboard-scripts',
+			ACADEMY_ASSETS_URI . sprintf( 'build/frontendDashboard.%s.js', ACADEMY_VERSION ),
+			$dependencies['dependencies'],
+			$dependencies['version'],
+			true
+		);
+		wp_localize_script( 'academy-frontend-dashboard-scripts', 'AcademyGlobal', $this->get_frontend_scripts_data() );
+		wp_set_script_translations( 'academy-frontend-dashboard-scripts', 'academy', ACADEMY_ROOT_DIR_PATH . 'languages' );
+	}
+
+	public function frontend_lessons_assets() {
+		if ( ! did_action( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
+
+		$this->load_web_font_and_icon();
+
+		$dependencies = include ACADEMY_ASSETS_DIR_PATH . sprintf( 'build/frontendCurriculums.%s.asset.php', ACADEMY_VERSION );
+
+		// CSS
+		wp_enqueue_style( 'academy-plyr', ACADEMY_ASSETS_URI . 'lib/css/plyr.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'lib/css/plyr.css' ), 'all' );
+		// js
+		wp_enqueue_script( 'academy-plyr', ACADEMY_ASSETS_URI . 'lib/js/plyr.js', array( 'jquery' ), $dependencies['version'], false );
+
+		wp_enqueue_style( 'academy-course-lessons-styles', ACADEMY_ASSETS_URI . 'build/frontendCurriculums.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'build/frontendCurriculums.css' ), 'all' );
+
+		wp_enqueue_script(
+			'academy-course-lessons-scripts',
+			ACADEMY_ASSETS_URI . sprintf( 'build/frontendCurriculums.%s.js', ACADEMY_VERSION ),
+			$dependencies['dependencies'],
+			$dependencies['version'],
+			true
+		);
+		wp_localize_script( 'academy-course-lessons-scripts', 'AcademyGlobal', $this->get_frontend_scripts_data() );
+		wp_set_script_translations( 'academy-course-lessons-scripts', 'academy', ACADEMY_ROOT_DIR_PATH . 'languages' );
+	}
+
+	public function frontend_lessons_php_render_assets() {
+		if ( ! did_action( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
+
+		$this->load_web_font_and_icon();
+
+		$dependencies = include ACADEMY_ASSETS_DIR_PATH . sprintf( 'build/frontendPhpCurriculums.%s.asset.php', ACADEMY_VERSION );
+
+		wp_enqueue_style( 'academy-plyr', ACADEMY_ASSETS_URI . 'lib/css/plyr.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'lib/css/plyr.css' ), 'all' );
+		wp_enqueue_script( 'academy-plyr', ACADEMY_ASSETS_URI . 'lib/js/plyr.js', array( 'jquery' ), $dependencies['version'], false );
+
+		wp_enqueue_style( 'academy-course-php-render-lessons-styles', ACADEMY_ASSETS_URI . 'build/frontendPhpCurriculums.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'build/frontendCurriculums.css' ), 'all' );
+
+		wp_enqueue_script(
+			'academy-course-php-render-lessons-scripts',
+			ACADEMY_ASSETS_URI . sprintf( 'build/frontendPhpCurriculums.%s.js', ACADEMY_VERSION ),
+			$dependencies['dependencies'],
+			$dependencies['version'],
+			true
+		);
+		wp_localize_script( 'academy-course-php-render-lessons-scripts', 'AcademyGlobal', $this->get_frontend_scripts_data() );
+		wp_set_script_translations( 'academy-course-php-render-lessons-scripts', 'academy', ACADEMY_ROOT_DIR_PATH . 'languages' );
+	}
+
+	public function load_web_font_and_icon() {
+		// No web font is loaded and no font family is set: text follows the
+		// theme on the front end and WordPress in wp-admin.
+		wp_enqueue_style( 'academy-icon', ACADEMY_ASSETS_URI . 'lib/css/academy-icon.css', array(), filemtime( ACADEMY_ASSETS_DIR_PATH . 'lib/css/academy-icon.css' ), 'all' );
+	}
+
+	/**
+	 * Strip the active theme's stylesheets from the standalone learn page.
+	 *
+	 * The React ("js-render") and PHP ("php-render") learn pages render as a
+	 * full custom document -- single-course-curriculums.php prints its own
+	 * <!doctype> + wp_head() when the theme header/footer is off -- so the
+	 * theme's CSS never styles a theme-owned layout there, it only bleeds into
+	 * Academy's own UI. The most visible breakage is themes that restyle every
+	 * `input[type="range"]`: they hijack the lesson player's scrubber and
+	 * volume sliders and stack a second, broken-looking control on ours.
+	 *
+	 * Two learn pages are deliberately left with the theme's CSS intact:
+	 *  - the block ("blocks-render") learn page, which is built from blocks
+	 *    inside the theme and is meant to inherit it; and
+	 *  - any learn page the site has opted to wrap in the theme header/footer
+	 *    (`is_enabled_lessons_theme_header_footer`), which then needs it.
+	 *
+	 * @return void
+	 */
+	public function maybe_dequeue_theme_styles_on_learn_page() {
+		// Block-based learn page is theme-integrated -- keep the theme's CSS.
+		if ( \Academy\LearnPage::is_request() ) {
+			return;
+		}
+
+		$is_learn_page = $this->is_course_lesson_page() || $this->is_course_php_render_lesson_page();
+		if ( ! $is_learn_page ) {
+			return;
+		}
+
+		// The page is wrapped in the theme's own header/footer -- it needs the
+		// theme's CSS, so leave every stylesheet in place.
+		if ( \Academy\Helper::get_settings( 'is_enabled_lessons_theme_header_footer', false ) ) {
+			return;
+		}
+
+		$this->dequeue_active_theme_styles();
+	}
+
+	/**
+	 * Dequeue every enqueued stylesheet served from the active theme's own
+	 * directory (parent or child). Brand-agnostic: it keys off the active
+	 * theme's URL, so it works for whichever theme is running rather than a
+	 * single named one. Google Fonts and other off-theme-domain styles a theme
+	 * registers are untouched.
+	 *
+	 * @return void
+	 */
+	protected function dequeue_active_theme_styles() {
+		$styles = wp_styles();
+		if ( ! $styles instanceof \WP_Styles ) {
+			return;
+		}
+
+		$theme_uris = array_unique( array_filter( array(
+			get_template_directory_uri(),
+			get_stylesheet_directory_uri(),
+		) ) );
+		if ( empty( $theme_uris ) ) {
+			return;
+		}
+
+		foreach ( $styles->registered as $handle => $style ) {
+			if ( empty( $style->src ) || ! is_string( $style->src ) ) {
+				continue;
+			}
+			foreach ( $theme_uris as $theme_uri ) {
+				if ( false !== strpos( $style->src, $theme_uri ) ) {
+					wp_dequeue_style( $handle );
+					break;
+				}
+			}
+		}
+	}
+}

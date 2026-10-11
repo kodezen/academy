@@ -1,0 +1,274 @@
+body {
+    background: #fff;
+    margin: 0;
+}
+
+.academy-setup-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    &__topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 40px;
+        width: calc(100% - 80px);
+        border-bottom: 1px solid var(--academy-border-color);
+        position: relative;
+    }
+
+    .academy-setup-screen-title-subtitle {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        .academy-setup-screen-title {
+            color: var(--academy-text-color-black);
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 24px;
+            margin: 0;
+        }
+
+        .academy-setup-screen-subtitle {
+            color: var(--academy-secondary-gray-color);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            margin: 0;
+        }
+    }
+
+    &__title {
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 48px;
+        text-align: center;
+        color: var(--academy-text-color-black);
+        margin: 0 0 8px 0;
+    }
+
+    &__subtitle {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: center;
+        color: var(--academy-secondary-gray-color);
+        margin: 0 0 40px 0;
+    }
+
+    .academy-entry-icon {
+        width: 120px;
+        height: 32px;
+    }
+
+    .academy-setup-title-text {
+        color: var(--academy-text-color);
+        margin: 0;
+    }
+
+    .academy-btn {
+        &--back-learn {
+            padding: 0;
+            border: none;
+        }
+
+        &--back-business-type {
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        &--continue {
+            .academy-btn--label {
+                color: #FFFFFF;
+            }
+        }
+
+        &--finish-next {
+            .academy-btn--label {
+                color: #FFFFFF;
+            }
+        }
+
+        &--lets-start {
+            .academy-btn--label {
+                color: #FFFFFF;
+            }
+        }
+
+        &--close-setup {
+            padding: 0;
+            border: none;
+        }
+
+        .academy-icon {
+            &--arrow-right {
+                &::before {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .academy-screen-steps-footer-text {
+        font-size: 20px;
+        line-height: 21px;
+        color: var(--academy-secondary-gray-color);
+        cursor: pointer;
+        .academy-screen-steps-skip-text {
+            color: var(--academy-primary-color);
+            font-size: 20px;
+            line-height: 21px;
+            text-decoration: underline;
+        }
+
+        .academy-screen-footer-text {
+            font-size: 20px;
+            color: var(--academy-secondary-gray-color);
+        }
+    }
+}
+
+.academy-setup-screen-modal {
+    width: 600px;
+    height: 360px;
+    position: relative;
+    overflow: hidden;
+    a {
+        margin-top: 10px;
+        text-decoration: none;
+        .academy-btn {
+            &--label {
+                color: #FFF;
+            }
+        }
+    }
+
+    &__image {
+        width: 120px;
+        position: absolute;
+        top: 5%;
+        left: 40%;
+    }
+
+    &__text {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        z-index: 9999;
+        top: 43%;
+        left: 13%;
+        right: 13%;
+        text-align: center;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 35px;
+        line-height: 47px;
+        color: var(--academy-primary-color);
+        margin: 0;
+        padding-bottom: 5px;
+        margin-top: -15px;
+    }
+
+    .academy-setup-screen-modal-text {
+        padding-bottom: 20px;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 32px;
+        color: var(--academy-text-color);
+        margin: 0;
+    }
+
+    .academy-setup-screen-modal-redirect-text {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 32px;
+        color: var(--academy-secondary-gray-color);
+        margin: 0;
+    }
+}
+
+.academy-control-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    input.form-control {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    .academy-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #cdcfd5;
+        transition: 0.4s;
+        border-radius: 24px;
+        &:before {
+            content: '';
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            background: #ffffffe8;
+            left: 3px;
+            bottom: 3px;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+    }
+}
+
+.academy-control-switch input:checked+.academy-slider {
+    background-color: var(--academy-primary-color);
+}
+
+.academy-control-switch input:checked+.academy-slider:before {
+    transform: translateX(16px);
+}
+
+@media all and (max-width: 1024px) {
+    .academy-setup-screen {
+        .academy-setup-screen--fourth {
+            &__container {
+                .academy-setup-screen--fourth__top {
+                    .academy-setup-form-reset-button {
+                        top: 100px;
+                        right: 20px;
+                        border: none;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@media all and (max-width: 768px) {
+    .academy-setup-screen {
+        .academy-setup-screen--fourth {
+            &__container {
+                .academy-setup-screen--fourth__top {
+                    .academy-setup-form-reset-button {
+                        top: 120px;
+                        right: 20px;
+                        border: none;
+                    }
+                }
+            }
+
+        }
+    }
+}

@@ -1,0 +1,237 @@
+.academy-react-modal {
+    &--add-instructors {
+        .academy-react-modal {
+            &__head {
+                border-bottom: 1px solid var(--academy-border-color);
+                box-shadow: none;
+            }
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding-top: 30px;
+                max-height: unset !important;
+                overflow-y: unset !important;
+
+                .academy-info {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .academy-search-component {
+                    &__input {
+                        width: 100%;
+                        height: 44px;
+                        background: var(--academy-surface-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 4px;
+                    }
+                }
+
+                .academy-choose-instructor {
+                    display: flex;
+                    flex-direction: column;
+                    background: var(--academy-background-gray-color);
+                    border: 1px solid var(--academy-border-color);
+                    border-radius: 8px;
+                    gap:16px;
+                    padding: 24px;
+                    margin: 0;
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 12px 22px;
+                        background: var(--academy-surface-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 8px;
+                        margin: 0;
+                        &:last-child {
+                            border: none;
+                        }
+
+                        .components-base-control {
+                            &__field {
+                                margin-bottom: 0;
+                            }
+                            .components-flex{
+                                display: block;
+                            }
+                        }
+
+                        .components-checkbox-control {
+                            &__label {
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 24px;                                
+                                color: var(--academy-text-color);
+                            }
+                            &__input {
+                                border-radius: 5px;
+                                box-shadow: none;
+                                border: 1px solid var(--academy-border-color);
+                                border-radius: 5px;
+                                box-shadow: none;
+                            }
+
+                        }
+
+                        span.academy-choose-instructor__email {
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: var(--academy-text-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.academy-postbox--course-instructors {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+
+    // The author select is the only thing in this box now (no "Choose
+    // Instructor" label/subtitle) — full width instead of the label+select
+    // side-by-side layout `.academy-post-form-group` normally lays out, and
+    // filled with the primary color instead of the default bordered-white
+    // look every other select uses.
+    .academy-post-form-group {
+        justify-content: flex-start;
+    }
+
+    .academy-post-form-body {
+        flex: 1;
+        width: 100%;
+    }
+
+    .academy-custom-select {
+        width: 100%;
+    }
+
+    .academy-custom-select--container {
+        background: var(--academy-primary-color);
+        border-color: var(--academy-primary-color);
+    }
+
+    .academy-custom-select--inner-content,
+    .academy-select-default-text,
+    .academy-select-single-label span,
+    .academy-custom-select--indicator {
+        color: #fff;
+    }
+    .academy-postbox {
+        margin: 0;
+        &__header{
+            border-bottom: 1px solid var(--academy-border-color);
+        }
+        &__body {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 16px;
+            .academy-post-form-group .academy-post-form-info label {
+                font-size: 16px;
+            }
+            .academy-post-form-group {
+                align-items: flex-start;
+            }
+        }
+    }
+    .academy-deactivate-message {
+        padding-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        .academy-icon {
+            margin-top: 2px;
+            &::before {
+                color: var(--academy-warning-color);
+                font-size: 16px;
+            }
+        }
+    }
+    .academy-instructors{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        &__label {
+            min-width: 200px;
+            font-size: 16px;    
+            font-weight: 500;
+            display: block;
+            margin-top: 0;
+        }
+        .academy-deactivate-message {
+            margin-top: 0;
+        }
+        .academy-course-instructor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--academy-border-color);
+            padding: 15px;
+            border-radius: 10px;
+            &__entry-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .academy-dropdown-menu {
+                rotate: 90deg;
+                .academy-icon {
+                    &::before {
+                        font-size: 20px;
+                    }
+                }
+            }
+            &--active {
+                border-color: var(--academy-primary-color);
+                button.academy-btn-close-modal {
+                    border-color: var(--academy-primary-color);
+                    .academy-icon--close:before {
+                        color: var(--academy-primary-color);
+                    }
+                }
+            }
+            &__info-wrap {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                margin-top: 4px;
+                .academy-course-instructor__info {
+                    margin-right: 15px;
+                    margin-top: -4px;
+                }
+            }
+            
+            &__name {
+                display: block;
+                text-transform: capitalize;
+                font-size: 16px;
+                line-height: 24px;
+            }
+            &__designation {
+                display: block;
+                font-size: 14px;
+                line-height: 18px;
+            }
+        }
+    }
+    .academy-postbox-instructor{
+        min-width: 200px;
+    }
+}
+
+
+@media all and (max-width: 480px) {
+	.academy-react-modal {
+        &--add-instructors {
+            width: 100%;
+        }
+	}
+}

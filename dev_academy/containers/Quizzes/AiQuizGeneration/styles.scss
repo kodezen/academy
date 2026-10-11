@@ -1,0 +1,12 @@
+.academy-quiz-generate {
+    &__question-type {
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: var(--academy-secondary-gray-color);
+        background: var(--academy-gray-color);
+        border: 1px solid #e1defa;
+        padding: 0.2rem 0.6rem;
+        border-radius: 0.5rem;
+        align-self: flex-start;
+    }
+}

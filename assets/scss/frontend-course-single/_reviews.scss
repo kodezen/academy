@@ -1,0 +1,274 @@
+.academy-review-list {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+    li {
+        padding-bottom: 20px;
+        margin-top: 25px;
+        border-bottom: 1px solid var(--academy-border-color);
+        .academy-review_container {
+            .academy-group-star {
+                i {
+                    color: #f4c150;
+                }
+            }
+            &__top {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            &__profile {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+                width: 100%;
+                p {
+                    margin: 0;
+                }
+            }
+            &__edit-btn {
+                border: none;
+                background: transparent;
+                cursor: pointer;
+            }
+            &__update {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 16px;
+                margin-top: 24px;
+            }
+            &__thumbnail {
+                img {
+                    display: block;
+                    min-width: 64px;
+                    width: 64px;
+                    min-height: 64px;
+                    height: 64px;
+                    border-radius: 50%;
+                    margin: 0px;
+                }
+            }
+            .academy-column-items {
+                gap: 4px;
+            }
+            &__author {
+                font-size: var(--academy-fs-md);
+                font-weight: 500;
+                line-height: 1.333;
+                margin: 0;
+            }
+            &__published-date {
+                font-size: var(--academy-fs-md);
+                font-weight: 400;
+                line-height: 1.5;
+                margin: 0;
+            }
+            &__rating-label {
+                font-size: var(--academy-fs-md);
+                font-weight: 400;
+                line-height: 1.5;
+                margin: 0;
+            }
+            &__rating-star {
+                background-color: color-mix(in srgb, var(--academy-primary-color) 15%, transparent);
+                padding: 2px 8px;
+                border-radius: 999px;
+                .academy-group-star {
+                    margin-left: 2px;
+                    .academy-icon--star {
+                        &::before {
+                            font-size: var(--academy-fs-sm);
+                        }
+                    }
+                }
+            }
+            &__rating {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .academy-review-content {
+                width: 100%;
+                .academy-review-meta {
+                    margin: 0;
+                }
+                .academy-review-description {
+                    margin-top: 10px;
+                    p {
+                        font-weight: normal;
+                        font-size: var(--academy-fs-sm);
+                        line-height: 2;
+                        color: var(--academy-text-color);
+                        margin-bottom: 0;
+                    }
+                }
+                .academy-review-edit-form {
+                    background: var(--academy-gray-color);
+                    border-radius: 8px;
+                    padding: 24px;
+                    &__textarea {
+                        width: 100%;
+                        border: 1px solid var(--academy-border-color);
+                        font-size: var(--academy-fs-sm);
+                        font-weight: 400;
+                        line-height: 1.429;
+                        field-sizing: content;
+                        min-height: 70px;
+                        max-height: 300px;
+                    }
+
+                    &__select-rating {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+
+                    &__select-rating-label {
+                        font-size: var(--academy-fs-md);
+                        font-weight: 500;
+                        line-height: 1.25;
+                        white-space: nowrap;
+                    }
+
+                    .academy-review-select-wrap {
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    .academy-review-select-wrap select {
+                        appearance: none;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        background-color: var(--academy-surface-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 6px;
+                        padding: 8px 36px 8px 12px;
+                        font-size: var(--academy-fs-sm);
+                        color: #111827;
+                        cursor: pointer;
+                        line-height: 1.4;
+                        min-width: 140px;
+                        transition: border-color 0.2s;
+                        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+                        background-repeat: no-repeat;
+                        background-position: right 12px center;
+                        background-size: 12px;
+                    }
+                }
+            }
+        }
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+}
+
+.academy-review-form {
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--academy-border-color);
+    input[type="submit"] {
+		padding: 0 15px;
+		height: 50px;
+	}
+    &__add-review {
+        background-image: url('./../images/add-review.png');
+        background-repeat: no-repeat;
+        background-position: 30px 50%;
+        padding: 15px;
+        text-align: right;
+        border-radius: 10px;
+        .academy-btn-add-review {
+            display: inline-block;
+            width: auto;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    }
+    .academy-review-form-rating {
+        p.stars {
+            margin-top: 0;
+            line-height: 1.1;
+            margin-bottom: 15px !important;
+            > span {
+                display: flex;
+                column-gap: 8px;
+            }
+        }
+        p.stars a {
+            position: relative;
+            height: 1em;
+            width: 1em;
+            text-indent: -999em;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: none;
+            color: #f4c150;
+        }
+        p.stars a::before {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1em;
+            height: 1em;
+            line-height: 1;
+            content: '☆';
+            text-indent: 0;
+        }
+        p.stars a:hover ~ a::before {
+            content: '☆';
+        }
+        p.stars:hover a::before {
+            content: '★';
+        }
+        p.stars.selected a.active::before {
+            content: '★';
+        }
+        p.stars.selected a.active ~ a::before {
+            content: '☆';
+        }
+        p.stars.selected a:not(.active)::before {
+            content: '★';
+        }
+    }
+    .comment-respond {
+        display: none;
+        padding: 30px 40px 30px 50px;
+        margin: 0;
+        form.comment-form {
+            margin: 0;
+            label {
+                margin-bottom: 5px;
+            }
+            .academy-review-form-review {
+                textarea {
+                    background: var(--academy-border-color);
+                    border-radius: 8px;
+                    border: 1px solid var(--academy-border-color);
+                    font-size: var(--academy-fs-sm);
+                    font-weight: 400;
+                    line-height: 1.429;
+                    color: var(--academy-text-color);
+                }
+            }
+        }
+    }
+    &--open-form {
+        border: 1px solid var(--academy-border-color);
+        box-sizing: border-box;
+        box-shadow: none;
+        .academy-review-form__add-review {
+            border-radius: 0;
+            border-bottom: 1px solid var(--academy-border-color);
+        }
+        .comment-respond {
+            display: block;
+        }
+    }
+    #respond .form-submit {
+        float: unset;
+    }
+}

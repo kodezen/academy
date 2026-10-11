@@ -1,0 +1,29 @@
+.academy-customize-sortable-list__item {
+    list-style: none;
+    padding: 0 0 0 12px;
+    border: 1px solid var(--academy-border-color);
+    color: var(--academy-secondary-gray-color);
+    background: #ffffff;
+    cursor: move;
+    line-height: 38px;
+    margin: 0 0 10px;
+    border-radius: 3px;
+    z-index: 999999999 !important;
+    &-control {
+        float: right;
+        position: relative;
+        font-size: 18px;
+        padding: 9px 12px;
+        line-height: 20px;
+        background: #fff;
+        border: 0;
+        border-left: 1px solid var(--academy-border-color);
+        cursor: pointer;
+        span {
+            pointer-events: none;
+        }
+    }
+    &.invisible {
+        opacity: 0.6;
+    }
+}

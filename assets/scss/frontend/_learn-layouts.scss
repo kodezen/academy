@@ -1,0 +1,155 @@
+// =============================================================================
+// Learn Page — composable layout engine (admin-global)
+// -----------------------------------------------------------------------------
+// Driven by three attributes stamped on the learn wrapper by both render paths:
+//   data-academy-nav="left|right|top|hidden"
+//   data-academy-width="standard|wide|focused"
+//   data-academy-panel="on|off"
+//
+// React path wrapper : #academyLessonsWrap.academy-lessons
+// PHP path wrapper   : .academy-course-curriculum-wrapper
+//
+// Defaults (nav=right, width=standard, panel=off) reproduce the existing layout,
+// so upgrading changes nothing until an admin picks a different option.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// REACT PATH
+// The flex container is .academy-lesson-content-wrapper (row-reverse by default,
+// sidebar is the first DOM child → appears on the right).
+// -----------------------------------------------------------------------------
+
+// ---- Curriculum placement ----
+.academy-lessons[data-academy-nav="left"] {
+	.academy-lesson-content-wrapper {
+		flex-direction: row;
+	}
+	// The curriculum sidebar is position:fixed and its static anchor follows the
+	// flex direction (now the left edge). The base layout reserves the sidebar's
+	// 400px space on the RIGHT (margin-right:auto), which would let the content
+	// slide UNDER the left sidebar — so flip the reservation to the left.
+	.academy-lessons-content-wrap,
+	.academy-lessons-expanded-sidebar,
+	.academy-lessons-content-scroll {
+		margin-left: auto !important;
+		margin-right: 0 !important;
+	}
+	// expand button sits on the sidebar side; mirror it to the left edge
+	.academy-btn--lesson-expand {
+		right: auto;
+		left: -125px;
+		&:hover { left: 0; }
+	}
+}
+
+.academy-lessons[data-academy-nav="right"] {
+	.academy-lesson-content-wrapper {
+		flex-direction: row-reverse; // == current default
+	}
+}
+
+// Hidden, Top (stepper strip lands later) and Bottom (curriculum via the bottom
+// tabs strip) all drop the side column and let the lesson content span full width.
+.academy-lessons[data-academy-nav="hidden"],
+.academy-lessons[data-academy-nav="top"],
+.academy-lessons[data-academy-nav="bottom"] {
+	.academy-lesson-sidebar-content,
+	.academy-btn--lesson-expand {
+		display: none !important;
+	}
+	.academy-lessons-content-wrap {
+		width: 100% !important;
+		margin-right: 0;
+		margin-left: 0;
+	}
+}
+
+// ---- Content width ----
+// Focused: narrow, centered reading column (great for text lessons).
+.academy-lessons[data-academy-width="focused"] {
+	.academy-lessons-content {
+		max-width: 760px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+// Wide: the widest content column (still capped so it stays readable/centered).
+.academy-lessons[data-academy-width="wide"] {
+	.academy-lessons-content {
+		max-width: 1250px;
+	}
+}
+
+// ---- Top bar: mark-complete visibility ----
+// (Progress / review / notes / announcements / q&a and the ⋯ menu items are
+// ordered + toggled in React from the localized settings object.)
+.academy-lessons[data-academy-mark-complete="off"] .academy-course-complete--header {
+	display: none !important;
+}
+
+// -----------------------------------------------------------------------------
+// PHP / GUTENBERG PATH  (active only when "Enable Lessons PHP Render" is on)
+// Wrapper: .academy-course-curriculum-wrapper
+//   .academy-course-curriculum-contents      → lesson content
+//   .academy-course-curriculums-container     → curriculum sidebar
+// Kept structurally parallel to the React path. Verify when the PHP path is on.
+// -----------------------------------------------------------------------------
+
+.academy-course-curriculum-wrapper {
+	&[data-academy-nav="left"] {
+		flex-direction: row;
+	}
+	&[data-academy-nav="right"] {
+		flex-direction: row-reverse;
+	}
+	&[data-academy-nav="hidden"],
+	&[data-academy-nav="top"] {
+		.academy-course-curriculums-container {
+			display: none !important;
+		}
+		.academy-course-curriculum-contents {
+			width: 100% !important;
+		}
+	}
+
+	&[data-academy-width="focused"] .academy-lessons-content,
+	&[data-academy-width="focused"] .academy-course-curriculum-contents {
+		max-width: 760px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	&[data-academy-width="wide"] .academy-lessons-content {
+		max-width: 1250px;
+	}
+}
+
+// ---- Learner display-size override (ContentTabs S/M/L/Full) ----
+// Stamped as data-academy-user-width on the wrapper; beats the admin
+// data-academy-width by source order (same specificity).
+.academy-lessons[data-academy-user-width="small"] .academy-lessons-content {
+	max-width: 760px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.academy-lessons[data-academy-user-width="medium"] .academy-lessons-content {
+	max-width: 1040px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.academy-lessons[data-academy-user-width="large"] .academy-lessons-content {
+	max-width: 1250px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// ---- Content shell ----
+// The visible card now lives on the ContentTabs panels (white bordered surface),
+// so the outer content column is a plain transparent wrapper. This keeps a
+// single, consistent card for every playable type and avoids a card-in-card.
+.academy-lessons .academy-lessons-content:not(.academy-lessons-content__scorm) {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	border-radius: 0 !important;
+}

@@ -1,0 +1,253 @@
+// The upload card (Dropzone.js, Figma node 13955:15184) and, for the
+// category image, the picked image with Replace / Remove over it on hover.
+// Used by UploadImage `variant="dropzone"` and the course attachments.
+.academy-upload-dropzone {
+    width: 100%;
+
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        box-sizing: border-box;
+        min-height: 176px;
+        padding: 20px;
+        // A faint wash of the brand colour (#e7ecfe border and a
+        // #f3ecfa → #f6f7fe gradient in the design), mixed from the theme
+        // colours so it stays quiet in dark mode too.
+        border: 1px solid color-mix(in srgb, var(--academy-primary-color) 14%, var(--academy-surface-color));
+        border-radius: 8px;
+        background: linear-gradient(
+            234.5deg,
+            color-mix(in srgb, var(--academy-primary-color) 10%, var(--academy-surface-color)) 3.7%,
+            color-mix(in srgb, var(--academy-primary-color) 5%, var(--academy-surface-color)) 90.6%
+        );
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        border-radius: 20px;
+        background: linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--academy-primary-color) 22%, var(--academy-surface-color)),
+            color-mix(in srgb, var(--academy-primary-color) 2%, transparent)
+        );
+
+        img {
+            display: block;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        margin: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: center;
+        color: var(--academy-secondary-gray-color);
+    }
+
+    &__meta-size {
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+
+        img {
+            display: block;
+        }
+    }
+
+    // Compact card (sidebars): the whole dashed box is the upload button.
+    &__compact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 20px 16px;
+        border: 1.5px dashed color-mix(in srgb, var(--academy-primary-color) 28%, var(--academy-border-color));
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--academy-primary-color) 4%, var(--academy-surface-color));
+        font-family: inherit;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.15s ease, background-color 0.15s ease;
+
+        &:hover {
+            border-color: var(--academy-primary-color);
+            background: color-mix(in srgb, var(--academy-primary-color) 8%, var(--academy-surface-color));
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--academy-primary-color);
+            outline-offset: 2px;
+        }
+    }
+
+    &__compact-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-bottom: 4px;
+        border-radius: 50%;
+        background: color-mix(in srgb, var(--academy-primary-color) 14%, var(--academy-surface-color));
+        color: var(--academy-primary-color);
+    }
+
+    &__compact-text {
+        text-wrap: balance;
+        font-size: 13px;
+        line-height: 20px;
+        color: var(--academy-secondary-gray-color);
+
+        strong {
+            font-weight: 600;
+            color: var(--academy-primary-color);
+        }
+    }
+
+    &__compact-meta {
+        font-size: 12px;
+        line-height: 18px;
+        color: color-mix(in srgb, var(--academy-secondary-gray-color) 80%, transparent);
+    }
+
+    // Same box as the empty card, so picking an image doesn't move the form.
+    &__preview {
+        position: relative;
+        height: 176px;
+        overflow: hidden;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        background: var(--academy-gray-color);
+
+        > img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    // Compact: keep the image's recommended shape (700 × 430) instead of a
+    // fixed height, with the rounded corners of the compact card.
+    &__preview.is-compact {
+        height: auto;
+        aspect-ratio: 700 / 430;
+        border-radius: 8px;
+    }
+
+    &__actions {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: rgba(15, 14, 22, 0.6);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        // Hover, or keyboard focus on Replace / Remove. Not `:focus-within`:
+        // WordPress hands focus back to Replace when its media window
+        // closes, which kept the overlay up until a click somewhere else.
+        .academy-upload-dropzone__preview:hover &,
+        .academy-upload-dropzone__preview:has(:focus-visible) & {
+            opacity: 1;
+        }
+    }
+
+    // A picked file that is not an image (PDF, DOCX): its name, Replace
+    // and a delete icon, in place of the card.
+    &__file {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 8px 8px 12px;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+    }
+
+    &__file-name {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        font-size: 14px;
+        line-height: 20px;
+        color: var(--academy-text-color);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__file-remove {
+        display: flex;
+        flex-shrink: 0;
+        padding: 4px;
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--academy-secondary-gray-color);
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--academy-danger-color);
+        }
+    }
+
+    .academy-btn--dropzone-upload,
+    .academy-btn--dropzone-replace,
+    .academy-btn--dropzone-remove {
+        padding: 10px 16px;
+        border: 0;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+
+        .academy-btn--label {
+            padding: 0;
+        }
+    }
+
+    // White on the dark overlay, whatever the admin theme.
+    .academy-btn--dropzone-remove {
+        background: #fff;
+        color: var(--academy-text-color);
+
+        &:hover,
+        &:focus {
+            background: var(--academy-gray-color);
+            color: var(--academy-text-color);
+        }
+    }
+}
+
+// One-line hint between a field label and its compact upload card.
+.academy-upload-dropzone-hint {
+    margin: 2px 0 12px;
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--academy-secondary-gray-color);
+}

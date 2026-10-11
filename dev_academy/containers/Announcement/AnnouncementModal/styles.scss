@@ -1,0 +1,158 @@
+.academy-react-modal--announcements {
+    .academy-react-modal {
+        &__content {
+            .academy-course-announcement-form {
+                .academy-post-form-group {
+                    flex-direction: column;
+                    align-items: unset;
+                    .academy-post-form-info {
+                        label {
+                            font-size: 16px;
+                            margin-bottom: 18px;
+                            font-weight: 500;
+                        }
+                    }
+                    .academy-select--full {
+                        width: 100%;
+                    }
+                }
+
+                &__item {
+                    label {
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: var(--academy-text-color);
+                    }
+                    input {
+                        height: 40px;
+                        color: var(--academy-text-color);
+                        background: var(--academy-surface-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 8px;
+                    }
+                    textarea {
+                        height: 139px;
+                        background: var(--academy-surface-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 8px;
+                    }
+                    span.error {
+                        margin-top: 5px;
+                        display: inline-block;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                    }
+
+                    .academy-warning--label {
+                        .academy-icon {
+                            margin-right: 4px;
+                        }
+                    }
+                }
+                &__item-disabled {
+                    pointer-events: none;
+                    .academy-input {
+                        &:hover {
+                            border: 1px solid var(--academy-border-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.academy-react-select {
+    &__placeholder {
+        color: var(--academy-placeholder-color) !important
+    }
+}
+
+// The modal-header chrome (Modal/styles.scss) forces every <button> in
+// `.academy-react-modal-buttons` to a bordered, surface-colored 1px box with
+// `!important`, at higher specificity than a bare
+// `.academy-announcement-modal__submit` class (or a Tailwind `bg-*`/`!border-*`
+// utility) could otherwise beat — nest under the wrapper it actually renders in
+// so the primary-button look (solid brand fill, white label, no border) wins
+// that fight.
+.academy-course-topbar-right .academy-announcement-modal__submit {
+    background: var(--academy-primary-color) !important;
+    color: #fff !important;
+    border-color: transparent !important;
+
+    &:hover:not(:disabled) {
+        background: var(--academy-primary-color) !important;
+        opacity: 0.9;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+.academy-course-announcement-form {
+    .academy-post-form-group {
+        flex-direction: column;
+        align-items: unset;
+        width: 100%;
+        margin-bottom: 0;
+        .academy-post-form-info {
+            label {
+                font-size: 14px;
+                margin-bottom: 8px;
+                font-weight: 400;
+            }
+        }
+        .academy-post-form-body {
+            width: 100%;
+        }
+        .academy-select--full {
+            width: 100%;
+        }
+    }
+
+    &__item {
+        label {
+            display: block;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--academy-text-color);
+        }
+        input, textarea {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--academy-border-color);
+        }
+        input {
+            height: 40px;
+        }
+        textarea {
+            min-height: 150px;
+        }
+        span.error {
+            color: #f94d4d;
+        }
+
+        .academy-warning--label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400 !important;
+            font-size: 14px;
+            line-height: 20px;
+
+            .academy-icon {
+                margin-right: 0;
+            }
+
+            .academy-warning {
+                font-weight: 400 !important;
+            }
+        }
+    }
+}

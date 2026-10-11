@@ -1,0 +1,24 @@
+.academy-setup-screen-steps {
+    &__topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 40px;
+        width: calc(100% - 80px);
+        border-bottom: 1px solid var(--academy-border-color);
+
+        position: fixed;
+        top: 0;
+        background: #fff;
+        z-index: 1;
+    }
+}
+
+@media all and (max-width: 768px) {
+    .academy-setup-screen-steps {
+        &__topbar {
+            padding-bottom: 24px;
+        }
+    }
+}
+

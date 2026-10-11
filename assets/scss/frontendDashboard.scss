@@ -1,0 +1,22 @@
+:root { // overwrite gutenberg core container css
+    --wp--style--global--content-size: 100%; 
+}
+@import './common/global';
+@import './common/form-group';
+@import './common/status';
+@import './common/loader';
+@import './common/RTL';
+@import './common/button';
+@import './common/listTable';
+@import './common/verify_registration';
+@import './vendor/grid.scss';
+@import './frontend/common';
+@import './frontend/courses';
+@import './frontend/calendar';
+@import './frontend/dashboard';
+@import './frontend/guardian';
+@import './frontend/grades';
+@import './frontend/theme_compatibility';
+@import './frontend/RTL';
+@import './common/notifaction';
+

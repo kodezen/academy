@@ -1,0 +1,573 @@
+.academy-course-curriculum-wrapper {
+	display: flex;
+	width: 100%;
+	margin: 0;
+	// This is the element global-css.php actually dark-mode-gates
+	// (`.academy-course-curriculum-wrapper[data-academy-user-theme="dark"]`),
+	// but nothing here ever set `color` — descendants without their own
+	// explicit text color inherited the active WP theme's body color
+	// instead of Academy's palette. Same gap/fix as the React path's
+	// `.academy-lessons` in dev_academy/containers/frontend-curriculums/styles.scss.
+	color: var(--academy-text-color);
+}
+// The curriculum is a top-bar drawer now, so the content spans full width.
+.academy-course-curriculum-contents {
+	width: 100%;
+}
+.academy-course-curriculums-container {
+	display: none;
+}
+
+.academy-expand-button-wrapper {
+	position: fixed;
+	right: 0;
+	width: 200px;
+}
+.academy-course-single-lessons {
+	background: var(--academy-gray-color);
+	position: relative;
+	&--allow-theme-header-footer {
+		.academy-lesson-topbar {
+			position: relative;
+			top: 0;
+		}
+		.academy-lesson-content-wrapper {
+			margin-top: 0;
+			.academy-lesson-sidebar-content--sticky {
+				position: relative;
+				top: 0;
+				margin-top: -1px;
+			}
+		}
+	}
+}
+
+.academy-lessons {
+	width: 100%;
+	padding-bottom: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	position: relative;
+	overflow: hidden;
+
+	// not found
+	.academy-oops__icon svg {
+		max-width: 300px;
+		height: auto;
+	}
+}
+
+// content.php's not-found branch wraps this in .academy-lessons-content--topic-error,
+// not .academy-lessons (that's js-render.php's root), so the constraint above
+// never applied here and the illustration rendered at native SVG size.
+.academy-lessons-content--topic-error .academy-oops__icon svg {
+	max-width: 300px;
+	height: auto;
+}
+
+// Compact single-row notice shown above a lesson a logged-out visitor CAN
+// preview (content.php) — the full access-notice card below would be
+// redundant here since the content is already visible, so this stays a
+// single row instead of interrupting the preview, but keeps the same
+// icon-badge + button treatment as that card rather than reading as plain
+// text with a bare underlined link.
+.academy-lessons__preview-notice {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 20px;
+	padding: 12px 16px;
+	background: var(--academy-secondary-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: 8px;
+	box-shadow: none;
+}
+
+.academy-lessons__preview-notice-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: var(--academy-primary-color);
+
+	.academy-icon {
+		font-size: 14px;
+		&::before {
+			color: #fff;
+		}
+	}
+}
+
+.academy-lessons__preview-notice-text {
+	flex: 1 1 auto;
+	min-width: 0;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.4;
+	color: var(--academy-text-color-black);
+}
+
+.academy-lessons__preview-notice-btn {
+	flex-shrink: 0;
+	white-space: nowrap;
+
+	.academy-icon::before {
+		color: #fff;
+	}
+}
+
+// Logged-out visitor "purchase/enroll required" notice shown on a
+// non-accessible lesson section (content.php) — a centered card, content
+// and CTA switching on whether the course is a paid course (Purchase Now →
+// the course's own sales page) or free/public/membership (Login to Enroll).
+.academy-lessons__access-notice {
+	max-width: 420px;
+	margin: 40px auto;
+	padding: 32px 24px;
+	text-align: center;
+	background: var(--academy-secondary-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: 12px;
+}
+
+.academy-lessons__access-notice-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	margin-bottom: 16px;
+	border-radius: 50%;
+	background: var(--academy-primary-color);
+
+	.academy-icon {
+		font-size: 22px;
+		&::before {
+			color: #fff;
+		}
+	}
+}
+
+.academy-lessons__access-notice-title {
+	margin: 0 0 8px 0;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.3;
+	color: var(--academy-text-color-black);
+}
+
+.academy-lessons__access-notice-subtext {
+	margin: 0 0 20px 0;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--academy-secondary-gray-color);
+}
+
+.academy-lessons__access-notice-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+
+	.academy-icon::before {
+		color: #fff;
+	}
+
+	&--outline {
+		background: var(--academy-surface-color);
+		color: var(--academy-primary-color);
+
+		.academy-icon::before {
+			color: var(--academy-primary-color);
+		}
+	}
+}
+
+
+// Main Wrapper
+.academy-lessons-content-wrap {
+    position: relative;
+    width: 100%;
+}
+
+
+
+// expand sidebar
+// .academy-lessons-expanded-sidebar {
+//     width: calc(100% - 400px);
+// }
+
+.academy-lesson-background {
+    position: absolute;
+    background: red !important;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+}
+
+// .academy-lessons-content-scroll{
+//     width: calc(100% - 400px);
+//     margin-right: auto;
+// }
+
+// Navigation
+.academy-lessons-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    .btn-disable {
+        color: rgba(0, 0, 0, 0.4);
+        cursor: not-allowed !important;
+
+        .academy-icon {
+            color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .academy-icon {
+        &--arrow-left {
+            margin-right: 5px;
+        }
+    }
+
+    button {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border: none;
+        color: var(--academy-primary-color);
+        cursor: pointer;
+
+        .academy-icon {
+            color: var(--academy-primary-color);
+        }
+
+        span {
+            font-size: 14px;
+        }
+
+        &:hover {
+            background: none;
+        }
+
+        &:focus {
+            background: none;
+        }
+    }
+}
+
+// scorm
+.academy-scorm-content {
+    width: 100%;
+    height: 800px;
+    border: 0;
+}
+
+
+// scorm
+@media all and (max-width: 1440px) {
+    .academy-scorm-content {
+        height: 500px;
+    }
+}
+
+@media all and (max-width: 1440px) {
+	.academy-lesson-quiz__expire-message.academy-lesson-quiz--expire-wrap{
+		gap: 0;
+	}
+	.academy-lesson-quiz__expire {
+		padding: 25px;
+		.academy-quiz-expire-message{
+			span {
+				text-align: justify;
+			}
+			svg {
+				width: 50px;
+				height: 50px;
+			}
+		}
+		button {
+			margin-left: 15px;
+		}
+	}
+}
+
+@media all and (max-width: 1280px) {
+	.academy-lesson-quiz{
+		&__expire-image{
+			img{
+				width: 250px;
+			}
+		}
+	}
+}
+
+@media all and (max-width: 1024px) {
+	.academy-lessons {
+		&__entry-left {
+			flex-basis: auto;
+			width: 100%;
+			margin-top: 30px;
+		}
+	}
+
+    .academy-lesson-topics-wrap {
+        padding: 20px;
+    }
+
+    .academy-lesson-quiz__expire{
+        .academy-quiz-expire-message{
+            svg {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+
+    .academy-lessons-content-wrap{
+        .academy-lessons-content{
+            margin-left: 20px;
+		}
+    }
+
+    .academy-lesson-content__video {
+        margin: 15px;
+    }
+
+	.academy-lesson-quiz {
+		&__start {
+			margin-top: 20px;
+		}
+	}
+
+	.academy-quiz-start {
+		padding: 50px 60px;
+	}
+
+	.academy-quiz-start-button {
+		margin-left: 0;
+	}
+}
+
+@media all and (max-width: 768px) {
+	.academy-lessons {
+		width: 100%;
+		margin: 0;
+		.academy-lessons-content-wrap {
+			width: 100%;
+			margin-top: 0;
+			.academy-lessons-content {
+				min-height: auto;
+				.academy-lesson-title {
+					font-size: 16px;
+				}
+				&__video {
+					.react-player {
+						height: 350px !important;
+					}
+				}
+			}
+		}
+		.academy-lesson-content {
+			&__top-bar {
+				.academy-topbar-item {
+					&--title {
+						span {
+							margin-right: 10px;
+						}
+					}
+				}
+			}
+		}
+		.academy-lesson-content-wrapper {
+			margin-top: 0;
+		}
+		.academy-quiz-result__details{
+			gap: 30px
+		}
+		.academy-lesson-quiz {
+			width: 100%;
+			padding: 20px;
+			&__expire{
+				padding: 25px;
+				width: 240px;
+				height: 250px;
+			}
+			&__expire-image {
+				.academy-expire-image {
+					width: 200px;
+				}
+			}
+			&__expire-message {
+				padding: 30px;
+			}
+			.academy-lesson-quiz--expire-wrap{
+				gap: 10px;
+			}
+		}
+	}
+	
+	.academy-lessons .academy-lesson-quiz__body .academy-lesson-quiz-answer .academy-quiz-answer--image {
+		padding: 10px;
+		width: 150px;
+	}
+	.academy-lessons .academy-lesson-quiz__body .academy-lesson-quiz-answer .academy-quiz-answer .academy-quiz-answer-image {
+		width: 100%;
+	}
+	.academy-lessons .academy-lesson-quiz__body .academy-lesson-quiz-answer .academy-quiz-answer .academy-lesson-quiz-answer-image-input-wrapper {
+		padding: 10px 10px;
+	}
+}
+
+@media all and (max-width: 480px) {
+    .academy-lesson-topics-wrap {
+        padding: 20px 0 0 0 ;
+    }
+    .academy-lesson-quiz-start {
+        .academy-lesson-quiz {
+            &__start {
+                height: initial;
+                .academy-quiz-start {
+                    padding: 25px;
+                    width: 100%;
+                    &__body {
+                        width: 100%;
+                        padding: 30px 20px;
+                    }
+                }
+            }
+        }
+    }
+    .academy-lessons-content-wrap {
+        .academy-lessons-content{
+            margin-left: 0px;
+            .academy-lesson-quiz {
+                padding: 0px;
+                &__body {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+	.academy-lesson-content__video {
+		.loader-button-next {
+			right: -150px ;
+		}
+	}
+    
+    .academy-lesson-quiz {
+        &__body {
+            .academy-quiz-buttons{
+                gap: 10px;
+                .academy-btn {
+                    &--label {
+                        font-size: 12px !important;
+                    }
+                }
+            }
+        } 
+        &__header {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 30px 0px 30px;
+        }
+        &__expire-message {
+            flex-direction: column;
+            gap: 0;
+            padding: 10px;
+        }
+        &__expire-image {
+            margin-left: 15px;
+            margin-bottom: 25px;
+            .academy-expire-image {
+                width: 200px;
+            }
+        }
+        &__expire{
+            padding: 10px!important;
+            width: 200px !important;
+        }
+    }
+    .academy-lesson-content-wrapper {
+        .academy-lessons-content-wrap {
+            .academy-lessons-content{
+                &__text {
+                    padding: 20px 20px 0 20px;
+                }
+            }
+        }
+    }
+
+	.academy-lessons-content__video {
+		.academy-lessons-auto-loader {
+			&__content {
+				gap: 4px !important;
+				h5 {
+					font-size: 18px;
+				}
+				span {
+					font-size: 15px;
+				}
+			}
+
+			.academy-btn {
+				padding: 9px 18px;
+			}
+		}
+	}
+	
+    .academy-lesson-quiz__header {
+		padding: 15px;
+		gap: 15px;
+	}
+
+	.academy-lesson-quiz__body {
+		padding: 15px;
+	}
+
+	.academy-lesson-quiz__body .academy-lesson-quiz-answer,
+	.academy-lesson-quiz__body .academy-quiz-buttons__prevNext {
+		gap: 15px;
+	}
+	
+	.academy-lesson-quiz__body .academy-lesson-quiz-answer {
+		flex-direction: column;
+	}
+	
+	.academy-lessons .academy-lesson-quiz__body .academy-quiz-buttons {
+		flex-wrap: nowrap;
+	}
+	.academy-lesson-quiz__body .academy-lesson-quiz-answer .academy-quiz-answer {
+		width: 100% !important;
+	}
+
+	.academy-lesson-quiz__body .academy-quiz-buttons .academy-btn {
+		padding: 12px 16px;
+	}
+
+	.academy-lesson-quiz__body .academy-lesson-quiz-answer .academy-quiz-answer .academy-lesson-quiz-answer-input-wrapper,
+	.academy-lesson-quiz__body .academy-lesson-quiz-answer .academy-quiz-answer .academy-lesson-quiz-answer-title {
+		padding: 10px;
+	}
+
+}  
+
+@media all and (max-width: 375px) {
+	.academy-lesson-quiz__body .academy-quiz-buttons {
+		gap: 4px;
+		flex-wrap: wrap;
+		.academy-btn {
+			padding: 6px 6px;
+		}
+		&__prevNext {
+			gap: 6px;
+		}
+	}
+}

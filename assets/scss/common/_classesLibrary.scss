@@ -1,0 +1,429 @@
+.academy-content-wrap {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--academy-border-color);
+    background: var(--academy-surface-color);
+    border-radius: 4px;
+}
+
+// Label Style
+.academy {
+    &-heading {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        margin: 0 0 24px 0;
+        padding-bottom: 16px;
+        color: var(--academy-text-color);
+        border-bottom: 1px solid var(--academy-border-color);
+    }
+
+    &-title-subtitle {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%; 
+        margin: 0;
+    }
+
+    &-title {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        margin: 0;
+        color: var(--academy-text-color);
+    }
+
+    &-sub-title {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 0;
+        color: var(--academy-secondary-gray-color);
+    }
+}
+
+// Flex & Grid
+.academy {
+    &-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+    }
+
+    &-flex-1 {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &-flex-2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &-flex-3 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &-flex-4 {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &-column-items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+        width: 100%;
+    }
+
+    &-row {
+        flex-direction: row;
+    }
+
+    &-item-center {
+        display: flex;
+        justify-content: center;
+    }
+
+	&-flex-g-1 {
+		gap: 4px;
+	}
+
+	&-flex-g-2 {
+		gap: 8px;
+	}
+
+	&-flex-g-3 {
+		gap: 12px;
+	}
+
+	&-flex-g-4 {
+		gap: 16px;
+	}
+
+	&-flex-g-6 {
+		gap: 24px;
+	}
+
+	&-flex-justify-center {
+		justify-content: center;
+	}
+
+	&-flex-justify-between {
+		justify-content: space-between;
+	}
+
+	&-flex-justify-around {
+		justify-content: space-around;
+	}
+
+	&-flex-align-center {
+		align-items: center;
+	}
+
+	&-flex-align-start {
+		align-items: center;
+	}
+
+	&-flex-align-end {
+		align-items: center;
+	}
+
+	&-inline-flex {
+		display: inline-flex;
+	}
+
+	&-grid {
+		display: grid;
+	}
+
+	&-inline-grid {
+		display: inline-grid;
+	}
+}
+
+// Input & TextArea
+// This is a duplicate of .academy-input in ../common/_global.scss, imported
+// after it — meaning this copy wins the cascade. Both need to stay in sync
+// (see the background/color fix note there) until they're consolidated.
+.academy-input {
+    // Will remove the important
+    border: 1px solid var(--academy-border-color) !important;
+    background: var(--academy-surface-color);
+    color: var(--academy-text-color);
+    height: 40px;
+    width: 100%;
+    padding: 0 12px;
+    border-radius: 4px;
+    &:hover, &:focus {
+        border: 1px solid var(--academy-primary-color) !important;
+        // Kept in sync with the matching rule in ../common/_global.scss.
+        box-shadow: none !important;
+        outline: none;
+    }
+    @media (forced-colors: active) {
+        &:hover, &:focus {
+            border-color: Highlight !important;
+        }
+    }
+    &--error {
+        border-color: rgb(255, 0, 0) !important;
+    }
+    &--disabled {
+        border: 1px solid var(--academy-border-color) !important;
+    }
+    &-w-120 {
+        width: 120px;
+    }
+    &::placeholder {
+        color: var(--academy-placeholder-color);
+    }
+
+    &--textarea {
+        height: 80px;
+        padding: 8px 12px;
+    }
+}
+// See the matching note in ../common/_global.scss: a bare .academy-input
+// ties in specificity with WP admin core's input[type=...] rules, and loses
+// that tie whenever core CSS loads after ours. This compound selector wins
+// regardless of load order for cases where the class sits on the form
+// control itself (not on a wrapping <label>).
+input.academy-input,
+textarea.academy-input,
+select.academy-input {
+    background: var(--academy-surface-color);
+    color: var(--academy-text-color);
+}
+
+// Spacing
+.academy {
+    // Margin
+    &-m-0 {
+        margin: 0;
+    }
+    // Margin Bottom
+    &-mb-0 {
+        margin-bottom: 0;
+    }
+
+    &-mb-1 {
+        margin-bottom: 4px;
+    }
+
+    &-mb-2 {
+        margin-bottom: 8px;
+    }
+
+    &-mb-3 {
+        margin-bottom: 12px;
+    }
+
+    &-mb-4 {
+        margin-bottom: 16px;
+    }
+    
+    &-mb-6 {
+        margin-bottom: 24px;
+    }
+
+    // Margin Top
+    &-mt-1 {
+        margin-top: 4px;
+    }
+    
+    &-mt-6 {
+        margin-top: 24px;
+    }
+    
+    &-mt-2 {
+        margin-top: 8px;
+    }
+    &-mt-4{
+        margin-top: 16px;
+    }
+    // Margin Left
+    &-mt-4 {
+        margin-left: 8px;
+    }
+    // Margin Top Bottom
+    &-mtb-6 {
+        margin: 24px 0;
+    }
+    // Padding
+    &-p-0 {
+        padding: 0;
+    }
+}
+
+// Warning Text
+.academy {
+    &-warning {
+        color: #FF4D4D;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    &-warning-text {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 8px;
+        font-size: 12px;
+        border: 1px solid #FDB022;
+        p {
+            margin: 0;
+        }
+    
+        .academy-icon {
+            &::before {
+                color: #FDB022;
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+// Width
+.academy {
+    &-w-125 {
+        width: 125px;
+    }
+
+    &-w-100 {
+        width: 100%;
+    }
+
+    &-w-60 {
+        width: 60%;
+    }
+
+    &-w-50 {
+        width: 50%;
+    }
+
+    &-w-40 {
+        width: 40%;
+    }
+
+    &-w-30 {
+        width: 30%;
+    }
+
+    &-w-25 {
+        width: 25%;
+    }
+
+    &-w-70 {
+        width: 70%;
+    }
+
+    &-w-75 {
+        width: 75%;
+    }
+}
+
+// Border Style
+.academy-bdr {
+    &-t-4 {
+        border-top: 1px solid var(--academy-border-color);
+        margin-top: 16px;
+        padding-top: 16px;
+    }
+}
+
+// React select modifier
+.academy-select {
+    .academy-react-select {
+        &__control {
+            border: 1px solid var(--academy-border-color);
+            border-radius: 5px;
+            box-shadow: none;
+            .academy-react-select__input-container {
+                .academy-react-select__input {
+                    box-shadow: none;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    &--w-100 {
+        width: 100%;
+    }
+
+    &--addons {
+        width: 150px;
+        .academy-react-select {
+            &__control {
+                height: 36px;
+            }
+
+            &__value-container {
+                padding: 0 0 0 8px;
+            }
+
+            &__indicator-separator {
+                display: none;
+            }
+        }
+    }
+}
+
+.academy-radio-option {
+    input[type="radio"] {
+		margin: 0;
+	}
+}
+
+.academy-checkbox-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    input[type="checkbox"] {
+        margin: 0;
+    }
+}
+
+.academy-error-text {
+    color: var(--academy-danger-color);
+    font-size: 13px;
+    margin: 6px 0 0;
+}
+
+// Required-field asterisk next to a label — same class FormBuilder's own
+// field list already uses (`SortableColumn.js`), promoted here so any
+// label (e.g. Course Title) can reuse it instead of a one-off style.
+.academy-required-field {
+    margin-left: 2px;
+    color: var(--academy-danger-color);
+    font-size: 16px;
+    line-height: 1;
+}
+
+// AI generate items 
+.academy-ai-generate--item-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.academy-inner {
+    padding: 24px;
+    background: var(--academy-surface-color);
+    border-radius: 4px;
+    border: 1px solid var(--academy-border-color);
+    box-shadow: none;
+}

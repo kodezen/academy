@@ -1,0 +1,7 @@
+button,
+[type=submit],
+[type=button] {
+    &:focus {
+        outline: none !important;
+    }
+}

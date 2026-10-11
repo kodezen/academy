@@ -1,0 +1,59 @@
+.academy-topic-form {
+    position: relative;
+
+    // Close (X) affordance in the top-right corner of the form. Kept in sync
+    // with the authoritative rule in builder/styles/styles.scss.
+    .academy-btn--close-topic {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        min-width: auto;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        line-height: 1;
+        color: var(--academy-secondary-gray-color);
+        transition: background 0.2s ease, color 0.2s ease;
+        &:hover {
+            background: var(--academy-gray-color);
+            color: var(--academy-text-color-black);
+        }
+        .academy-icon {
+            font-size: 16px;
+        }
+    }
+
+    .form-group {
+        input, textarea {
+            width: 100%;
+        }
+    }
+
+    .academy-summary-close {
+        .academy-flex {
+            margin-bottom: 12px;
+            .academy-btn {
+                padding: 0;
+                &--close {
+                    padding: 0;
+                }
+            }
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid var(--academy-border-color);
+            height: 60px;
+        }   
+    }
+
+    .form-group--buttons {
+        margin-top: 16px;
+        display: flex;
+        justify-content: flex-start;
+    }
+}

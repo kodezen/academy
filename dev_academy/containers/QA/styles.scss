@@ -1,0 +1,25 @@
+// Questions and Answers
+.academy-react-modal--qa {
+	.academy-react-modal__head {
+		border-bottom: 1px solid var(--academy-border-color);
+		box-shadow: none;
+	}
+}
+
+.academy-backend-qa {
+	// Scrollbar hidden across engines (no clean utility equivalent).
+	.academy-qa-wrapper {
+		-ms-overflow-style: none; /* for Internet Explorer, Edge */
+		scrollbar-width: none; /* for Firefox */
+	}
+
+	.academy-qa-wrapper::-webkit-scrollbar {
+		display: none; /* for Chrome, Safari, and Opera */
+	}
+}
+
+@media all and (max-width: 480px) {
+	.academy-react-modal--qa {
+		width: 100%;
+	}
+}

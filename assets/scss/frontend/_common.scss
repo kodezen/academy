@@ -1,0 +1,760 @@
+.academy-btn-popup-login {
+	min-height: 32px;
+	white-space: wrap !important;
+}
+
+.academy-course-single-lessons {
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+	}
+
+	p,
+	span {
+	}
+}
+
+.academy-progress {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	height: 1rem;
+	overflow: hidden;
+	font-size: 0.75rem;
+	background-color: var(--academy-gray-color);
+	border-radius: 0.25rem;
+
+	&-bar {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		color: #fff;
+		text-align: center;
+		background-color: #007bff;
+		transition: width 0.6s ease;
+	}
+}
+
+.academy-oops {
+	text-align: center;
+
+	&__icon {
+		margin-bottom: 30px;
+
+		svg {
+			width: 100%;
+		}
+	}
+}
+
+// "Nothing here yet" on the dashboard pages: the same empty state as the
+// tables — an icon in a soft round, a heading and one line of help — in
+// place of the old, very faint illustration.
+.academy-oops.academy-oops__message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	padding: 48px 16px;
+
+	.academy-oops__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		margin: 0 0 8px;
+		border-radius: 50%;
+		background-color: var(--academy-gray-color);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235B47E0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h4'/%3E%3C/svg%3E");
+		background-position: center;
+		background-repeat: no-repeat;
+
+		img,
+		svg {
+			display: none;
+		}
+	}
+
+	.academy-oops__heading {
+		margin: 0;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.4;
+		color: var(--academy-heading-color);
+	}
+
+	.academy-oops__text {
+		margin: 0;
+		max-width: 420px;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.5;
+		color: var(--academy-description-color);
+	}
+}
+
+.academy-accordion {
+	list-style: none;
+	padding-left: 0;
+	margin: 0 auto 30px;
+
+	>li {
+		position: relative;
+		border: 1px solid var(--academy-border-color);
+		box-sizing: border-box;
+		border-radius: 10px;
+		margin-bottom: 20px;
+		transition: all 0.3s ease;
+
+		&.active {
+			box-shadow: none;
+
+			.academy-accordion__title {
+				border-radius: 10px 10px 0 0;
+			}
+
+			.academy-accordion__title:after {
+				transform: rotate(45deg);
+				-webkit-transition: all 0.2s ease-in-out;
+				-moz-transition: all 0.2s ease-in-out;
+				transition: all 0.2s ease-in-out;
+			}
+		}
+	}
+
+	&__body {
+		display: none;
+	}
+
+	a.academy-accordion__title {
+		display: block;
+		font-weight: bold;
+		font-size: var(--academy-fs-md);
+		line-height: 1.5;
+		color: var(--academy-text-color);
+		display: block;
+		padding: 25px;
+		border-radius: 10px;
+
+		&:hover {
+			cursor: pointer;
+			color: var(--academy-primary-color);
+		}
+
+		&.active {
+			color: var(--academy-primary-color);
+			border-radius: 10px 10px 0 0;
+		}
+
+		&::after {
+			width: 8px;
+			height: 8px;
+			border-right: 1px solid #2c3e50;
+			border-bottom: 1px solid #2c3e50;
+			position: absolute;
+			right: 30px;
+			content: ' ';
+			top: 32px;
+			transform: rotate(-45deg);
+			-webkit-transition: all 0.2s ease-in-out;
+			-moz-transition: all 0.2s ease-in-out;
+			transition: all 0.2s ease-in-out;
+		}
+	}
+}
+
+.academy-dashboard-mini-tabs {
+	.components-tab-panel__tabs {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 25px 0;
+		border-bottom: 2px solid var(--academy-border-color);
+		display: flex;
+		column-gap: 30px;
+
+		button {
+			line-height: unset;
+			outline: unset !important;
+			box-shadow: unset;
+			border-radius: 0;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: 1px solid transparent;
+
+			&:hover,
+			&:focus {
+				outline: unset;
+				box-shadow: unset;
+			}
+		}
+
+		.academy-tab-link {
+			display: inline-block;
+			cursor: pointer;
+			margin-bottom: -2px;
+			font-size: 16px;
+			font-weight: 500;
+			background-color: unset;
+
+			&:hover,
+			&:focus {
+				background-color: unset;
+				color: unset;
+			}
+
+			&--selected {
+				border-bottom: 2px solid var(--academy-primary-color);
+			}
+		}
+	}
+}
+
+.academy-plyr {
+	width: 100%;
+}
+
+.academy-tabs-nav {
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid var(--academy-gray-color);
+
+	li {
+		display: inline-block;
+
+		a {
+			display: block;
+			padding: 0.9em 15px;
+			font-weight: 600;
+			font-size: var(--academy-fs-md);
+			line-height: 1.5;
+			color: var(--academy-dark-gray-color);
+			text-decoration: none;
+		}
+
+		&.active {
+			color: var(--academy-text-color);
+			border-bottom: 2px solid var(--academy-primary-color);
+			margin-bottom: -1px;
+
+			a {
+				color: inherit;
+			}
+		}
+	}
+}
+
+.academy-tabs-content {
+	margin-top: 25px;
+
+	.academy-lists {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			margin-bottom: 0.5em;
+
+			i {
+				color: var(--academy-dark-gray-color);
+				margin-right: 10px;
+				font-size: 0.75em;
+			}
+
+			// Reading text: the theme's body size, like the description.
+			span {
+				font-weight: inherit;
+				font-size: inherit;
+				line-height: inherit;
+				color: inherit;
+			}
+		}
+	}
+
+	IMG {
+		margin-right: 10px;
+	}
+
+	>div:not(:first-child) {
+		display: none;
+	}
+}
+
+.academy-note {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--academy-dark-gray-color);
+}
+
+.academy-canvas {
+	width: 100%;
+	height: auto;
+	flex-basis: 100%;
+}
+
+// Academy iframe responsive
+.academy-embed-responsive {
+	position: relative;
+	display: block;
+	width: 100%;
+	// height: 768px;
+	padding: 0;
+	overflow: hidden;
+	aspect-ratio: 16/9;
+
+
+	&::before {
+		display: block;
+		content: '';
+	}
+
+	.academy-embed-responsive-item,
+	iframe,
+	embed,
+	object,
+	video {
+		position: absolute !important;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+}
+
+.academy-embed-responsive-21by9 {
+	&::before {
+		padding-top: percentage(9 / 21);
+	}
+}
+
+.academy-embed-responsive-16by9 {
+	&::before {
+		padding-top: percentage(9 / 16);
+	}
+}
+
+.academy-embed-responsive-4by3 {
+	&::before {
+		padding-top: percentage(3 / 4);
+	}
+}
+
+.academy-embed-responsive-1by1 {
+	&::before {
+		padding-top: percentage(1 / 1);
+	}
+}
+
+.academy-dashboard-table {
+	overflow-x: scroll;
+
+	th {
+	}
+
+	td {
+	}
+
+	td,
+	th {
+		border-color: var(--academy-border-color);
+	}
+
+	tr th {
+		font-size: 16px;
+	}
+
+	table td,
+	table th {
+		padding: 5px;
+		border: 1px solid var(--academy-border-color);
+	}
+}
+
+// wp media
+.media-modal.wp-core-ui {
+	button.media-modal-close {
+		background: none !important;
+		color: inherit !important;
+		border: 0 !important;
+
+		&:hover {
+			background: none !important;
+			color: inherit !important;
+			border: 0 !important;
+			box-shadow: none !important;
+		}
+	}
+
+	.media-modal-content .media-router .media-menu-item {
+		color: inherit !important;
+	}
+}
+
+.academy-instructor-pending-status-message {
+	background: #fff1b3;
+	border-radius: 5px;
+	color: var(--academy-dark-text-color);
+	font-weight: 700;
+	margin-bottom: 20px;
+	padding: 20px 30px;
+}
+
+// Certificate
+.academy-certificate-verify {
+	padding: 40px;
+	background: #fff;
+	position: relative;
+
+	&__title {
+		margin: 0;
+		font-weight: 600;
+		line-height: 36px;
+		font-size: 24px;
+		text-align: center;
+	}
+
+	&__subtitle {
+		margin: 4px 0 0 0;
+		text-align: center;
+		font-weight: 400;
+		line-height: 24px;
+		font-size: 16px;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__thumbnail {
+		display: flex;
+		margin: 40px auto 32px auto;
+	}
+
+	&__form {
+		&-input {
+			border-top: 1px solid var(--academy-border-color);
+			padding-top: 32px;
+			display: flex;
+			flex-direction: column;
+
+			&-title {
+				font-size: 14px;
+				font-weight: 500;
+				line-height: 20px;
+				margin-bottom: 4px;
+			}
+
+			input {
+				border: 1px solid var(--academy-border-color);
+				padding: 10px 12px;
+				border-radius: 4px;
+
+				&:hover,
+				&:focus {
+					border-color: var(--academy-primary-color);
+					outline: none;
+				}
+			}
+		}
+
+		&-submit {
+			background: var(--academy-primary-color);
+			width: 100%;
+			padding: 10px;
+			color: #fff;
+			border-radius: 4px;
+			margin-top: 16px;
+			border: none;
+			cursor: pointer;
+		}
+	}
+
+	&__append-success-content {
+		margin: 8px 0 0 0;
+
+		.academy-btn {
+			border: 1px solid var(--academy-border-color);
+			padding: 10px 12px;
+		}
+	}
+
+	&__append-error-content {
+		margin: 8px 0 0 0;
+
+		.academy-btn--view-certificate {
+			background: var(--academy-border-color);
+			padding: 10px;
+		}
+
+		p {
+			margin: 0;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 20px;
+		}
+
+		.academy-pro_no_found_msg {
+			color: #FF4D4D;
+		}
+
+		.academy-icon {
+			&--close-circle {
+				position: absolute;
+				right: 52px;
+				bottom: 130px;
+			}
+
+			&--tick-circle {
+				position: absolute;
+				right: 52px;
+				bottom: 150px;
+			}
+		}
+	}
+}
+
+.academy-widget-enroll {
+	&__get-membership {
+		margin-bottom: 20px;
+	}
+}
+
+// Points/achievement/level "unlock" card — used both for the GameEngine
+// course-type gate message and, unnested, for its logged-out variant above
+// (a "Log In to Unlock" prompt has no rule chips to show).
+.academy-gameengine-unlock {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	background: var(--academy-gray-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: 8px;
+	padding: 16px;
+
+	&__icon {
+		font-size: 22px;
+		line-height: 1;
+	}
+
+	&__body {
+		flex: 1;
+		min-width: 0;
+	}
+
+	&__title {
+		margin: 0 0 8px 0;
+		font-weight: 700;
+		font-size: 14px;
+		color: var(--academy-text-color);
+	}
+
+	&__chips {
+		display: flex;
+		flex: 1;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+		min-width: 0;
+		list-style: none;
+	}
+
+	// Sits as the first item in `&__chips` so a single requirement reads as
+	// one line ("Unlock this course: 🪙 200 points") instead of a heading
+	// stacked above its own chip.
+	&__label {
+		font-weight: 700;
+		font-size: 14px;
+		color: var(--academy-text-color);
+		white-space: nowrap;
+	}
+
+	&__chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: #fff;
+		border: 1px solid var(--academy-border-color);
+		border-radius: 999px;
+		padding: 4px 12px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--academy-text-color);
+	}
+
+	&__joiner {
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--academy-primary-color);
+	}
+
+	.academy-btn {
+		margin-top: 4px;
+	}
+}
+
+// Replaced by the styled version in
+// frontend-php-curriculums/_curriculam_content.scss (single source of truth
+// for .academy-lessons__login-* — this old yellow/orange "warning" look was
+// never actually reachable through cascade order for most properties, but
+// was still leaking its `border` since the newer rule didn't redeclare it).
+.academy-lessons {
+	&__login-container {
+		padding: 20px;
+		border-radius: 5px;
+
+	}
+
+	&__login-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background: #FFECCA;
+		border: 1px solid #fab948;
+		border-radius: 3px;
+		padding: 16px;
+
+		&-left {
+			h4 {
+				margin: 0;
+				font-size: 1.2rem;
+			}
+		}
+	}
+
+	&__login-subtext {
+		font-size: 0.9rem;
+		color: var(--academy-secondary-gray-color);
+	}
+}
+
+// Full-page "Under Maintenance" notice (templates/maintenance-mode.php).
+// Lives in frontend/_common.scss because it's imported by every relevant
+// bundle (frontendCommon, frontend, frontendPhpCurriculums) so the same
+// styling applies whichever LMS surface the lockout swaps out — the course
+// archive, a single course page, or the learn/curriculum page.
+.academy-maintenance-notice {
+	max-width: 480px;
+	margin: 80px auto;
+	padding: 48px 32px;
+	text-align: center;
+
+	&__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+		margin-bottom: 20px;
+		border-radius: 50%;
+		background: var(--academy-primary-color);
+
+		.academy-icon {
+			font-size: 30px;
+			&::before {
+				color: #fff;
+			}
+		}
+	}
+
+	&__title {
+		margin: 0 0 12px 0;
+		font-size: 26px;
+		font-weight: 700;
+		color: var(--academy-text-color-black);
+	}
+
+	&__message {
+		margin: 0 0 28px 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__countdown {
+		display: flex;
+		justify-content: center;
+		gap: 16px;
+	}
+
+	&__countdown-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-width: 64px;
+		padding: 12px 8px;
+		background: var(--academy-secondary-color);
+		border-radius: 8px;
+	}
+
+	&__countdown-value {
+		font-size: 24px;
+		font-weight: 700;
+		color: var(--academy-primary-color);
+		font-variant-numeric: tabular-nums;
+	}
+
+	&__countdown-label {
+		display: block;
+		margin-top: 4px;
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	@media (max-width: 480px) {
+		margin: 40px auto;
+		padding: 32px 20px;
+
+		.academy-maintenance-notice__countdown {
+			gap: 8px;
+		}
+
+		.academy-maintenance-notice__countdown-item {
+			min-width: 52px;
+			padding: 8px 4px;
+		}
+	}
+}
+
+
+// The one-line empty messages (reviews, wishlist) as the same empty state.
+.academy-frontend-dashboard .academy-not-found {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+	padding: 48px 16px;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1.5;
+	text-align: center;
+	color: var(--academy-description-color);
+
+	&::before {
+		content: "";
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		background-color: var(--academy-gray-color);
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235B47E0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h4'/%3E%3C/svg%3E");
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+}

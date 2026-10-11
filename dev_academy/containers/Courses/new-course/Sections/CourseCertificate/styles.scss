@@ -1,0 +1,365 @@
+.academy-react-modal {
+    &--add-certificate {
+        .academy-react-modal {
+            &__head {
+                border-bottom: 1px solid var(--academy-border-color);
+                box-shadow: none;
+            }
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding-top: 30px;
+                max-height: unset !important;
+                overflow-y: unset !important;
+
+                .academy-info {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .academy-search-component {
+                    &__input {
+                        width: 100%;
+                        max-width: 100%;
+                        height: 44px;
+                        background: var(--academy-surface-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 4px;
+                    }
+                    &__control {
+                        margin-bottom: 0;
+                    }
+                    &__search {
+                        top: 16px;
+                    }
+                }
+
+                .academy-choose-certificate {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap:16px;
+                    margin: 0;
+                    .academy-radio-control {
+                        display: flex;
+                        gap: 8px;
+                        width: calc(( 100% / 3 ) - 14px);
+                        background: var(--academy-background-gray-color);
+                        border: 1px solid var(--academy-border-color);
+                        border-radius: 4px;
+                        margin: 0;
+                        &--is-active {
+                            border: 1px solid var(--academy-primary-color);
+                            border-radius: 4px;
+                        }
+                        &__label {
+                            cursor: pointer;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            width: 100%;
+                            border-radius: 4px;
+                            .academy-certificate-preview-wrap {
+                                position: relative;
+                            }
+                            .academy-certificate-image {
+                                padding: 8px;
+                                aspect-ratio: 4/3;
+                            }
+                            // Hovering picks a certificate the same way the
+                            // create-wizard's design tiles show a selection —
+                            // a small purple badge, never a scrim over the
+                            // artwork itself. The whole point of a live
+                            // preview is seeing the actual design; covering
+                            // it back up on hover would undo that.
+                            &:hover {
+                                .academy-certificate-image {
+                                    outline: 2px solid var(--academy-primary-color);
+                                    outline-offset: -2px;
+                                }
+                                .academy-certificate-use-overlay {
+                                    opacity: 1;
+                                    transform: translate(-50%, 0);
+                                }
+                            }
+                            .academy-certificate-use-overlay {
+                                position: absolute;
+                                left: 50%;
+                                bottom: 14px;
+                                transform: translate(-50%, 4px);
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 6px;
+                                background: var(--academy-primary-color);
+                                color: #fff;
+                                font-size: 12px;
+                                font-weight: 500;
+                                line-height: 1;
+                                padding: 6px 12px;
+                                border-radius: 999px;
+                                box-shadow: none;
+                                opacity: 0;
+                                transition: opacity 0.15s ease, transform 0.15s ease;
+                                pointer-events: none;
+                                white-space: nowrap;
+                                .academy-icon::before {
+                                    color: #fff;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                        &__input {
+                            display: none;
+                            box-shadow: none;
+                            border: 1px solid var(--academy-border-color);
+                            box-shadow: none;
+                        }
+                        .academy-certificate-title {
+                            margin: 0;
+                            color: var(--academy-text-color-black);
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            padding: 8px;
+                            background: var(--academy-surface-color);
+                            border: 1px solid var(--academy-border-color);
+                        }
+                        &:last-child {
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.academy-postbox--course-certificate {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    .academy-heading {
+        h2 {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            margin: 0;
+        }
+    }
+    .academy-postbox {
+        margin: 0;
+        &__header{
+            border-bottom: 1px solid var(--academy-border-color);
+        }
+
+        &__body {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 16px;
+            .academy-post-form-group .academy-post-form-info label {
+                font-size: 16px;
+            }
+            .academy-post-form-group {
+                align-items: flex-start;
+            }
+        }
+    }
+    .academy-deactivate-message {
+        padding-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        .academy-pro-text {
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .academy-icon {
+            margin-top: 2px;
+            margin-right: 10px;
+            &::before {
+                color: var(--academy-warning-color);
+                font-size: 16px;
+            }
+        }
+    }
+    .academy-certificate{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        &__label {
+            min-width: 200px;
+            font-size: 16px;    
+            font-weight: 500;
+            display: block;
+            margin-top: 0;
+        }
+        .academy-deactivate-message {
+            margin-top: 0;
+        }
+        .academy-course-certificate {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--academy-border-color);
+            padding: 15px;
+            border-radius: 4px;
+            &__entry-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .academy-button-wrapper {
+                    position: relative;
+                    padding: 10px 0 10px 10px;
+                    &:hover {
+                        .academy-pro-text{
+                            visibility: visible;
+                        }
+                    }
+                    .academy-btn--change-certificate {
+                        padding: 6px 20px;
+                    }
+                    .academy-pro-text{
+                        position: absolute;
+                        top: -158px;
+                        right: -110px;
+                        border-radius: 4px;
+                        width: 340px;
+                        height: 116px;
+                        padding: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                        background: var(--academy-surface-color);
+                        box-shadow: none;
+                        visibility: hidden;
+                        &--is-visible {
+                            visibility: visible;
+                        }
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            top: 100%;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            border-width: 10px;
+                            border-style: solid;
+                            border-color: var(--academy-surface-color) transparent transparent transparent;
+                            box-shadow: none;
+                            z-index: 1;
+                        }
+                        &--title {
+                            color: var(--academy-text-color-black);
+                            text-align: center;
+                            font-size: 18px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 24px; 
+                        }
+                        &--content {
+                            color: var(--academy-secondary-gray-color);
+                            text-align: center;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 20px;
+                        }
+                    }
+                }
+            }
+            .academy-dropdown-menu {
+                rotate: 90deg;
+                .academy-icon {
+                    &::before {
+                        font-size: 20px;
+                    }
+                    &--edit {
+                        &::before {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+            // The default trigger (components/OptionMenu) is a bare,
+            // borderless icon — fine sitting alone in a table row, but next
+            // to the solid "Change Certificate" button it read as an
+            // unfinished/floating control. Same outline-icon-button
+            // treatment as the certificate builder's Page Setup trigger.
+            .academy-dropdown-menu--course-certificate {
+                box-sizing: border-box;
+                // Matches .academy-btn--change-certificate's own rendered
+                // height exactly (6px padding + 20px line-height, no
+                // border) instead of eyeballing padding against a
+                // differently-sized icon glyph.
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                height: 32px;
+                width: 32px;
+                border: 1px solid var(--academy-border-color) !important;
+                border-radius: 4px;
+                padding: 0 !important;
+                background: var(--academy-surface-color) !important;
+                &:hover {
+                    border-color: var(--academy-primary-color) !important;
+                    background: var(--academy-surface-color) !important;
+                }
+            }
+            &--active {
+                border-color: var(--academy-primary-color);
+                button.academy-btn-close-modal {
+                    border-color: var(--academy-primary-color);
+                    .academy-icon--close:before {
+                        color: var(--academy-primary-color);
+                    }
+                }
+            }
+            &__info-wrap {
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                margin-top: 4px;
+                .academy-course-certificate__info {
+                    margin-right: 15px;
+                    margin-top: -4px;
+                }
+            }
+            
+            &__name {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                text-transform: capitalize;
+                font-size: 16px;
+                line-height: 24px;
+                img,
+                .academy-certificate-preview {
+                    width: 100px;
+                    aspect-ratio: 4/3;
+                    flex-shrink: 0;
+                }
+            }
+            &__designation {
+                display: block;
+                font-size: 14px;
+                line-height: 18px;
+            }
+        }
+    }
+    .academy-postbox-certificate{
+        min-width: 200px;
+    }
+}
+
+
+@media all and (max-width: 480px) {
+	.academy-react-modal {
+        &--add-certificate {
+            width: 100%;
+        }
+	}
+}

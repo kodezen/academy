@@ -1,0 +1,159 @@
+.academy-tab-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 260px;
+    min-width: 260px;
+    max-width: 320px;
+    background: var(--academy-surface-color);
+    padding: 10px 16px;
+    box-shadow: none;
+    border: 1px solid var(--academy-border-color);
+    border-radius: 4px;
+    transition: all ease 0.5s;
+    &__item {
+        position: relative;
+        .academy-tab-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            border-radius: 4px;
+            background: transparent;
+            padding: 10px 8px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            color: var(--academy-text-color-black);
+            width: 100%;
+            cursor: pointer;
+            &:hover, &--is-active {
+                color: var(--academy-text-color-black);
+                background: var(--academy-gray-color);
+            }
+        }
+        
+        .academy-icon {
+            &--arrow-down {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                transition: all ease 0.5s;
+                pointer-events: none;
+                &::before {
+                    color: var(--academy-text-color-black);
+                    &:hover {
+                        color: var(--academy-text-color-black);
+                    }
+                }
+            }
+            &--license {
+                &::before {
+                    color: var(--academy-text-color-black);
+                    &:hover {
+                        color: var(--academy-text-color-black);
+                    }
+                }
+            }
+        }
+
+        .academy-arrow-right {
+            .academy-icon--arrow-down {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                transition: all ease 0.5s;
+                pointer-events: none;
+                &::before {
+                    color: var(--academy-text-color-black);
+                    &:hover {
+                        color: var(--academy-text-color-black);
+                    }
+                }
+            }
+        }
+
+        .academy-tab-icon-active {
+            rotate: 90deg;
+        }
+        a {
+            text-decoration: none;
+            max-width: calc(100% - 16px);
+            .academy-btn--label {
+                display: flex;
+                padding: 0;
+            }
+            .academy-icon {
+                margin-right: 8px;
+            }
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        .academy-icon {
+            &::before {
+                font-size: 20px;
+            }
+        }
+    }
+    &__sub-items {
+        display: flex;
+        flex-direction: column;
+        padding-top: 16px;
+        .academy-sub-tab-item  {
+            padding: 8px 8px 8px 40px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            color: var(--academy-text-color-black);
+            cursor: pointer;
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 18px;
+                left: 14px;
+                display: block;
+                width: 20px;
+                border: 1px solid var(--academy-border-color);
+            }
+
+            &:first-child {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: -5px;
+                    left: 14px;
+                    display: block;
+                    height: 22px;
+                    width: 0;
+                    border: 1px solid var(--academy-border-color);
+                }
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: -17px;
+                left: 14px;
+                display: block;
+                height: 35px;
+                width: 0;
+                border: 1px solid var(--academy-border-color);
+            }
+
+            &:hover {
+                color:  var(--academy-primary-color);
+            }
+            .academy-btn--label{
+                float: left;
+            }
+            &--is-active {
+                color: var(--academy-primary-color);
+            }
+        }
+    }
+}

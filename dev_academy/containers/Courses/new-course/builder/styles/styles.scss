@@ -1,0 +1,884 @@
+.academy-postbox--course {
+  padding: 16px 24px 24px 24px !important;
+  .academy-postbox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &__header {
+      border-bottom: 1px solid var(--academy-border-color);
+    }
+  }
+
+  .academy-postbox__body {
+    padding-top: 0 !important;
+    .meta-field--course-type {
+      padding-top: 0 !important;
+    }
+  }
+
+  .meta-field__body {
+    input[type=radio] {
+      border-color: var(--academy-border-color);
+      margin: 0;
+    }
+
+    .academy-course-public-label {
+      position: relative;
+    }
+
+    .academy-pro-badge--label {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    .academy-label-is-active {
+      cursor: default;
+    }
+  }
+}
+
+
+.academy-course-builder-wrap {
+  .academy-course-builder {
+    margin-top: 20px;
+  }
+  .academy-btn {
+    &--new-curriculum {
+      border: none;
+    }
+  }
+
+  .academy-topic-form {
+    position: relative;
+    border: 1px solid var(--academy-border-color);
+    padding: 20px;
+    border-radius: 4px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: var(--academy-surface-color);
+
+    .academy-btn {
+      &--description {
+        padding: 4px 0;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+      >label {
+        display: block;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-bottom: 10px;
+      }
+
+      input {
+        padding: 10px 16px;
+        border-radius: 4px;
+        border: 1px solid var(--academy-border-color);
+        &:focus-visible {
+          border: 1px solid var(--academy-primary-color);
+          outline: none;
+        }
+      }
+
+      textarea {
+        width: 100%;
+        padding: 15px;
+        border-radius: 4px;
+        border: 1px solid var(--academy-border-color);
+        &:focus {
+          border: 1px solid var(--academy-primary-color);
+          outline: none;
+          box-shadow: none;
+        }
+      }
+
+      &--buttons {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        .academy-btn {
+          &--cancel {
+            background: var(--academy-surface-color);
+            color: var(--academy-text-color-black);
+            border: 1px solid var(--academy-border-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+.academy-course-builder {
+  &__item {
+    // Scoped to `&__item` (not the `<ul>` wrapper) on purpose: react-sortable-hoc
+    // drags by cloning just this `<li>` and appending the clone straight to
+    // `document.body`, outside the `<ul>` — a rule that depended on the `<ul>`
+    // as an ancestor would stop matching mid-drag and the icon would fall back
+    // to its unstyled (much smaller) size.
+    .academy-icon {
+      font-size: 20px;
+    }
+
+    list-style: none;
+    background: var(--academy-surface-color);
+    border: 1px solid var(--academy-border-color);
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    &--is-open {
+      transition: all 0.3s ease;
+      .panel-body {
+        padding: 20px;
+        border-top: 1px solid var(--academy-border-color);
+      }
+
+      .panel-head {
+        .academy-btn {
+          .academy-icon {
+            font-size: 30px;
+          }
+        }
+      }
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+      padding-right: 20px;
+      .text {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        cursor: pointer;
+        .academy-icon {
+          cursor: move;
+          &--move {
+            margin-right: 5px;
+            font-size: 20px;
+          }
+        }
+
+        >button {
+          width: 100%;
+          height: 50px;
+          background: transparent;
+          border: 0;
+          cursor: pointer;
+          text-align: left;
+          font-size: 16px;
+          font-weight: 500;
+          color: var(--academy-text-color);
+          &:hover, &:focus {
+            outline: none;
+            border: 0;
+          }
+        }
+      }
+
+      .control {
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        button.components-button {
+          padding: 0;
+        }
+
+        .academy-dropdown-menu {
+          rotate: 90deg;
+        }
+
+        .academy-btn {
+          border: none;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid var(--academy-border-color);
+          .academy-icon {
+            pointer-events: none;
+            font-size: 12px;
+            &--angle-up {
+              font-size: 6px;
+            }
+
+            &--angle-down {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .control {
+      button.components-button {
+        .dashicons {
+          pointer-events: none;
+        }
+
+        &:hover {
+          .dashicons {
+            color: var(--academy-primary-color);
+          }
+        }
+      }
+    }
+
+    .panel-body {
+      .panel-control {
+        display: flex;
+        align-items: center;
+        column-gap: 15px;
+        .academy-btn {
+          padding: 0;
+          border: 1px solid var(--academy-border-color);
+          border-radius: 4px;
+          border: 0;
+          color: var(--academy-primary-color);
+        }
+
+        button.components-button {
+          position: relative;
+          display: block;
+          width: 100%;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          background: rgba(123, 104, 238, 0.2);
+          color: var(--academy-primary-color);
+          cursor: pointer;
+          text-align: center;
+          height: auto;
+          border-radius: 8px;
+          box-sizing: border-box;
+          padding: 10px 20px;
+          margin: 0;
+          border: 0;
+          transition: all 0.3 ease;
+          &:hover {
+            color: var(--academy-primary-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+.panel-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 15px;
+  gap: 10px;
+  button.components-button {
+    position: relative;
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    background: rgba(123, 104, 238, 0.2);
+    color: var(--academy-primary-color);
+    cursor: pointer;
+    text-align: center;
+    height: auto;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    margin: 0;
+    border: 0;
+    z-index: 30;
+    overflow: hidden;
+    transition: all 0.3 ease;
+  }
+}
+
+.academy-select-modal {
+  height: 100%;
+  &__header {
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px 4px 0px;
+    background: var(--academy-gray-color);
+    .academy-select-Modal-list {
+      display: flex;
+      li {
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .active-list-item {
+        background: var(--academy-secondary-color);
+        border-bottom: 2px solid var(--academy-primary-color);
+      }
+    }
+  }
+
+  .search-lesson {
+    padding: 14px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .academy-search-lessons {
+      width: 50%;
+      border: 1px solid var(--academy-border-color);
+      border-radius: 5px;
+      display: flex;
+      align-items: stretch;
+      input {
+        border: none;
+        outline-width: 0;
+        padding: 5px 5px 5px 20px;
+        width: 95%;
+        border-radius: 2px;
+        box-shadow: 0 0 0 transparent;
+        background-color: var(--academy-surface-color);
+        &:focus {
+          outline-width: 0;
+          border: none;
+        }
+      }
+
+      .academy-search-icon {
+        width: 50px;
+        height: 44px;
+        background: var(--academy-gray-color);
+        border: 1px solid var(--academy-border-color);
+        box-shadow: none;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg {
+          fill: var(--academy-secondary-gray-color);
+        }
+      }
+    }
+
+    .panel-control {
+      .components-button {
+        height: 44px;
+        background: var(--academy-primary-color);
+        border-radius: 4px;
+        color: #fff;
+      }
+    }
+  }
+
+  &__content {
+    height: 76%;
+    overflow: scroll;
+    padding: 0 35px;
+    .academy-items {
+      background: var(--academy-gray-color);
+      border-radius: 13px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      &>div {
+        background: var(--academy-surface-color);
+        border: 1px solid var(--academy-border-color);
+        border-radius: 8px;
+        padding: 12px 22px;
+        div {
+          margin: 0;
+        }
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  .panel-control {
+    margin: 15px 20px;
+    height: 10%;
+    button.components-button {
+      width: auto;
+    }
+  }
+}
+
+.components-modal__content.hide-header {
+  padding-top: 0 !important;
+}
+
+.components-modal__frame {
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.components-modal__content {
+  min-width: 60% !important;
+  padding: 0 !important;
+}
+
+.academy-course-topic-builder {
+  margin: 0;
+  &__item {
+    list-style: none;
+    background: var(--academy-surface-color);
+    border: 1px solid var(--academy-border-color);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+    height: 45px;
+    .dashicons {
+      font-size: 18px;
+      color: var(--academy-dark-gray-color);
+    }
+
+    .text {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      flex-grow: 1;
+      .academy-icon--drag {
+        // Explicit on purpose: without this, the icon only picked up its
+        // size by coincidentally matching the curriculum item's own
+        // `.academy-icon` rule (this item sits nested inside it). That
+        // match is lost the moment react-sortable-hoc clones this `<li>`
+        // out to `document.body` to drag it, so the icon would snap back
+        // to its unstyled (much smaller) size mid-drag.
+        cursor: move;
+        font-size: 20px;
+      }
+      .title {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    .control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .academy-btn {
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgba(123, 104, 238, 0.2) !important;
+        color: var(--academy-primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .academy-icon {
+          pointer-events: none;
+          font-size: 12px;
+          &::before {
+            color: var(--academy-primary-color);
+          }
+        }
+
+        &:hover {
+          background: var(--academy-primary-color) !important;
+          color: #fff;
+          .academy-icon {
+            &::before {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__item-sub-curriculum {
+    list-style: none;
+    .academy-course-builder-sub-topic {
+      margin-bottom: 15px;
+      border: 1px solid var(--academy-border-color);
+      border-radius: 4px;
+      &--is-open {
+        box-shadow: none;
+        .panel__body {
+          padding: 20px;
+          border-top: 1px solid var(--academy-border-color);
+          .academy-course-sub-topic-builder {
+            margin: 0;
+          }
+
+          .panel-control {
+            display: flex;
+            align-items: center;
+            column-gap: 15px;
+            margin: 15px 0 0 0;
+            button.components-button {
+              position: relative;
+              display: block;
+              width: 100%;
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 20px;
+              background: rgba(123, 104, 238, 0.2);
+              color: var(--academy-primary-color);
+              cursor: pointer;
+              text-align: center;
+              height: auto;
+              border-radius: 8px;
+              box-sizing: border-box;
+              padding: 10px 20px;
+              margin: 0;
+              border: 0;
+              transition: all 0.3 ease;
+              &:hover {
+                color: var(--academy-primary-color);
+              }
+            }
+          }
+        }
+      }
+
+      .panel {
+        &__head {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-radius: 8px;
+          height: 48px;
+          padding: 0 20px;
+          .text-title {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 4px;
+            width: 100%;
+            input {
+              width: 100%;
+              height: 40px;
+            }
+
+            .academy-icon {
+              &--drag {
+                cursor: move;
+              }
+
+              &::before {
+                font-size: 20px;
+              }
+            }
+
+            button {
+              width: 100%;
+              height: 60px;
+              background: transparent;
+              border: none;
+              text-align: left;
+              cursor: pointer;
+            }
+          }
+
+          .control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            .academy-dropdown-menu {
+              rotate: 90deg;
+            }
+
+            .academy-btn {
+              padding: 8px;
+              border: none;
+              background: transparent;
+              border: 1px solid var(--academy-border-color);
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              &--add {
+                background: var(--academy-primary-color);
+              }
+
+              .academy-icon {
+                &--angle-up {
+                  &::before {
+                    font-size: 8px;
+                    color: var(--academy-text-color);
+                    line-height: 20px;
+                  }
+                }
+
+                &--angle-down {
+                  &::before {
+                    font-size: 24px;
+                    color: var(--academy-text-color);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sub Item
+.academy-course-sub-topic-builder__item {
+  list-style: none;
+  background: var(--academy-surface-color);
+  border: 1px solid var(--academy-border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-bottom: 10px;
+  height: 45px;
+  .dashicons {
+    font-size: 18px;
+    color: var(--academy-dark-gray-color);
+  }
+
+  .text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    flex-grow: 1;
+    .academy-icon--drag {
+      // Explicit for the same reason as the topic list above: without it,
+      // the icon only sized itself by coincidentally matching an ancestor's
+      // `.academy-icon` rule, which stops matching once react-sortable-hoc
+      // clones this `<li>` out to `document.body` to drag it.
+      cursor: move;
+      font-size: 20px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .academy-btn {
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgba(123, 104, 238, 0.2) !important;
+      color: var(--academy-primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .academy-icon {
+        pointer-events: none;
+        font-size: 12px;
+        &::before {
+          color: var(--academy-primary-color);
+        }
+      }
+
+      &:hover {
+        background: var(--academy-primary-color) !important;
+        color: #fff;
+        .academy-icon {
+          &::before {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+.academy-content-drip-settings {
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0;
+    padding: 0 0 24px 0;
+    border-bottom: 1px solid var(--academy-border-color);
+
+    .form-body>div {
+      min-width: 0;
+    }
+  }
+
+
+
+  .academy-content-drip-settings-options {
+    h4 {
+      margin: 14px 0 8px 0;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 25px;
+      color: var(--academy-text-color);
+    }
+
+    p {
+      margin: 0 0 9px 0;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+       color: var(--academy-text-color);
+    }
+
+    .academy-content-drip-option-items {
+      display: flex;
+      flex-direction: column;
+      .academy-content-drip-option {
+        padding: 9px 0;
+        display: flex;
+        gap: 11px;
+        .academy-drip-item-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: var(--academy-secondary-gray-color);
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 17px;
+           opacity: 0.5;
+        }
+
+        input {
+          margin-top: 2px;
+        }
+      }
+    }
+  }
+  .academy-content-drip-options-opacity {
+    pointer-events: none;
+
+    .academy-content-drip-module-settings {
+      opacity: 0.5;
+    }
+  }
+
+  // Nested settings that belong only to the "monthly schedule" choice above —
+  // boxed and indented so it reads as a sub-setting, not more items in the
+  // flat list of content-drip types it sits under.
+  .academy-content-drip-module-settings {
+    margin: 4px 0 9px 24px;
+    padding: 16px;
+    background: var(--academy-gray-color);
+    border: 1px solid var(--academy-border-color);
+    border-radius: 10px;
+
+    h4 {
+      margin-top: 0;
+    }
+
+    > p {
+      color: var(--academy-secondary-gray-color);
+      font-weight: 400;
+    }
+
+    .academy-content-drip-basis-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .academy-content-drip-basis-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--academy-surface-color);
+      border: 1px solid var(--academy-border-color);
+      border-radius: 8px;
+      cursor: pointer;
+
+      input {
+        margin-top: 3px;
+      }
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        strong {
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--academy-text-color);
+        }
+
+        span:last-child {
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 18px;
+          color: var(--academy-secondary-gray-color);
+        }
+      }
+
+      &.is-selected {
+        border-color: var(--academy-primary-color);
+        box-shadow: 0 0 0 1px var(--academy-primary-color);
+      }
+    }
+
+    .academy-content-drip-days {
+      margin-top: 14px;
+
+      input {
+        margin-top: 6px;
+      }
+    }
+  }
+}
+
+.academy-content-drip-settings-options{
+  &.false{
+  .academy-content-drip-option-items {
+    .academy-content-drip-option {
+      .academy-drip-item-label {
+        opacity: 1;
+      }
+    }
+    }
+  }
+}
+
+@media all and (max-width: 480px) {
+  .academy-topic-form {
+    .form-group {
+      input, textarea {
+        width: 250px !important;
+      }
+    }
+  }
+}

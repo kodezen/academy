@@ -1,0 +1,427 @@
+.site-content {
+	.ast-container {
+		max-width: 100%;
+		display: block;
+		justify-content: center;
+		.academy-editor {
+			&__content-sidebar {
+				.academy-widget {
+					.academy-btn {
+						padding: 8px !important;
+						font-size: 12px !important;
+						margin-top: 10px;
+					}
+				}
+			}
+		}
+	}
+}
+
+body.academy-instructor-public-profile {
+	.ast-container {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+body.academy-course-single-lessons {
+	.ast-container {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	@media all and (max-width: 922px) {
+		max-width: 100%;
+	}
+}
+
+.ast-container {
+	.academy-dashboard-settings {
+		&__reset-form {
+			.academy-form-block {
+				input {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.academy-single-course__categroy {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.added_to_cart.wc-forward {
+		position: absolute;
+		right: 0;
+		padding: 6px 25px;
+		font-size: 12px;
+		background: var(--academy-primary-color);
+		color: #fff;
+		border-radius: 8px;
+	}
+}
+
+.theme-astra {
+	.academyFrontendDashWrap {
+		.academy-dashboard-content {
+			.academy-editor {
+				&__content {
+					textarea {
+						background-color: #fff;
+					}
+				}
+
+				&__title-textfield {
+					input {
+						padding: 0 8px;
+						line-height: 2;
+						height: 44px;
+						background-color: #fff;
+						color: #2c3338;
+					}
+				}
+			}
+		}
+	}
+
+	.academy-single-course {
+		.academy-review-form--open-form {
+			.form-submit {
+				.academy-btn {
+					background: var(--academy-primary-color) !important;
+					color: #fff;
+					padding: 0 15px !important;
+					height: 50px;
+					font-size: 14px;
+					line-height: 20px !important;
+					font-weight: 500 !important;
+					border-radius: 8px !important;
+				}
+			}
+		}
+
+		.academy-widget-enroll {
+			&__wishlist-and-share {
+				.academy-btn--bg-gray {
+					&:hover {
+						color: var(--academy-dark-gray-color);
+					}
+				}
+
+				.academy-btn--bg-white-border {
+					&:hover {
+						background-color: unset;
+						color: var(--academy-dark-gray-color);
+					}
+				}
+			}
+		}
+	}
+
+	.academy-get-notification {
+		padding: 16px;
+	}
+
+	.academy-btn--preset-transparent {
+		color: #2c3338;
+	}
+
+	.academy-frontend-dashboard {
+		margin-top: 40px;
+	}
+}
+
+.wp-theme-astra {
+	// list table sortable column
+	.academy-react-modal {
+		&__content {
+			.academy-table__filter-modal {
+				.academy-table__filter-items {
+					margin: 16px 0;
+				}
+			}
+		}
+	}
+	// Course > Course builder 
+	.academy-react-modal--course .academy-react-modal__content .academy-page-content--course .academy-editor__content {
+		.entry-left {
+			.academy-editor__content-meta {
+				.academy-postbox--course {
+					.academy-postbox__body {
+						.academy-course-builder-wrap {
+							.academy-course-builder {
+								margin: 0;
+								padding: 0;
+								&__item {
+									margin: 12px 0;
+									.academy-course-topic-builder__item {
+										padding: 0 20px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	// table action menu
+	.academy-table{
+		&__container {
+			.academy-table__table {
+				.academy-table__body {
+					.academy-table__body-row {
+						.academy-dropdown-menu {
+							padding: 0 !important;
+						}
+					}
+				}
+			}
+		}
+	}
+	// topbar notification btn
+	.site-content .ast-container .academy-canvas .academy-container-fluid .academy-row .academy-col-12 .academy-frontend-dashboard .academy-container .academy-row .academy-col-lg-12 .academy-frontend-dashboard__content .academy-topbar .academy-topbar__entry-right #academy-notification 
+	.academy-get-notification {
+		padding: 1px 6px;
+	}
+}
+
+// Astra applies global padding to native buttons. Keep the learn-page's
+// icon-only controls at their designed square dimensions.
+.theme-astra,
+.wp-theme-astra {
+	.academy-lesson-activity-btn:not(.academy-lesson-activity-btn--text),
+	.academy-learn-drawer__close,
+	.academy-learn-drawer__dock,
+	.academy-content-header__nav-btn {
+		box-sizing: border-box;
+		min-width: 0;
+		min-height: 0;
+		margin: 0 !important;
+		padding: 0 !important;
+		line-height: 1;
+	}
+}
+
+// Astra sets its own !important color/background on bare <button>/<a>
+// elements, which beats the course-completion modal's un-important
+// color/background and leaves "View Course" / "Write A Review" invisible.
+.theme-astra,
+.wp-theme-astra {
+	.academy-react-modal--review-course {
+		.academy-btn--viewcourse {
+			background: var(--academy-surface-color) !important;
+			color: var(--academy-primary-color) !important;
+			border: 1px solid var(--academy-primary-color) !important;
+
+			&:hover {
+				background: var(--academy-primary-color) !important;
+				color: #fff !important;
+			}
+		}
+
+		.academy-btn--certificate {
+			background: var(--academy-primary-color) !important;
+			color: #fff !important;
+
+			&:hover {
+				background: var(--academy-surface-color) !important;
+				color: var(--academy-primary-color) !important;
+			}
+		}
+	}
+}
+
+// ============================================================================
+// Astra conflict fixes (reported audit).
+//
+// Astra's Customizer-generated CSS restyles native <button>/<a>/<input> and
+// icon fonts site-wide with high specificity (often !important), which beats
+// Academy's own non-important classes and leaves buttons the wrong colour,
+// hovers/borders missing, controls flattened and icons mis-sized. Everything
+// below is scoped to the Astra body class and re-asserts Academy's design.
+// ============================================================================
+.theme-astra,
+.wp-theme-astra {
+
+	// ---- Buttons: re-assert every .academy-btn variant ----
+	.academy-btn {
+		min-height: 0 !important;
+		box-shadow: none !important;
+		text-transform: capitalize !important;
+		letter-spacing: normal !important;
+		border: 0 !important;
+		background: var(--academy-surface-color) !important;
+		color: var(--academy-text-color) !important;
+
+		&--bg-purple,
+		&--preset-purple {
+			background: var(--academy-primary-color) !important;
+			color: #fff !important;
+		}
+
+		&--preset-purple-border {
+			background: var(--academy-primary-color) !important;
+			color: #fff !important;
+			border: 1px solid var(--academy-primary-color) !important;
+		}
+
+		&--bg-light-purple,
+		&--preset-light-purple {
+			background: var(--academy-secondary-color) !important;
+			color: var(--academy-primary-color) !important;
+		}
+
+		&--bg-gray,
+		&--preset-gray {
+			background: var(--academy-gray-color) !important;
+			color: var(--academy-text-color) !important;
+		}
+
+		&--bg-white,
+		&--preset-white {
+			background: var(--academy-surface-color) !important;
+			color: var(--academy-text-color) !important;
+		}
+
+		&--preset-transparent {
+			background: transparent !important;
+			color: var(--academy-text-color) !important;
+		}
+
+		&--bg-white-border,
+		&--preset-white-border {
+			background: var(--academy-surface-color) !important;
+			border: 2px solid var(--academy-border-color) !important;
+			color: var(--academy-text-color) !important;
+		}
+
+		&--preset-border-purple,
+		&--border-purple {
+			background: transparent !important;
+			border: 1px solid var(--academy-primary-color) !important;
+			color: var(--academy-text-color) !important;
+
+			&:hover,
+			&:focus {
+				background: var(--academy-gray-color) !important;
+				color: var(--academy-text-color) !important;
+			}
+		}
+
+		&--preset-cancel {
+			background: var(--academy-surface-color) !important;
+			border: 1px solid var(--academy-border-color) !important;
+			color: var(--academy-text-color) !important;
+		}
+
+		&--border-gray {
+			border: 1px solid var(--academy-border-color) !important;
+		}
+
+		&--border-red {
+			border: 1px solid #f94d4d !important;
+		}
+
+		&--bg-red,
+		&--preset-red,
+		&--preset-error {
+			background: #f94d4d !important;
+			color: #fff !important;
+		}
+
+		&--bg-light-red,
+		&--preset-light-red {
+			background: rgba(249, 77, 77, 0.2) !important;
+			color: #f94d4d !important;
+		}
+
+		// Academy's hover is a brightness filter; stop Astra forcing its own
+		// hover background/colour on top.
+		&:hover:not(:disabled):not(.academy-btn--disabled),
+		&:focus:not(:disabled):not(.academy-btn--disabled) {
+			filter: brightness(0.94);
+		}
+	}
+
+	// ---- Icons: keep icon-font glyphs from inheriting Astra's button sizing ----
+	.academy-icon {
+		line-height: 1;
+
+		&::before {
+			line-height: 1;
+		}
+	}
+
+	// ---- Dropdown / action menus (dashboard list rows, Q&A, etc.) ----
+	.academy-dropdown-menu {
+		background: transparent !important;
+		box-shadow: none !important;
+
+		&__lists {
+			.academy-more-options__item {
+
+				a,
+				button {
+					background: transparent !important;
+					color: var(--academy-text-color) !important;
+					box-shadow: none !important;
+
+					&:hover {
+						background: var(--academy-gray-color) !important;
+						color: var(--academy-text-color-black) !important;
+					}
+				}
+
+				.academy-btn--trash {
+
+					&,
+					&:hover {
+						color: #ff4d4d !important;
+					}
+				}
+			}
+		}
+	}
+
+	// ---- Learn page: content-header progress pill + nav controls ----
+	.academy-progress-trigger {
+		background: transparent !important;
+		border: 1px solid var(--academy-border-color) !important;
+		color: var(--academy-text-color) !important;
+
+		&:hover {
+			background: var(--academy-secondary-color) !important;
+			border-color: var(--academy-primary-color) !important;
+		}
+	}
+
+	.academy-progress-panel__btn {
+		background: var(--academy-surface-color) !important;
+		color: var(--academy-text-color) !important;
+		box-shadow: none !important;
+
+		&--primary {
+			background: var(--academy-primary-color) !important;
+			color: #fff !important;
+		}
+	}
+
+	// Icon-only learn controls keep their square, un-inflated size (Astra adds
+	// global button padding/min-height). Extends the earlier reset list.
+	.academy-content-header__nav-btn,
+	.academy-lesson-activity-btn:not(.academy-lesson-activity-btn--text),
+	.academy-learn-drawer__close,
+	.academy-learn-drawer__dock {
+		box-shadow: none !important;
+		background: transparent !important;
+	}
+}

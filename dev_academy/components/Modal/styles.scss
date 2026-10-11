@@ -1,0 +1,305 @@
+body.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+.academy-react-modal {
+    position: relative;
+    background: var(--academy-surface-color);
+    // Content that relies on inherited text color (rather than an explicit
+    // class) had no sane default here, so it fell through to the browser/
+    // wp-admin's fixed dark-gray body text — illegible against a dark
+    // surface. See the Columns sort-list bug this was found from.
+    color: var(--academy-text-color);
+    border-radius: 6px;
+    transition: all ease 0.8s;
+    * {
+    }
+    &--small {
+        width: 600px;
+    }
+    &--medium {
+        width: 1020px;
+    }
+    &--large {
+        width: calc(100vw - 17px);
+        min-height: 100vh;
+    }
+
+    &__head {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 24px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--academy-border-color);
+        // Title | centre slot | buttons — equal outer columns keep the
+        // centre truly centred whatever the title/buttons widths are.
+        &--has-center {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            .academy-react-modal-buttons {
+                justify-self: end;
+            }
+        }
+        &-center {
+            display: flex;
+            justify-content: center;
+            min-width: 0;
+        }
+        // Not enough room for three columns — drop the centre slot onto its
+        // own full-width row under the title and buttons.
+        @media (max-width: 1024px) {
+            &--has-center {
+                grid-template-columns: minmax(0, 1fr) auto;
+                row-gap: 16px;
+            }
+            &--has-center &-center {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+        }
+        &-titles {
+            display: flex;
+            // `center` aligns the title/subtitle's boxes, not their text —
+            // since the title (18px) and subtitle (inherited, smaller) are
+            // different font sizes, box-centering left them sitting on
+            // different visual baselines. `baseline` lines up the actual text.
+            align-items: baseline;
+            gap: 10px;
+            min-width: 0;
+        }
+        &-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--academy-text-color);
+            margin: 0;
+        }
+        .academy-icon--angle-right {
+            position: relative;
+            right: 0;
+            rotate: none;
+            // A little breathing room to the left of the subtitle text (e.g.
+            // "Create course") — the icon otherwise sits glued to the word.
+            margin-right: 6px;
+            &::before {
+                font-size: 12px;
+                color: var(--academy-text-color-black);
+            }
+        }
+        .academy-react-modal-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            // Direct children only — the resize toggle and close (X)
+            // button. A descendant selector here would also catch buttons
+            // nested inside `externalComponent` (e.g. the Save split-button),
+            // flattening their purple/fused styling to this gray icon look.
+            > button {
+                padding: 8px;
+                width: 24px;
+                height: 24px;
+                background: var(--academy-surface-color);
+                color: var(--academy-text-color);
+                border: 1px solid var(--academy-border-color) !important;
+                border-radius: 4px;
+                display: flex;
+                transition: all .3s ease;
+                justify-content: center;
+                align-items: center;
+                font-size: 16px;
+                cursor: pointer;
+                &:hover {
+                    border-color: var(--academy-primary-color) !important;
+                    .academy-icon {
+                        &--close {
+                            transition: all .3s ease;
+                            &::before {
+                                color: var(--academy-primary-color);
+                            }
+                        }
+                    }
+                }
+                .academy-icon {
+                    &--close {
+                        &::before {
+                            transition: all .3s ease;
+                            color: var(--academy-dark-gray-color);
+                        }
+                    }
+                }
+            }
+            .academy-btn--ai-course {
+                padding: 12px 24px;
+                font-size: 14px;
+                background: var(--academy-secondary-color);
+                color: var(--academy-primary-color);    
+                display: flex;
+                align-items: center;
+                height: 40px;
+                min-width: 180px;
+            }
+
+            .academy-course-topbar-right {
+                .academy-btn {
+                    &--split-primary {
+                        width: auto;
+                        padding: 12px 24px;
+                        height: 40px;
+                    }
+                }
+
+                // StatusSelect.js's connected split-button (primary "Save/Update"
+                // label + attached caret, .academy-status-split) is two plain
+                // <button>s — neither carries --status-select/--submit-box above,
+                // so both fell into the icon-button sizing (24x24px) with no
+                // rescue, clipping the label against the caret and the close
+                // button. Restore each half's own normal size instead.
+                .academy-status-split {
+                     width: auto;
+                    height: 40px;
+                    .academy-btn--split-primary {
+                        width: auto !important;
+                        height: auto !important;
+                        padding: 10px 16px !important;
+                        border: 0 !important;
+                    }
+                    &__caret {
+                        width: auto !important;
+                        height: 40px !important;
+                        padding: 0 8px !important;
+                        border: none !important;
+                        border-left: 1px solid rgba(255, 255, 255, 0.28) !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &__content {
+        background: var(--academy-surface-color);
+        padding: 24px;
+        .academy-btn-close-modal {
+            position: absolute;
+            right: -12px;
+            top: -12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            background: var(--academy-surface-color);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            .academy-icon--close {
+                &::before {
+                    font-size: 16px;
+                    line-height: 1;
+                }
+            }
+            &:hover {
+                .academy-icon--close {
+                    &::before {
+                        color: var(--academy-primary-color);
+                    }
+                }
+            }
+        }
+
+        .academy-editor {
+            padding: unset;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 10px;
+            &__title {
+                margin-bottom: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                &-input {
+                    font-weight: 400;
+                    font-size: 14px;
+                    height: 40px;
+                    background: var(--academy-surface-color);
+                    border: 1px solid var(--academy-border-color) !important;
+                    border-radius: 4px;
+                    margin: 0;
+                }
+            }
+            &-title {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                display: flex;
+                align-items: center;
+                letter-spacing: 0.02em;
+                color: var(--academy-text-color);
+            }
+            .mce-tinymce {
+                .mce-toolbar-grp {
+                    border-bottom: unset !important;
+                    background: transparent !important;
+                }
+            }
+            &-tinymce-wrapper {
+                // border-radius: 10px;
+                // border: 1px solid var(--academy-border-color);
+                // box-sizing: border-box;
+                // overflow: hidden;
+            }
+        }
+
+        .academy-table__table {
+            overflow-x: scroll;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin: 0 24px;
+        padding: 20px 0;
+        border-top: 1px solid var(--academy-border-color);
+        background: var(--academy-surface-color);
+        .academy-btn {
+            &--cancel {
+                background: transparent;
+            }
+        }
+    }
+}
+
+// modal scrollbar hide
+.academy-react-modal {
+    &__content {
+        -ms-overflow-style: none; /* for Internet Explorer, Edge */
+        scrollbar-width: none; /* for Firefox */
+        overflow-y: scroll;
+    }
+
+    &__content::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+    }
+}
+
+@media all and (max-width: 480px) {
+    .academy-react-modal {
+        &--small, &--medium,  &--large {
+            width: calc(100vw - 12px);
+            padding-top: 18px;
+            .academy-react-modal__head {
+                .academy-react-modal-buttons {
+                    .academy-dropdown-menu {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

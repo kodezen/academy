@@ -1,0 +1,25 @@
+@import './common/global';
+@import './common/form-group';
+@import './common/status';
+@import './common/loader';
+@import './common/RTL';
+@import './common/button';
+@import './common/listTable';
+@import './vendor/grid.scss';
+@import './frontend/common';
+@import './frontend-curriculums/curriculums';
+@import './frontend-curriculums/topbar';
+@import './frontend-curriculums/topics';
+@import './frontend/learn-layouts';
+@import './frontend/learn-drawers';
+@import './frontend/learn-sidebar';
+@import './frontend/learn-footer';
+@import './frontend/learn-quiz';
+// Q&A + Announcements base styles live with their React components; import them
+// into the shared entry so the PHP render path styles the same markup identically.
+@import '../../dev_academy/containers/frontend-curriculums/TopicsTabsNavigation/frontendqa/styles';
+@import '../../dev_academy/containers/frontend-curriculums/TopicsTabsNavigation/Announcements/styles';
+@import './frontend/theme_compatibility';
+@import './frontend/RTL';
+@import './common/notifaction';
+

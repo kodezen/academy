@@ -1,0 +1,418 @@
+// Academy sets no font of its own. Browsers give buttons and form fields a
+// default font (often Arial) instead of inheriting, so point those back at the
+// surrounding text: the theme's font on the front end, WordPress's in wp-admin.
+// :where() keeps this at zero specificity, so a theme can still style them.
+:where(.academy-btn, [class*="academy"] button, [class*="academy"] input, [class*="academy"] select, [class*="academy"] textarea) {
+	font-family: inherit;
+}
+
+:root {
+    // Type scale: the theme's own font-size presets (theme.json), so Academy's
+    // text follows the theme — and any change to it. The fallbacks are for
+    // themes without presets.
+    --academy-fs-xs: var(--wp--preset--font-size--x-small, var(--wp--preset--font-size--small, 0.75rem));
+    --academy-fs-sm: var(--wp--preset--font-size--small, 0.875rem);
+    --academy-fs-md: var(--wp--preset--font-size--medium, 1rem);
+    --academy-fs-lg: var(--wp--preset--font-size--large, 1.25rem);
+    --academy-fs-xl: var(--wp--preset--font-size--x-large, 1.75rem);
+    --academy-fs-2xl: var(--wp--preset--font-size--xx-large, 2.5rem);
+    // Brand
+    --academy-primary-color: #7b68ee;
+    --academy-secondary-color: #f2f0fd; // Brand light
+    // Text
+    --academy-text-color: #1d2939;
+    --academy-text-color-black: #101828; // Headings
+    --academy-secondary-gray-color: #475467; // Descriptions, subtitles, breadcrumbs
+    --academy-dark-gray-color: #98a2b3; // Inactive icons
+    // Lines and surfaces
+    --academy-border-color: #e4e7ec; // The one border colour
+    --academy-gray-color: #f2f4f7; // Placeholder fills
+    --academy-background-gray-color: #f9fafb; // Page background
+    --academy-surface-color: #ffffff;
+    // Status
+    --academy-success-color: #059669;
+    --academy-danger-color: #dc2626;
+    --academy-warning-color: #f59e0b;
+    // Named roles, so new code can say what a colour is for. A var() is
+    // resolved where it is declared, so the dark palettes in global-css.php
+    // declare these again next to the colours they change.
+    --academy-heading-color: var(--academy-text-color-black);
+    --academy-description-color: var(--academy-secondary-gray-color);
+    --academy-icon-inactive-color: var(--academy-dark-gray-color);
+    --academy-accent-color: var(--academy-primary-color); // Active nav, toggles
+    --academy-primary-light-color: var(--academy-secondary-color);
+    --academy-divider-color: var(--academy-border-color); // Row dividers
+    --academy-placeholder-background: var(--academy-gray-color);
+    --academy-body-background-color: var(--academy-background-gray-color);
+    // Shadows: surfaces are flat (a border separates them). Only layers that
+    // float over the page (menus, dropdowns, toasts, modals, side panels) get
+    // the one overlay shadow. soft/hard stay defined for old markup and
+    // extensions, and are now flat too.
+    --academy-shadow-soft: none;
+    --academy-shadow-hard: none;
+    --academy-shadow-overlay: 0 8px 24px -8px rgba(16, 24, 40, 0.14);
+    --academy-drawer-shadow-color: rgba(15, 14, 22, 0.1);
+    // Placeholder text: clearly lighter than real text, in both themes.
+    --academy-placeholder-color: color-mix(in srgb, var(--academy-secondary-gray-color) 55%, var(--academy-surface-color));
+}
+
+html.interface-interface-skeleton__html-container {
+	position: inherit !important;
+}
+
+.academy-page-content {
+    max-width: calc(1280px - 30px);
+    width: 100%;
+    margin: 0 auto 100px auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.academy-heading {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--academy-border-color);
+}
+
+.academy-title-subtitle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%; 
+    margin: 0;
+}
+
+.academy-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0;
+}
+
+.academy-sub-title {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    margin: 0;
+}
+
+.academy-radio-label {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.academy-item-center {
+    display: flex;
+    justify-content: center;
+}
+
+.academy-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+// Shared base class behind Formik's Text/Number/Textarea fields (and ~50
+// other components) across every entry, frontend and backend alike. It never
+// declared background/color, so every text/number/textarea input using it
+// rendered with the browser's default white background + black text
+// regardless of theme.
+.academy-input {
+    // Will remove the important
+    border: 1px solid var(--academy-border-color) !important;
+    background: var(--academy-surface-color);
+    color: var(--academy-text-color);
+    height: 40px;
+    width: 100%;
+    padding: 0 12px;
+    border-radius: 4px;
+    &:hover, &:focus {
+        border: 1px solid var(--academy-primary-color) !important;
+        // WP core's `input[type=text]:focus` (higher specificity) adds its own
+        // 1px box-shadow ring on top of the border; silence it so focus stays 1px.
+        box-shadow: none !important;
+        outline: none;
+    }
+    @media (forced-colors: active) {
+        &:hover, &:focus {
+            border-color: Highlight !important;
+        }
+    }
+    &--error {
+        border-color: rgb(255, 0, 0) !important;
+    }
+    &--disabled{
+        border: 1px solid var(--academy-border-color) !important;
+    }
+    &::placeholder {
+        color: var(--academy-placeholder-color);
+    }
+}
+// .academy-input is a single class selector — same specificity as WP admin
+// core's `input[type=text]`/`input[type=number]` rules (background: #fff).
+// Whichever loads later in the cascade wins that tie, and it isn't always
+// us. These compound tag+class selectors outrank the WP core rule outright
+// regardless of load order, for the cases where the class sits directly on
+// the form control (not on a wrapping <label>, e.g. the Hrs/Min/Sec group).
+input.academy-input,
+textarea.academy-input,
+select.academy-input {
+    background: var(--academy-surface-color);
+    color: var(--academy-text-color);
+}
+
+// Shared class for `@wordpress/components` CheckboxControl usages. WP
+// admin core's own `input[type=checkbox]:focus` rule draws a theme-colored
+// border/box-shadow ring that only shows while the checkbox is focused and
+// disappears the moment focus moves elsewhere (e.g. clicking outside) —
+// previously silenced ad hoc, inconsistently, per screen (some missing the
+// `!important` needed to actually beat it). This is the one shared class to
+// reuse instead of re-declaring it.
+.academy-checkbox-control {
+    // WP's default box is 24px, which towers over the 14px label, and it
+    // turns WP-admin blue when checked. Use a compact box in the plugin color.
+    .components-checkbox-control__input-container {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .components-checkbox-control__input {
+        width: 18px !important;
+        height: 18px !important;
+        min-width: 18px !important;
+        // Darker than the page border so an empty box is easy to see.
+        border: 1px solid var(--academy-dark-gray-color) !important;
+        border-radius: 4px !important;
+        box-shadow: none !important;
+
+        &:checked,
+        &:indeterminate {
+            background: var(--academy-primary-color) !important;
+            border-color: var(--academy-primary-color) !important;
+        }
+    }
+
+    .components-checkbox-control__input-container {
+        position: relative;
+    }
+
+    // WP admin core paints its own tick on a checked box (::before) on top
+    // of the component's SVG tick — that was the doubled tick.
+    .components-checkbox-control__input:checked::before,
+    .components-checkbox-control__input:indeterminate::before {
+        content: none !important;
+    }
+
+    // The SVG tick is centered with top/left 50% + translate for the 24px
+    // box; pin it to the 18px box instead.
+    .components-checkbox-control__checked,
+    .components-checkbox-control__indeterminate {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 18px;
+        height: 18px;
+        margin: 0 !important;
+        transform: none !important;
+        pointer-events: none;
+    }
+
+    // Keep the label on the box's midline (its own 24px line-height put the
+    // text 3px low).
+    .components-h-stack {
+        align-items: center !important;
+        --wp-components-flex-align: center !important;
+    }
+
+    .components-checkbox-control__label {
+        line-height: 18px !important;
+    }
+}
+
+.academy-column-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    width: 100%;
+}
+
+.academy-mb-6 {
+    margin-bottom: 24px;
+}
+
+.academy-m-0 {
+    margin: 0;
+}
+
+.academy-mb-2 {
+    margin-bottom: 8px;
+}
+
+.academy-mb-1 {
+    margin-bottom: 4px;
+}
+
+.academy-mt-1 {
+    margin-top: 4px;
+}
+
+.academy-mt-6 {
+    margin-top: 24px;
+}
+
+.academy-mt-2 {
+    margin-top: 8px;
+}
+
+.academy-mb-0 {
+    margin-bottom: 0;
+}
+
+.academy-warning {
+    color: #FF4D4D;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.academy-success-text {
+    color: #24A148;;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.academy-warning-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 8px;
+    font-size: 12px;
+    p{
+        margin: 0;
+    }
+    .academy-icon {
+        &::before {
+            color: #FDB022;
+            font-size: 16px;
+        }
+    }
+}
+
+.academy-p-0 {
+    padding: 0;
+}
+
+// React select modifier
+.academy-select {
+    .academy-react-select {
+        &__control {
+            border: 1px solid var(--academy-border-color);
+            border-radius: 4px;
+            box-shadow: none;
+            .academy-react-select__input-container {
+                .academy-react-select__input {
+                    box-shadow: none;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    &--w-100 {
+        width: 100%;
+    }
+}
+
+// Formik Field radio modifier(EX: Course Type)
+.academy-radio-custom {
+    input[type="radio"] {
+        display: none;
+    }
+
+    .academy-radio-custom--mod {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid var(--academy-border-color);
+        background-color: transparent;
+        display: inline-block;
+        position: relative;
+        transition: all 0.2s ease-in-out;
+    }
+
+    input[type="radio"]:checked + .academy-radio-custom--mod {
+        border-color: var(--academy-primary-color);
+    }
+
+    .academy-radio-custom--mod::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--academy-primary-color);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    input[type="radio"]:checked + .academy-radio-custom--mod::after {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@media all and (max-width: 1500px) {
+    .academy-page-content {
+        max-width: calc(1200px - 30px);
+    }
+}
+
+@media all and (max-width: 1300px) {
+    .academy-page-content {
+        max-width: calc(1120px - 30px);
+        padding: 0 15px;
+    }
+}
+@media (max-width: 576px) {
+    .academy-courses__body .academy-row {
+        flex-direction: row;
+    }
+    .academy-col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .academy-col-sm-4 {
+        flex: 0 0 33.3333333333%;
+        max-width: 33.3333333333%;
+    }
+}
+@media (max-width: 300px) {
+    .academy-col-sm-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+@import "./classesLibrary";
+@import "./editor";
+@import "./editor_wysiwyg";
+
+// The "no data" illustration is a fixed light-theme image (white window, grey
+// bars), so on a dark surface it shows as a white slab. Inverting it keeps the
+// same picture in dark colors.
+[data-academy-theme="dark"]:not([data-academy-user-theme="light"]) img[src*="NoDataAvailable"],
+[data-academy-user-theme="dark"] img[src*="NoDataAvailable"] {
+    filter: invert(0.92) hue-rotate(180deg);
+}

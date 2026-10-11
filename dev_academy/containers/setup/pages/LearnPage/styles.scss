@@ -1,0 +1,235 @@
+.academy-setup-screen--third {
+    // box-shadow: 0px 32px 64px -12px rgba(16, 24, 40, 0.12);
+    // display: flex;
+    // align-items: center;
+    // border-radius: 8px;
+    // background: #fff;
+    // padding: 8px;
+    // padding: 30px;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: flex-start;
+    // gap: 28px;
+
+    // .academy-screen-third-step {
+    //     &__top {
+    //         display: flex;
+    //         flex-direction: column;
+    //         align-items: flex-start;
+    //         gap: 30px;
+    //         .academy-entry-icon{
+    //             margin-bottom: 20px;
+    //             width: 50px;
+    //         }
+    //         p{
+    //             font-weight: 700;
+    //             font-size: 20px;
+    //             line-height: 26px;
+    //             color: var(--academy-text-color);
+    //             margin: 10px 0;
+    //         }
+    //         .academy-setup-title-text{
+    //             font-size: 18px;
+    //             font-weight: 500;
+    //             line-height: 24px;
+    //             color: var(--academy-text-color);
+    //         }
+    //     }
+
+    //     &__bottom {
+    //         display: flex;
+    //         justify-content: space-between;
+    //         align-items: center;
+    //         width: 100%;
+    //         .academy-btn {
+    //             border-radius: 4px;
+    //             &--label {
+    //                 font-size: 14px;
+    //                 font-weight: 500;
+    //                 line-height: 20px;
+    //             }
+    //             &--continue {
+    //                 .academy-btn--label {
+    //                     color: #fff;
+    //                 }
+    //             }
+    //             &--skip {
+    //                 padding: 12px 16px;
+    //             }
+    //         }
+    //     }
+
+    //     &__cards {
+    //         display: flex;
+    //         flex-direction: column;
+    //         justify-content: center;
+    //         align-items: center;
+    //         gap: 20px;
+    //         .academy-screen-card {
+    //             display: flex;
+    //             flex-direction: row-reverse;
+    //             justify-content: space-between;
+    //             align-items: center;
+    //             width: 680px;                    
+    //             cursor: pointer;
+    //             border: 1px solid var(--academy-border-color);
+    //             border-radius: 4px;
+    //             gap: 20px;
+    //             padding: 24px;
+    //             position: relative;
+    //             overflow: hidden;
+    //             .academy-radio-input{
+    //                 position: absolute;
+    //                 width: 50px;
+    //                 height: 50px;
+    //                 top: 0;
+    //                 right: 0;
+    //                 display: flex;
+    //                 align-items: center;
+    //                 justify-content: center;
+    //                 background: var(--academy-primary-color);
+    //                 overflow: hidden;
+    //                 z-index: 99;
+    //                 visibility: hidden;
+    //                 .academy-icon-hover {
+    //                     position: absolute;
+    //                     bottom: -57px;
+    //                     left: -55px;
+    //                     width: 80px;
+    //                     height: 130px;
+    //                     rotate: -45deg;
+    //                     background: #fff;
+    //                 }
+    //                 .academy-icon {
+    //                     padding: 0 0 20px 20px;
+    //                     &--check {
+    //                         &::before{
+    //                             color: #fff;
+    //                             font-size: 10px;
+    //                             font-weight: 600;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             &__top {
+    //                 width: 130px;
+    //                 z-index: 999;
+    //                 img {
+    //                     width: 100%;
+    //                     object-fit: contain;
+    //                     display: inline-block;
+    //                     text-align: center;
+    //                     background: #ffffff4b;
+    //                 }
+    //             }
+
+    //             &__bottom {
+    //                 display: flex;
+    //                 flex-direction: column;
+    //                 justify-content: center;
+    //                 align-items: flex-start;
+
+    //                 .academy-screen-card-title {
+    //                     font-size: 18px;
+    //                     font-weight: 500;
+    //                     line-height: 24px;
+    //                     color: var(--academy-text-color);
+                        
+    //                 }
+    //                 .academy-screen-card-description {
+    //                     font-size: 14px;
+    //                     font-weight: 400;
+    //                     line-height: 24px;
+    //                     color: var(--academy-secondary-gray-color);
+    //                 }
+
+                    
+    //             }
+    //         }
+    //         .academy-screen-card-selected {
+    //             border: 1px solid var(--academy-primary-color);
+    //             .academy-radio-input {
+    //                 visibility: visible;
+    //             }
+    //         }
+    //     }
+    // }
+    // .academy-screen-third-step-skip-text{
+    //     font-size: 20px;
+    //     line-height: 25px;
+    //     display: flex;
+    //     align-items: center;
+    //     color: #181413;
+    //     margin-top: 10px;
+    //     gap:10px;
+    // }
+
+
+    &__top {
+        text-align: center;
+        border-bottom: 1px solid var(--academy-border-color);
+        margin: 0 auto 24px auto;
+        padding-bottom: 24px;
+        width: 60%;
+        margin-top: 60px;
+    }
+
+
+    &__cards {
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding-bottom: 100px;
+        margin: 60px 0;
+    }
+
+    &__card {
+        width: 300px;
+        height: 232px;
+        padding: 20px;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        &--selected {
+            border: 1px solid var(--academy-primary-color);
+        }
+    }
+
+    &__img {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 40px;
+        width: calc(100% - 80px);
+        border-top: 1px solid var(--academy-border-color);
+        gap: 24px;
+        background: #fff;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+    }
+}
+
+@media all and (max-width: 1280px) {
+    .academy-setup-screen__second-step {
+        min-width: 100%;
+        .academy-screen-third-step {
+            &__right {
+                width: 60%;
+            }
+            &__left {
+                width: 40%;
+            }
+            &__cards {
+                .academy-screen-card {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

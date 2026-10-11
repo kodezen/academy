@@ -1,0 +1,52 @@
+@import './common/global';
+@import './common/form-group';
+@import './common/status';
+@import './common/loader';
+@import './common/RTL';
+@import './common/button';
+@import './common/listTable';
+@import './vendor/grid.scss';
+@import './frontend/common';
+@import './frontend-curriculums/curriculums';
+@import './frontend-curriculums/topbar';
+@import './frontend-curriculums/topics';
+@import './frontend/theme_compatibility';
+@import './frontend/RTL';
+@import './common/notifaction';
+
+
+// php lesson render
+@import './frontend-php-curriculums/assignment_content';
+@import './frontend-php-curriculums/curriculam_content';
+@import './frontend-php-curriculums/academy_player';
+@import './frontend-php-curriculums/lesson_content';
+@import './frontend-php-curriculums/next_prev';
+@import './frontend-php-curriculums/quiz_content';
+@import './frontend-php-curriculums/topbar';
+@import './frontend-php-curriculums/topic_sidebar';
+@import './frontend-php-curriculums/topics_tab_navigation';
+@import './frontend-php-curriculums/tutor_booking';
+@import './frontend-php-curriculums/zoom';
+
+// composable learn-page layout engine (data-academy-nav/width/panel)
+@import './frontend/learn-layouts';
+
+// current topbar (breadcrumb/curriculum-toggle/progress) + activity drawers —
+// topbar.php renders this markup, but only frontendCurriculums.scss (the React
+// entry) was importing its styles; frontend-php-curriculums/topbar.scss only
+// covers the older topbar markup this template no longer uses.
+@import './frontend/learn-drawers';
+
+// .academy-lesson-breadcrumb above is sized icon-only (40x40) for the React
+// player, which moved the "Back to course" label + title to a separate
+// sibling element. templates/curriculums/topbar.php still nests that label
+// and the course title INSIDE the breadcrumb link (.academy-lesson-breadcrumb__back
+// + __text), so the fixed 40px box has no room for them and the text wraps
+// to one character per line. Let it size to its content here instead.
+.academy-lesson-breadcrumb {
+	width: auto;
+	height: 40px;
+	padding: 4px 14px 4px 4px;
+	justify-content: flex-start;
+	gap: 6px;
+}

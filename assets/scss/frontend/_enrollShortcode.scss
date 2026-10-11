@@ -1,0 +1,132 @@
+ // Main Div
+.academy-enroll-form-shortcode{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  // Short code Button
+  &__button , &__prerequisite-button{
+    padding: 6px 12px;
+    gap: 8px;
+    font-size: 15px;
+    background: var(--storeengine-primary-color);
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    a{
+      text-decoration: none;
+    }
+  }
+
+  // Short code Price and Privet notice
+
+  &__price , &__notice{
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--academy-text-color);
+    text-decoration: none;
+    justify-content: flex-end;
+    del{
+      color: var(--academy-dark-gray-color);
+    }
+    ins{
+      text-decoration: none;
+    }
+  }
+  // Course Prerequisites Notice Style
+
+  &__prerequisite{
+    display: none;
+    position: absolute;
+    bottom: 46px;
+    right: 0px;
+    box-shadow: var(--academy-shadow-overlay);
+    background: rgb(255, 255, 255);
+    border-radius: 4px;
+    border: 1px solid var(--academy-border-color);
+    width: 90%;
+      .academy-shortcode-prerequisites-message{
+        padding: 8px 12px;
+        margin: 0;
+        color: var(--academy-text-color);
+        font-size: 12px;
+        font-weight: 400;
+      }
+      .academy-shortcode-prerequisites-lists{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        color: var(--academy-primary-color);
+        margin: 0 0 12px 0;
+        padding-left: 36px;
+          a{
+            color: var(--academy-primary-color);
+            font-size: 12px;
+            font-weight: 500;
+          }
+      }
+    &::before{
+      content: "";
+      background: #ffffff;
+      width: 20px;
+      height: 20px;
+      display: block;
+      position: absolute;
+      right: 15px;
+      bottom: -10px;
+      rotate: 44deg;
+      z-index: 0;
+      border: 1px solid var(--academy-border-color);
+      border-top: none;
+      border-left: none;
+      border-radius: 5px;
+    }
+  }
+
+  &__prerequisite-button{
+  background: transparent;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  border: 0;
+  color: var(--academy-primary-color);
+  }
+  // Free price button
+  .academy-course-enroll-form{
+    .academy-btn--bg-purple{
+      padding: 11px;
+    }
+  }
+}
+ .academy-enroll-form-shortcode.academy-enroll-form-shortcode--legacy {
+   flex-direction: column;
+   .academy-widget-enroll__add-to-cart {
+     button{
+       width: 100%;
+   }
+   }
+   &:has(.academy-widget-enroll__add-to-cart , .academy-widget-enroll__prerequisites, .academy-widget-enroll__head) {
+     flex-direction: column-reverse;
+   }
+   &:has(.academy-widget-enroll__continue){
+     flex-direction: column;
+   }
+   &:has(.academy-widget-enroll__continue):has(.academy-widget-enroll__enroll-form .academy-btn.academy-btn--bg-purple):has(.academy-widget-enroll__head)
+   {
+     flex-direction: column-reverse;
+     .academy-widget-enroll__enroll-form{
+       margin-bottom: 0;
+     }
+   }
+ }
+ //.academy-enroll-form-shortcode--legacy{
+ //  flex-direction: column-reverse;
+ //}

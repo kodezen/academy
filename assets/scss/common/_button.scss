@@ -1,0 +1,312 @@
+.academy-btn-group {
+    display: flex;
+    column-gap: 15px;
+}
+
+.academy-btn {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    background: var(--academy-surface-color);
+    color: var(--academy-text-color);
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 16px;
+    height: auto;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    overflow: hidden !important;
+    transition: filter 0.15s ease, background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+	text-transform: capitalize;
+    white-space: nowrap;
+    // Hover darkens the button a touch, whatever its colours; pressing it
+    // nudges it down. Works the same on filled, light and outline buttons.
+    &:hover:not(:disabled):not(.academy-btn--disabled) {
+        filter: brightness(0.94);
+    }
+    &:active:not(:disabled):not(.academy-btn--disabled) {
+        filter: brightness(0.88);
+        transform: translateY(1px);
+    }
+    // Hover and focus keep the button's own border and shadow; only the
+    // browser's focus outline is replaced (see :focus-visible below).
+    &:focus:not(:focus-visible) {
+        outline: none !important;
+    }
+    // Keyboard focus stays visible.
+    &:focus-visible {
+        outline: 2px solid var(--academy-primary-color) !important;
+        outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        &:active:not(:disabled):not(.academy-btn--disabled) {
+            transform: none;
+        }
+    }
+    &--label {
+        padding: 0;
+    }
+    &--circle{
+        border-radius: 50%;
+    }
+    &--inline-block {
+        display: inline-block;
+        width: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    &--inline-flex {
+        display: inline-flex;
+        width: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+        column-gap: 10px;
+    }
+    &--bg-red,
+    &--preset-red {
+        background: #f94d4d !important;
+        color: #fff !important;
+        &:hover, &:focus {
+            background: #f94d4d;
+            color: #fff;
+        }
+    }
+    &--preset-error {
+        background: #f94d4d !important;
+        color: #fff !important;
+    }
+    &--bg-light-red,
+    &--preset-light-red {
+        background: rgba(249, 77, 77, 0.2);
+        color: #f94d4d;
+        .academy-icon:before {
+            color: #f94d4d;
+        }        
+        &:hover, &:focus {
+            background: rgba(249, 77, 77, 0.2);
+            color: #f94d4d;
+        }
+    }
+    &--bg-purple,
+    &--preset-purple {
+        background: var(--academy-primary-color);
+        color: #fff;
+        &:hover, &:focus {
+            background: var(--academy-primary-color);
+            color: #fff;
+        }
+    }
+    &--preset-purple-border {
+        background: var(--academy-primary-color);
+        color: #fff;
+        border: 1px solid var(--academy-primary-color);
+        &:hover, &:focus {
+            background: var(--academy-primary-color);
+            border: 1px solid var(--academy-primary-color);
+            color: #fff;
+        }
+    }
+    &--bg-light-purple,
+    &--preset-light-purple {
+        background: var(--academy-secondary-color);
+        color: var(--academy-primary-color);
+        .academy-icon:before {
+            color: var(--academy-primary-color);
+        }
+        &:hover, &:focus {
+            background: var(--academy-secondary-color);
+            color: var(--academy-primary-color);
+        }
+    }
+    &--bg-white-border,    
+    &--preset-white-border {
+        border: 2px solid var(--academy-border-color);
+        &:hover, &:focus {
+            border: 2px solid var(--academy-border-color);
+        }
+    }
+    &--bg-gray,
+    &--preset-gray {
+        background: var(--academy-gray-color);
+        &:hover, &:focus {
+            background: var(--academy-gray-color);
+        }
+    }
+    &--preset-white {
+        background: var(--academy-surface-color);
+        color: var(--academy-text-color);
+        &:hover, &:focus {
+            background: var(--academy-surface-color);
+            color: var(--academy-text-color);
+        }
+    }
+    &--preset-transparent {
+        background: transparent;
+        &:hover, &:focus {
+            background-color: transparent;
+            color: var(--academy-text-color);
+        }
+    }
+    &--border-rounded {
+        border-radius: 4px;
+    }
+    &--preset-border-purple,
+    &--border-purple {
+        background: transparent;
+        border: 1px solid var(--academy-primary-color);
+        color: var(--academy-text-color);
+        &:hover, &:focus {
+            background: var(--academy-gray-color);
+            color: var(--academy-text-color);
+        }
+    }
+    &--border-gray {
+        border:1px solid var(--academy-border-color);
+        &:hover, &:focus {
+            border:1px solid var(--academy-border-color);
+        }
+    }
+    &--preset-cancel {
+        background: var(--academy-surface-color);
+        border: 1px solid var(--academy-border-color);
+        color: var(--academy-text-color);
+        &:hover, &:focus {
+            background: var(--academy-gray-color);
+            color: var(--academy-text-color);
+        }
+    }
+    &--border-red {
+        border: 1px solid #f94d4d;
+        &:hover, &:focus {
+            border: 1px solid #f94d4d;
+        }
+    }
+	&--xs {
+		padding: 4px 8px;
+        font-size: 12px;
+	}
+	&--sm {
+        padding: 8px 14px;
+        font-size: 12px;
+	}
+	&--md {
+		padding: 8px 16px;
+        font-size: 14px;
+	}
+	&--lg {
+		padding: 12px 20px;
+        font-size: 14px;
+	}
+    &--disabled {
+        color: var(--academy-dark-gray-color) !important;
+        cursor: not-allowed !important;
+        .academy-icon {
+            &::before{
+                color: var(--academy-dark-gray-color) !important;
+            }
+        }
+    }
+
+    // A primary action with nothing to do yet (Save before any change): the
+    // same purple, faded — as the newer buttons show it.
+    &--preset-purple.academy-btn--disabled {
+        color: #fff !important;
+        opacity: 0.5;
+
+        .academy-icon::before {
+            color: #fff !important;
+        }
+    }
+
+    .academy-icon {
+        font-size: 14px;
+    }
+
+    // icon
+    &--icon-left {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    &--icon-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &--icon-bottom {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    &--icon-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .academy-icon{
+            font-size: 14px;
+        }
+    }
+
+    svg {
+        overflow: visible;
+    }
+}
+/*
+ * A button that is a link keeps its colour: block themes colour links in
+ * post content with a rule of the same weight that loads later, which turned
+ * the label of a purple link-button grey. The element in the selector adds
+ * just enough weight; a class set by the theme or the block still wins.
+ */
+a.academy-btn {
+	&.academy-btn--bg-purple,
+	&.academy-btn--preset-purple,
+	&.academy-btn--preset-purple-border {
+		&,
+		&:hover,
+		&:focus,
+		&:visited {
+			color: #fff;
+		}
+	}
+
+	&.academy-btn--bg-light-purple,
+	&.academy-btn--preset-light-purple {
+		&,
+		&:hover,
+		&:focus,
+		&:visited {
+			color: var(--academy-primary-color);
+		}
+	}
+
+	&.academy-btn--bg-light-red,
+	&.academy-btn--preset-light-red {
+		&,
+		&:hover,
+		&:focus,
+		&:visited {
+			color: #f94d4d;
+		}
+	}
+
+	&.academy-btn--preset-white,
+	&.academy-btn--preset-transparent,
+	&.academy-btn--border-purple,
+	&.academy-btn--preset-border-purple {
+		&,
+		&:visited {
+			color: var(--academy-text-color);
+		}
+	}
+}

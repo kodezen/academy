@@ -1,0 +1,276 @@
+.academy-postbox--settings {
+    padding: 24px;
+    .academy-postbox {
+        &__header {
+            border: none;
+            h2 {
+                margin: 0;
+            }
+        }
+
+        &__body{
+            .meta-tabs{
+                display: flex;
+                flex-direction: column;
+                .academy-input-disabled {
+                    cursor: not-allowed;
+                }
+
+                .academy-label-disabled {
+                    cursor: not-allowed;
+                    color: var(--academy-border-color);
+                }
+
+                .meta-tab-link {
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    position: relative;
+                    font-size: 15px;
+                    font-weight: 500;
+                    padding: 8px 16px;
+                    // One line per tab; the row scrolls when they don't fit.
+                    flex: none;
+                    white-space: nowrap;
+                    color: var(--academy-secondary-gray-color);
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 0;
+                        height: 1px;
+                        background: var(--academy-primary-color);
+                        transition: width 0.3s ease;
+                    }
+                    &:hover::after {
+                        width: 100%;
+                        color: var(--academy-primary-color);
+                    }
+                    &--selected {
+                        background: transparent;
+                        color: var(--academy-primary-color);
+                        font-weight: 500;
+                        border: none;
+                        cursor: default;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 1px;
+                            background: var(--academy-primary-color);
+                            transition: width 0.3s ease;
+                        }
+                    }
+                }
+
+                .academy-tab-title {
+                    display: inline-flex;
+                    align-items: center;
+                }
+
+                .components-tab-panel__tabs {
+                    width: 100%;
+                    margin: 0 0 24px 0;
+                    border: 0;
+                    // The divider is drawn inside the row (not as a border) so the
+                    // tab underline can sit on it without hanging below the row,
+                    // which used to give this scrolling row a vertical scrollbar.
+                    box-shadow: inset 0 -1px 0 var(--academy-border-color);
+                    display: flex;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    scrollbar-width: thin;
+                    gap: 0px;
+                }
+
+                .components-tab-panel__tab-content {
+                    width: 100%;
+                    background: var(--academy-surface-color);
+                    margin-bottom: 0;
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                }
+            }
+
+            .academy-custom-select {
+                width: 188px;
+            }
+
+            input[type="text"], input[type="number"] {
+                width: 188px;
+                height: 40px !important;
+            }
+        }
+    }
+}
+
+// Shared tab styling for any box using `@wordpress/components` TabPanel with
+// className="meta-tabs" — not scoped to `.academy-postbox--settings` since
+// other boxes (e.g. the course builder's "Course Type" box, in
+// `new-course/Sections/CourseType/`) reuse it too.
+.meta-tabs{
+    display: flex;
+    flex-direction: column;
+    .academy-input-disabled {
+        cursor: not-allowed;
+    }
+
+    .academy-label-disabled {
+        cursor: not-allowed;
+        color: var(--academy-border-color);
+    }
+
+    .meta-tab-link {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 8px 16px;
+        color: var(--academy-secondary-gray-color);
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 0;
+            height: 1px;
+            background: var(--academy-primary-color);
+            transition: width 0.3s ease;
+        }
+        &:hover::after {
+            width: 100%;
+            color: var(--academy-primary-color);
+        }
+        &--selected {
+            background: transparent;
+            color: var(--academy-primary-color);
+            font-weight: 500;
+            border: none;
+            cursor: default;
+            &::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: -1px;
+                width: 100%;
+                height: 1px;
+                background: var(--academy-primary-color);
+                transition: width 0.3s ease;
+            }
+        }
+    }
+
+    .academy-tab-title {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .components-tab-panel__tabs {
+        width: 100%;
+        margin: 0 0 24px 0;
+        border: 0;
+        border-bottom: 1px solid var(--academy-border-color);
+        display: flex;
+        gap: 0px;
+    }
+
+    .components-tab-panel__tab-content {
+        width: 100%;
+        background: var(--academy-surface-color);
+        margin-bottom: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+
+.academy-course-active-timer-settings {
+    .academy-select {
+        .academy-react-select__control {
+            min-height: 40px;
+            height: 40px;
+        }
+        .academy-react-select__value-container {
+            height: 40px;
+            padding: 0 8px;
+        }
+        .academy-react-select__input-container {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    &-options--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.academy-course-settings {
+    &--fluent-community {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        &:not(:last-child) {
+            margin-bottom: 24px;
+        }
+        
+        .academy-title-subtitle {
+            width: calc(100% - 24px);
+        }
+    }
+}
+// Group Plus tab (Tabs/GroupPlus.js). The settings box fixes selects and
+// inputs at 188px; here the mode select needs room for its longest option
+// and the tier inputs fill their grid columns.
+.academy-postbox--settings .academy-postbox__body .academy-group-plus-settings {
+    .academy-group-plus-settings__control .academy-custom-select {
+        width: 260px;
+    }
+
+    .academy-group-plus-settings__control .academy-group-plus-settings__unit {
+        width: 128px;
+    }
+
+    input.academy-group-plus-settings__duration {
+        width: 120px;
+    }
+
+    .academy-group-plus-settings__tiers input[type="number"] {
+        width: 100%;
+    }
+
+    .academy-group-plus-settings__remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: 0;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--academy-secondary-gray-color);
+        cursor: pointer;
+
+        &:hover,
+        &:focus-visible {
+            background: var(--academy-gray-color);
+            color: var(--academy-danger-color, #dc2626);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .academy-group-plus-settings__control,
+        .academy-group-plus-settings__control .academy-custom-select {
+            width: 100%;
+        }
+    }
+}

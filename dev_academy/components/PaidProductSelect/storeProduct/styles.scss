@@ -1,0 +1,179 @@
+.academy-store-paid-products-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: var(--academy-gray-color);
+    .academy-store-paid-products {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        &__item {
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--academy-border-color);
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        &__item-actions {
+            display: flex;
+            gap: 10px;
+            .academy-btn {
+                padding: 8px;
+                .academy-icon {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    &::before {
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .academy-add-gameengine-rule {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 12px;
+    }
+    
+    .academy-add-store-product {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        gap: 10px;
+        &__label {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 8px 0 0;
+        }
+        &__label-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            .academy-add-store-product__label {
+                margin: 0;
+            }
+        }
+        &__price-fields {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: row;
+            gap: 10px;
+            width: 100%;
+            .academy-column-items {
+                width: auto;
+                flex: 1 1 0;
+            }
+        }
+        &__actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        &__price {
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+            border: 1px solid var(--academy-border-color);
+            width: 100%;
+            padding: 0;
+            input[type=number] {
+                width: 100%;
+                border: none;
+                height: 40px !important;
+                &:hover, &:focus {
+                    border: none !important;
+                    box-shadow: none !important;
+                    outline: none;
+                }
+            }
+        }
+    }
+    
+    .academy-subsciption-fields  {
+        display: flex;
+        gap: 8px;
+        .academy-number-container .academy-column-items .academy-input {
+            width: 90px;
+        }
+        .academy-select {
+            width: 100%;
+        }
+    }
+    .academy-btn {
+        &--cancel {
+            font-size: 12px !important;
+            padding: 0;
+        }
+
+        &--product-add {
+            padding: 6px;
+            color: var(--academy-primary-color);
+            border: 1px solid var(--academy-primary-color);
+            .academy-icon {
+                &::before {
+                    font-size: 12px;
+                } 
+            }
+        }
+
+        &--add {
+            margin-right: auto;
+            padding: 12px 16px;
+            color: var(--academy-primary-color);
+
+            // `preset="transparent"` (`_button.scss`) darkens the button's
+            // `color` to `--academy-text-color` on hover — same specificity
+            // as this rule, so which one actually won was a coin flip on
+            // stylesheet order, and the label (inheriting from the <button>)
+            // and the icon (see below) could end up disagreeing. Pin it
+            // explicitly: this is a purple text link (matches "+ Add New
+            // Category" elsewhere), it doesn't need to darken on hover.
+            &:hover,
+            &:focus {
+                color: var(--academy-primary-color);
+            }
+
+            .academy-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                // No hardcoded color here — inherits from the button's own
+                // `color` above, so it always matches the label instead of
+                // needing its own copy of the same rule.
+                &::before {
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+    .acadmey-preffered-store-product-types {
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        background: var(--academy-gray-color);
+        border-radius: 4px;
+        .acadmey-preffered-store-product-type {
+            padding: 12px;
+            text-align: center;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .is-selected {
+            background: var(--academy-surface-color);
+            box-shadow: none;
+        }
+        .is-disabled {
+            pointer-events: none;
+        }
+    }
+}

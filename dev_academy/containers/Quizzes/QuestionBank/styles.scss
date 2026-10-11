@@ -1,0 +1,119 @@
+.academy-question-bank {
+	display: flex;
+	flex-direction: column;
+
+	.academy-table {
+		box-shadow: none;
+		padding: 0;
+		border: none;
+
+		&__container {
+			max-width: none;
+		}
+
+		&__sub-header {
+			border-bottom: 1px solid var(--academy-border-color);
+			padding-bottom: 16px;
+		}
+	}
+
+	.academy-table-sub-header-actions-right {
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+		width: 100%;
+
+		.academy-search-component {
+			flex: 1 1 0;
+			min-width: 160px;
+			padding-bottom: 0 !important;
+		}
+
+		.academy-select {
+			min-width: 140px;
+
+			.academy-react-select__control {
+				min-height: 40px;
+				border-color: var(--academy-border-color);
+				box-shadow: none;
+				cursor: pointer;
+
+				&:hover,
+				&--is-focused {
+					border-color: var(--academy-primary-color);
+				}
+			}
+
+			.academy-react-select__menu {
+				z-index: 10;
+			}
+		}
+	}
+
+	&__item-checkbox {
+		cursor: pointer;
+	}
+
+	&__item-title {
+		font-size: 14px;
+		color: var(--academy-text-color-black);
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		cursor: pointer;
+
+		&--added {
+			opacity: 0.55;
+			cursor: default;
+		}
+	}
+
+	&__badge {
+		display: inline-block;
+		padding: 2px 8px;
+		border-radius: 10px;
+		background: rgba(34, 197, 94, 0.12);
+		color: var(--academy-success-color);
+		font-size: 11px;
+		font-weight: 600;
+		flex-shrink: 0;
+	}
+
+	&__item-type,
+	&__item-level {
+		font-size: 13px;
+		color: var(--academy-text-muted);
+	}
+
+	// Checkbox wrap in header
+	&__checkbox-wrap {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+	}
+
+	// Footer
+	&__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 20px 0 0;
+		border-top: 1px solid var(--academy-border-color);
+	}
+
+	&__selected-count {
+		font-size: 13px;
+		color: var(--academy-text-muted);
+		min-width: 80px;
+	}
+
+	&__footer-btns {
+		display: flex;
+		gap: 12px;
+	}
+}
+
+.academy-table--question-bank {
+	margin-bottom: 20px;
+}

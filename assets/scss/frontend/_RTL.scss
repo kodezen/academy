@@ -1,0 +1,240 @@
+.rtl {
+    // dashboard
+    .academyFrontendDashWrap {
+        .academy-dashboard-menu-wrap {
+            ul.academy-dashboard-menu {
+                padding-right: 0;
+                margin-right: 0;
+                li {
+                    a {
+                        border-right: 4px solid #fff;
+                        border-left: 0;
+                        span.academy-icon {
+                            margin-left: 12px;
+                            margin-right: 0;
+                        }
+                        &:hover, &.active {
+                            border-right-color: var(--academy-primary-color);
+                        }
+                    }
+                    &.academy-dashboard-menu {
+                        &__divider {
+                            margin-right: 27px;
+                        }
+                    }
+                }
+            }
+            .academy-dashboard-user {
+                padding-right: 30px;
+                &__thumbnail {
+                    margin-left: 10px;
+                }
+            }
+        }
+        .academy-dashboard-entry-content {
+            .academy-dashboard-profile-info {
+                &__list {
+                    padding-right: 0;
+                    margin-right: 0;
+                    li {
+                        display: flex;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                        span {
+                            margin-left: 0;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+        .academy-dashboard-settings {
+            &__profile-form {
+                .academy-cover-photo {
+                    .academy-delete-cover-photo {
+                        right: auto;
+                        left: 20px;
+                    }
+                    .academy-upload-cover-photo {
+                        right: auto;
+                        left: 20px;
+                    }
+                }
+                .academy-profile-photo {
+                    right: 35px;
+                    left: 0;
+                }
+                .academy-form-banner {
+                    .academy-dashboard-info {
+                        text-align: left;
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    .components-modal__header-heading-container {
+        justify-content: right;
+    }
+    // academy-courses
+    .academy-courses {
+        &__sidebar {
+            .academy-archive-course-widget {
+                &__body {
+                    label {
+                        padding-right: 25px;
+                        padding-left: 0;
+                        .checkmark {
+                            right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // course
+    .academy-widget-enroll {
+        &__wishlist-and-share {
+            // Share is the first button, so on the right in RTL.
+            .academy-share-wrap {
+                left: auto;
+                right: 0;
+            }
+        }
+    }
+    .academy-accordion {
+        padding-right: 0;
+        a.academy-accordion {
+            &__title {
+                &:after {
+                    right: auto;
+                    left: 30px;
+                }
+            }
+        }
+    }
+    .academy-lesson-list {
+        &__item {
+            .academy-entry-control {
+                margin-left: 0;
+                margin-right: auto;
+            }
+        }
+    }
+    .academy-single-course {
+        &__content-item {
+            &--instructors {
+                .course-single-instructor {
+                    .instructor-info {
+                        margin-left: 115px;
+                        margin-right: 0;
+                        &__thumbnail {
+                            margin-left: 16px;
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .academy-tabs-nav {
+            li {
+                margin-left: 50px;
+                margin-right: 0;
+            }
+        }
+    }
+    .academy-review-list {
+        padding-right: 0;
+        margin-right: 0;
+        li {
+            .academy-review_container {
+                .academy-review-thumnail {
+                    margin-left: 19px;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    // academy-lessons
+    .academy-lessons {
+        .academy-lesson-sidebar {
+            .academy-lesson-topics {
+                .academy-topics-title {
+                    &__text {
+                        margin-right: 40px;
+                        margin-left: 15px;
+                    }
+                }
+                .academy-lesson-topic-item {
+                    .academy-entry-right {
+                        display: flex;
+                        justify-content: flex-start;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        .academy-icon {
+                            margin-right: 18px;
+                            margin-left: 0;
+                        }
+                    }
+                    &__text {
+                        margin-left: 15px;
+                        margin-right: 0;
+                    }
+                    .academy-icon {
+                        &--video {
+                            margin-left: 14px;
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+            .academy-lesson-topics-wrap {
+                padding-left: 0;
+                padding-right: 20px;
+            }
+            .academy-lesson-browseqa-wrap,
+            .academy-announcements-wrap {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+            .academy-tabs-navbar {
+                a>span {
+                    margin-left: 10px;
+                    margin-right: 0;
+                }
+            }
+            .academy-question-lists {
+                .academy-qa {
+                    &__meta {
+                        .academy-qa-text-avator {
+                            margin-right: 0;
+                            margin-left: 15px;
+                        }
+                    }
+                }
+            }
+        }
+        .academy-lesson-content {
+            &__top-bar {
+                .academy-topbar-item {
+                    &--go-home {
+                        margin-left: 15px;
+                        a {
+                            span {
+                                margin-left: 13px;
+                                margin-right: 2px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    // form
+    .academy-reg-form {
+        direction: rtl;
+    }
+}
+

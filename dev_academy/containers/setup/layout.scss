@@ -1,0 +1,429 @@
+// Setup wizard frame: a sidebar with the steps, and the current step beside it.
+.academy-setup-screen:has(.academy-setup-layout) {
+	display: block;
+}
+
+.academy-setup-visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.academy-setup-layout {
+	display: grid;
+	grid-template-columns: 300px minmax(0, 1fr);
+	align-content: start;
+	min-height: 100vh;
+	background: var(--academy-surface-color, #fff);
+}
+
+.academy-setup-sidebar {
+	position: sticky;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	box-sizing: border-box;
+	padding: 32px 28px;
+	border-right: 1px solid var(--academy-border-color);
+	background: var(--academy-gray-color, #f6f7f8);
+
+	&__logo {
+		width: 132px;
+		height: auto;
+	}
+
+	&__intro {
+		margin: 20px 0 32px;
+		font-size: 14px;
+		line-height: 20px;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__exit {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: auto;
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 20px;
+		color: var(--academy-secondary-gray-color);
+		text-decoration: none;
+
+		.academy-icon::before {
+			font-size: 12px;
+			color: currentColor;
+		}
+
+		&:hover,
+		&:focus-visible {
+			color: var(--academy-text-color-black);
+		}
+	}
+}
+
+// The steps, top to bottom, joined by a line.
+.academy-setup-steps {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	&__item {
+		position: relative;
+		display: flex;
+		gap: 14px;
+		margin: 0;
+		padding-bottom: 28px;
+
+		&:not(:last-child)::after {
+			content: "";
+			position: absolute;
+			top: 32px;
+			bottom: 4px;
+			left: 13px;
+			width: 2px;
+			border-radius: 1px;
+			background: var(--academy-border-color);
+		}
+
+		&.is-done:not(:last-child)::after {
+			background: var(--academy-primary-color);
+		}
+	}
+
+	&__marker {
+		display: inline-flex;
+		flex: none;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		box-sizing: border-box;
+		border: 2px solid var(--academy-border-color);
+		border-radius: 50%;
+		background: var(--academy-surface-color, #fff);
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1;
+		color: var(--academy-secondary-gray-color);
+
+		.academy-icon::before {
+			font-size: 12px;
+			color: #fff;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding-top: 3px;
+	}
+
+	&__title {
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 20px;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__description {
+		font-size: 13px;
+		line-height: 18px;
+		color: var(--academy-dark-gray-color);
+	}
+
+	.is-done &__marker {
+		border-color: var(--academy-primary-color);
+		background: var(--academy-primary-color);
+	}
+
+	.is-done &__title {
+		color: var(--academy-text-color-black);
+	}
+
+	.is-current &__marker {
+		border-color: var(--academy-primary-color);
+		color: var(--academy-primary-color);
+		box-shadow: 0 0 0 4px var(--academy-secondary-color);
+	}
+
+	.is-current &__title {
+		color: var(--academy-primary-color);
+	}
+
+	.is-current &__description {
+		color: var(--academy-secondary-gray-color);
+	}
+}
+
+.academy-setup-main {
+	display: flex;
+	justify-content: center;
+	padding: 64px 48px 48px;
+
+	&__inner {
+		width: 100%;
+		max-width: 720px;
+	}
+
+	&__count {
+		display: block;
+		margin-bottom: 8px;
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 18px;
+		letter-spacing: 0.02em;
+		color: var(--academy-primary-color);
+	}
+}
+
+// A step's heading: left-aligned, with its optional action on the right.
+.academy-setup-layout {
+
+	.academy-setup-screen__title {
+		margin: 0 0 6px;
+		font-size: 28px;
+		font-weight: 600;
+		line-height: 36px;
+		text-align: left;
+		color: var(--academy-text-color-black);
+	}
+
+	.academy-setup-screen__subtitle {
+		display: block;
+		margin: 0;
+		font-size: 15px;
+		line-height: 22px;
+		text-align: left;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	.academy-setup-screen-steps__topbar {
+		display: none;
+	}
+
+	// Actions sit under the step, not stuck to the bottom of the window.
+	.academy-setup-actions,
+	.academy-setup-screen--fourth__actions,
+	.academy-setup-screen--second__bottom {
+		position: static;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		width: auto;
+		margin-top: 32px;
+		padding: 24px 0 0;
+		border-top: 1px solid var(--academy-border-color);
+		background: transparent;
+	}
+
+	.academy-setup-screen--fourth__actions-right {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+}
+
+// Business type.
+.academy-setup-layout .academy-setup-screen--second {
+	display: block;
+	height: auto;
+
+	&__top {
+		width: auto;
+		margin: 0 0 28px;
+		padding: 0;
+		border: 0;
+		text-align: left;
+
+		.academy-entry-top-icon {
+			display: none;
+		}
+	}
+
+	&__cards {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 16px;
+		margin: 0;
+		padding: 0;
+	}
+
+	&__card {
+		position: relative;
+		width: auto;
+		height: auto;
+		padding: 20px;
+		gap: 12px;
+		border-radius: 10px;
+		cursor: pointer;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+		&:hover {
+			border-color: var(--academy-dark-gray-color);
+		}
+
+		&--selected,
+		&--selected:hover {
+			border-color: var(--academy-primary-color);
+			box-shadow: 0 0 0 1px var(--academy-primary-color);
+		}
+
+		&-input {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+		}
+
+		.academy-setup-screen-title-subtitle {
+			text-align: left;
+
+			.academy-setup-screen-title,
+			.academy-setup-screen-subtitle {
+				text-align: left;
+			}
+
+			.academy-setup-screen-title {
+				font-weight: 600;
+			}
+		}
+	}
+
+	&__img {
+		justify-content: flex-start;
+
+		img {
+			height: 110px;
+		}
+	}
+}
+
+// General, Roles & access and Payments.
+.academy-setup-layout {
+
+	.academy-setup-screen--fourth {
+		min-height: 0 !important;
+	}
+
+	.academy-setup-screen--fourth__container {
+		width: auto;
+		margin: 0;
+		padding: 0;
+	}
+
+	.academy-setup-screen--fourth__top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 16px;
+		margin: 0 0 24px;
+		padding: 0 0 24px;
+		text-align: left;
+
+		> img,
+		> .academy-icon {
+			display: none;
+		}
+	}
+
+	.academy-setup-screen--fourth__heading {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.academy-setup-form-reset-button {
+		position: static;
+		flex: none;
+		border: 0;
+
+		button {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 6px 10px;
+			border: 1px solid var(--academy-border-color);
+			border-radius: 6px;
+			background: var(--academy-surface-color, #fff);
+		}
+
+		.academy-setup-form-reset-button-text {
+			margin: 0;
+		}
+	}
+}
+
+@media (max-width: 960px) {
+
+	.academy-setup-layout {
+		grid-template-columns: minmax(0, 1fr);
+		min-height: 0;
+	}
+
+	.academy-setup-sidebar {
+		position: static;
+		height: auto;
+		padding: 20px;
+		border-right: 0;
+		border-bottom: 1px solid var(--academy-border-color);
+	}
+
+	.academy-setup-sidebar__intro,
+	.academy-setup-steps__description {
+		display: none;
+	}
+
+	.academy-setup-steps {
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 12px 20px;
+		margin-top: 16px;
+
+		&__item {
+			align-items: center;
+			padding-bottom: 0;
+
+			&::after {
+				display: none;
+			}
+		}
+
+		&__text {
+			padding-top: 0;
+		}
+	}
+
+	.academy-setup-sidebar__exit {
+		margin-top: 16px;
+	}
+
+	.academy-setup-main {
+		padding: 32px 20px;
+	}
+
+	.academy-setup-layout .academy-setup-screen--second__cards {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+// The settings steps sit inside the older full-screen wrapper, whose reset
+// button was pinned to the window; here it sits beside the heading.
+.academy-setup-screen--fourth .academy-setup-layout .academy-setup-form-reset-button {
+	position: static;
+	border: 0;
+}
+
+// Buttons read in sentence case, like the rest of the wizard.
+.academy-setup-layout .academy-btn {
+	text-transform: none;
+}

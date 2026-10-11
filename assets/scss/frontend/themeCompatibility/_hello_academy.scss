@@ -1,0 +1,418 @@
+.theme-hello-academy {
+	.academy-single-course {
+		.academy-review-form--open-form {
+			.form-submit {
+				.academy-btn {
+					line-height: 18px !important;
+					border-radius: 8px;
+					text-transform: capitalize !important;
+				}
+			}
+		}
+		.academy-widget-enroll {
+			&__wishlist-and-share {
+				.academy-btn--bg-gray {
+					&:hover {
+						color: var(--academy-border-color);
+					}
+				}
+				.academy-btn--bg-white-border {
+					&:hover {
+						background-color: unset;
+						color: var(--academy-border-color);
+					}
+				}
+			}
+			&__add-to-cart,
+			&__enroll-form,
+			&__complete-form {
+				.academy-btn {
+					background: var(--academy-primary-color);
+    				color: #fff;
+					border-radius: 8px;
+					font-size: 14px;
+					line-height: 20px;
+					font-weight: 500;
+					padding: 15px;
+					border: none;
+					&--preset-light-purple {
+						background: var(--academy-secondary-color);
+    					color: var(--academy-primary-color);
+					}
+				}
+			}
+		}
+	}
+	.academy-react-modal__head button:hover {
+		border-color: var(--academy-primary-color);
+		color: var(--academy-primary-color);
+		background-color: #fff;
+	}
+	.academy-lessons__entry {
+		&-left {
+			.academy-tabs-navbar__item {
+
+				&:focus,
+				&:hover {
+					background-color: unset;
+					color: unset;
+				}
+			}
+			.academy-btn {
+				border: none;
+				color: unset;
+				&:focus,
+				&:hover {
+					background-color: unset;
+					color: unset;
+				}
+			}
+			.academy-anwser-form {
+				.academy-btn {
+					background: var(--academy-primary-color);
+    				color: #fff;
+					padding: 9px 18px;
+    				font-size: 13px;
+					border-radius: 8px;
+					&--preset-light-purple {
+						background: var(--academy-secondary-color);
+    					color: var(--academy-primary-color);
+						font-size: 14px;
+					}
+				}
+			}
+			.academy-question-form {
+				.academy-btn {
+					background: var(--academy-primary-color);
+    				color: #fff;
+					padding: 15px;
+					font-weight: 600;
+					font-size: 16px;
+					border-radius: 8px;
+				}
+			}
+		}
+		&-middle {
+			.academy-btn {
+				border: none;
+				&:focus,
+				&:hover {
+					background-color: unset;
+					
+				}
+			}
+			
+		}
+		&-right {
+			.academy-lessons-topbar {
+				.academy-btn {
+					border: none;
+					&:focus,
+					&:hover {
+						background-color: unset;
+					}
+				}
+			}
+			
+			.academy-lessons-content {
+				.academy-lesson-quiz-start {
+					.academy-quiz-start-button {
+						.academy-btn {
+							background: var(--academy-primary-color);
+							color: #fff;
+							padding: 14px 26px;
+							font-size: 16px;
+							border-radius: 8px;
+						}
+					}
+				}
+			}
+			.academy-lesson-quiz__body {
+				.academy-quiz-buttons {
+					.academy-btn {
+						padding: 15px;
+						border-radius: 8px;
+					}
+					.academy-btn--preset-purple {
+						background: var(--academy-primary-color);
+						color: #fff;
+						border-radius: 8px;
+					}
+					.academy-quiz-buttons__skip {
+						.academy-btn {
+							&:hover {
+								background-color: unset;
+							}
+						}
+					}
+					.academy-btn--disabled {
+						color: var(--academy-border-color) !important;
+						cursor: not-allowed!important;
+						&:hover {
+							background-color: unset;
+						}
+					}
+					.academy-btn--border-gray {
+						border: 1px solid var(--academy-border-color);
+					}
+				}
+			}
+			.academy-quiz-table-wrapper {
+				.academy-btn--preset-light-purple {
+					background: var(--academy-secondary-color);
+    				color: var(--academy-primary-color);
+					border-radius: 30px;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+	.ReactModal__Overlay--after-open {
+		.academy-withdrawal-modal {
+			.academy-btn {
+				background: var(--academy-primary-color);
+    			color: #fff;
+				padding: 15px;
+				border: none;
+				border-radius: 8px;
+			}
+		}
+	}
+
+	.academy-dashboard-settings {
+		.academy-dashboard-mini-tabs {
+			.components-tab-panel__tabs {
+				.academy-tab-link {
+					border: none;
+					border-radius: 0;
+					color: unset;
+					transition: unset;
+					&--selected {
+						border-bottom: 2px solid var(--academy-primary-color);
+					}
+				}
+			}
+		}
+		.academy-btn {
+			background: var(--academy-primary-color);
+			color: #fff;
+			padding: 15px;
+			border: none;
+			border-radius: 8px;
+		}
+	}
+	.academy-loggged-in-modal {
+		.academy-btn {
+			background: var(--academy-primary-color);
+    		color: #fff;
+			font-size: 14px;
+			padding: 15px;
+			border-radius: 8px;
+		}
+	}
+	.academy-search-component {
+		input[type=text] {
+			padding-left: 40px ;
+			padding-right: 30px ;
+		}
+	}
+	.academy-list-wrap {
+		.academy-bulk-actions {
+			.academy-btn {
+				padding: 8px 20px;
+			}
+		}
+		.academy-table-item-control {
+			.academy-btn {
+				&:hover{
+					.academy-icon {
+						&--edit {
+							&::before {
+								color: #fff;
+							}
+						}
+					}
+				}
+			}
+			.components-dropdown {
+				.components-button {
+					border: none;
+					background: unset;
+					&:hover{
+						color: var(--academy-primary-color);
+					}
+				}
+			}
+		}
+	}
+	.academy-course-builder{
+		&__item {
+			.panel-head{
+				.control {
+					.academy-btn {
+						border: none;
+						color: unset;
+						padding: 8px;
+						&:hover {
+							background-color: unset;
+						}
+						&:focus {
+							background-color: unset;
+						}
+					}
+				}
+			}
+			.panel-body {
+				.control {
+					.academy-btn {
+						padding: 8px;
+						color: unset;
+						&:hover {
+							background-color: unset;
+						}
+						&:focus {
+							background-color: unset;
+						}
+					}
+				}
+			}
+		}
+	}
+	.academy-topic-form {
+		.academy-btn{
+			&:hover {
+				.academy-icon--close {
+					&::before {
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+	.academy-dashboard {
+		&__content {
+			padding: 20px !important;
+		}
+	}
+	.academy-editor{
+		&__title-submit {
+			.academy-btn{
+				padding: 10px 20px;
+			}
+		}
+		&__content-sidebar{
+			.academy-widget {
+				.academy-btn {
+					padding: 9px !important;
+					font-size: 13px !important;
+				}
+			}
+		}
+		&__content-meta {
+			.academy-postbox {
+				&--course-instructors {
+					.academy-course-instructor {
+						&__info-wrap {
+							.academy-btn {
+								border: none;
+								&:hover {
+									background-color: unset;
+								}
+								&:focus {
+									background-color: unset;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.academy-react-modal {
+		&--lesson-form {
+			.academy-react-modal {
+				&__footer {
+					.academy-btn--cancel {
+						&:hover {
+							background-color: unset;
+						}
+					}
+				}
+				&__content {
+					.academy-lesson-form {
+						.meta-field {
+							&__body {
+								.attachmentfile {
+									.components-button {
+										height: 40px;
+										&.is-secondary {
+											&:hover {
+												background-color: unset;
+											}
+											&:focus {
+												background-color: unset;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.academy-react-modal--topics-select {
+		.components-tab-panel {
+			&__tabs{
+				button, [type=button] {
+					border: none;
+					border-radius: 0;
+					color: unset;
+				}
+			}
+			&__tab-content {
+				.academy-items {
+					button {
+						border: none;
+						&:hover {
+							background-color: unset;
+						}
+						&:focus {
+							background-color: unset;
+						}
+					}
+				}
+			}
+		}
+	}
+	// r
+	.academyFrontendDashWrap {
+		.academy-course-builder__item {
+			.panel-head {
+				.text>button {
+					&:focus {
+						outline: 0;
+					}
+				}
+			}
+		}
+	}
+	// frontend-dashboard-r
+	.academy-react-modal--announcements {
+		.academy-react-modal__footer {
+			button {
+				&:hover {
+					color: #fff !important;
+				}
+			}
+		}
+	}
+	.media-modal-content{
+		.media-menu-item{
+			&:hover, &:focus{
+				background-color: transparent;
+			}
+		}
+	}
+}

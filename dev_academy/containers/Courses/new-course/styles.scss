@@ -1,0 +1,358 @@
+.academy-label-disable {
+    color: var(--academy-dark-gray-color);
+}
+
+.academy-editor {
+    padding: 0;
+    &__content {
+        display: flex;
+        column-gap: 24px;
+        // Needed for `.entry-left`'s sticky to actually stick — default
+        // flex `align-items: stretch` would otherwise force it to match
+        // `.entry-right`'s (taller) height, leaving it nothing to scroll
+        // past.
+        align-items: flex-start;
+
+        >.entry-left {
+            width: 72%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            // `.entry-right` (Course Type + Taxonomy + Attachment) runs much
+            // longer than this column — keep it in view while the page
+            // scrolls past that instead of leaving a tall blank gap under
+            // it. `32px` clears the WP admin toolbar.
+            position: sticky;
+            top: 32px;
+        }
+
+        >.entry-right {
+            width: 28%;
+            min-width: 334px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .academy-course-section-title {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--academy-border-color);
+        }
+
+        .academy-field-title {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+        }
+
+        // Hoisted to .academy-editor level: the SCORM upload renders in the
+        // Builder step, which is NOT inside .academy-editor__content (only the
+        // Overview step is), so scoping it to __content left it unstyled.
+        @at-root .academy-editor .academy-postbox--scorm {
+            margin-top: 12px !important;
+            &__body {
+                padding-top: 0 !important;
+            }
+
+            .meta-field {
+                margin: 0;
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                &__label {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: flex-start;
+                    gap: 10px;
+                    width: 100%;
+                    span {
+                        font-size: 14px;
+                    }
+
+                    .academy-file-desc {
+                        color: var(--academy-secondary-gray-color);
+                        font-size: 12px;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                &__body {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+                &--scorm {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    padding: 12px;
+                    &--container {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        .meta-field__body {
+                            min-width: 200px;
+                            height: 136px;
+                            border-radius: 4px;
+                            .academy-scrom-file-upload {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                                width: 200px;
+                                height: 134px;
+                                background: var(--academy-gray-color);
+                                border: 1px dashed var(--academy-border-color);
+                                border-radius: 4px;
+                                &--linear {
+                                    height: 80px;
+                                    width: 80px;
+                                    background: linear-gradient(180deg, rgba(229, 229, 229, 0.48) 50%, rgba(247, 248, 248, 0.00) 100%, rgba(229, 229, 229, 0.00) 100%);
+                                    border-radius: 50%;
+                                    .academy-icon {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background: var(--academy-surface-color);
+                                        border: 1px solid var(--academy-border-color);
+                                        border-radius: 50%;
+                                        box-shadow: none;
+                                        &::before {
+                                            font-size: 24px;
+                                            padding: 16px;
+                                        }
+                                        
+                                        &--scorm {
+                                            height: 56px;
+                                            width: 56px;
+                                            margin: 12px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .academy-btn-delete {
+                        padding: 0;
+                        border: 0;
+                        background: transparent;
+                        cursor: pointer;
+                        .academy-icon::before {
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-meta {
+            @import './styles/meta-field';
+            @import './styles/postbox';
+        }
+    }
+
+    .academy-input-field-required {
+        border: 1px solid #f90505 !important;
+        &:hover, &:focus, &:focus-visible {
+            border: 1px solid #f90505;
+            outline: none;
+            box-shadow: none;
+        }
+    }
+}
+
+.academy-react-modal__head {
+    .academy-custom-select {
+        &--submit-box {
+            .academy-custom-select--container {
+                width: 200px !important;
+            }
+        }
+    }
+}
+
+.academy-course-active-timer-settings {
+    // Widening `.academy-custom-select--container` alone (the pattern above)
+    // has no visible effect here: `.meta-field__body` sizes its
+    // `.academy-custom-select` child by flex-basis, so the outer wrapper
+    // itself — not its `--container` child, which just fills whatever width
+    // the wrapper ends up with — has to carry the fixed width.
+    .academy-custom-select--course-timer-expiry-action {
+        width: 280px !important;
+        flex: 0 0 280px !important;
+    }
+}
+
+.academy-course-topbar-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    .academy-autosave {
+        white-space: nowrap;
+    }
+    .academy-btn {
+        &--ai-course {
+            margin-right: 12px;
+        }
+
+        // Preview: just the eye icon, with a soft background on hover.
+        &--course-preview {
+            padding: 10px 12px;
+            border: 0;
+            background: transparent;
+            border-radius: 6px;
+
+            &:hover,
+            &:focus-visible {
+                background: var(--academy-gray-color);
+            }
+        }
+
+        // &--submit-box {
+        //     margin-left: 12px;
+        // }
+    }
+}
+
+@media all and (max-width: 1280px) {
+    .academy-editor {
+        &__title {
+            &-textfield {
+                width: 75%;
+            }
+
+            &-submit {
+                width: 25%;
+            }
+        }
+
+        &__content {
+            .entry-left {
+                width: 75%;
+            }
+
+            .entry-right {
+                width: 25%;
+            }
+        }
+    }
+}
+
+// Frontend dashboard's course modal. The page scrolls on the react-modal
+// overlay, but `.academy-react-modal__content` (overflow-y: scroll) and
+// `.academy-page-content` (overflow-x: hidden) each become their own — never
+// scrolling — scroll container in between, so `.entry-left`'s sticky had
+// nothing to stick to. Let the overlay be the only scroller, and keep the
+// header (with the Overview/Builder/Settings stepper) pinned like the admin
+// topbar, with `.entry-left` sticking just under it.
+.academy-react-modal--course {
+    > .academy-react-modal__head {
+        position: sticky;
+        // The overlay sits under the WP admin bar (when shown), so pin
+        // below it rather than behind it.
+        top: var(--wp-admin--admin-bar--height, 0px);
+        z-index: 10;
+        margin: 0;
+        padding: 20px 24px;
+        background: var(--academy-surface-color);
+        border-radius: 6px 6px 0 0;
+    }
+
+    > .academy-react-modal__content {
+        overflow: visible;
+
+        > .academy-page-content {
+            overflow: clip;
+        }
+    }
+
+    .academy-editor__content > .entry-left {
+        // Admin bar + sticky header's height (~87px) + a 24px gap.
+        top: calc(var(--wp-admin--admin-bar--height, 0px) + 110px);
+    }
+}
+
+@media all and (max-width: 1024px) {
+    .academy-editor__content {
+        flex-direction: column;
+        .entry-left {
+            width: 100%;
+            // Stacked into one column below this width — sticky would pin
+            // it over `.entry-right`'s content as the page scrolls instead
+            // of sitting beside it.
+            position: static;
+        }
+
+        .entry-right {
+            width: 100%;
+        }
+    }
+}
+
+@media all and (max-width: 768px) {
+    .academy-editor__title {
+        flex-direction: column;
+        &-textfield {
+            width: 100%;
+            .academy-editor {
+                &__title-input {
+                    margin-bottom: 15px;
+                }
+            }
+
+            .inside {
+                margin-bottom: 15px;
+            }
+        }
+
+        &-submit {
+            width: 100%;
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .academy-editor {
+        .academy-postbox {
+            &__body {
+                .meta-tabs {
+                    display: block;
+                    .meta-tab-content {
+                        .meta-field {
+                            flex-direction: column;
+                            &__body {
+                                display: flex;
+                                flex-direction: column;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 385px) {
+    .academy-editor {
+        &__content-meta {
+            .meta-field {
+                &--announcements {
+                    flex-direction: column;
+                    .meta-field__label {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

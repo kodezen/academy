@@ -1,0 +1,718 @@
+// =============================================================================
+// Learn-page quiz — shared, modern restyle.
+// Both render paths (React QuizContent + PHP templates/curriculums/quiz/*)
+// use the same class namespace, so this one stylesheet revamps both. Uses
+// --academy-* tokens and fluid layout; !important overrides the legacy
+// fixed-pixel / hard-coded-hex quiz rules.
+// =============================================================================
+
+$aq-radius: 14px;
+$aq-radius-sm: 10px;
+
+.academy-lessons-content__quiz {
+	padding: 0;
+}
+
+// ---- shared quiz card shell (start / taking / expire) ----
+// The quiz uses the same content column as lessons/assignments; width is
+// governed by the shared `.academy-lessons-content` max-width (1140px), so the
+// quiz must NOT impose its own narrower cap or it looks inconsistent. Fill the
+// column and drop every legacy fixed-pixel width.
+.academy-lesson-quiz-start,
+.academy-lesson-quiz {
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 auto !important;
+}
+
+// -----------------------------------------------------------------------------
+// START CARD
+// -----------------------------------------------------------------------------
+.academy-lesson-quiz__start {
+	width: 100% !important;
+	height: auto !important;
+	background: var(--academy-surface-color) !important;
+	border: 1px solid var(--academy-border-color);
+	border-radius: $aq-radius;
+	box-shadow: none;
+	overflow: hidden;
+}
+
+.academy-lesson-quiz__quizpress {
+	width: 100% !important;
+	height: auto !important;
+	background: var(--academy-surface-color) !important;
+	border: 1px solid var(--academy-border-color);
+	border-radius: $aq-radius;
+	box-shadow: none;
+	overflow: hidden;
+	margin-top: 1rem;
+}
+
+.academy-quiz-start {
+	width: 100% !important;
+	height: auto !important;
+	background: var(--academy-surface-color) !important;
+	border: none !important;
+	padding: 28px 30px !important;
+
+	&__top {
+		text-align: center;
+		margin-bottom: 22px;
+
+		h5 {
+			display: inline-block;
+			font-size: 12px !important;
+			font-weight: 800 !important;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: var(--academy-primary-color) !important;
+			background: var(--academy-secondary-color);
+			padding: 4px 12px;
+			border-radius: 20px;
+			margin: 0 0 12px !important;
+		}
+
+		h3 {
+			font-size: 22px !important;
+			line-height: 1.3 !important;
+			color: var(--academy-text-color-black) !important;
+			margin: 0 !important;
+		}
+	}
+
+	&__description {
+		margin-top: 8px;
+		font-size: 14px;
+		color: var(--academy-secondary-gray-color);
+
+		// The description is arbitrary rich-text HTML (p, ul, ol …) whose
+		// last child keeps its own bottom margin, which stacks on top of
+		// `&__top`'s margin-bottom and inflates the gap before `&__body`.
+		> *:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__body {
+		width: 100% !important;
+		height: auto !important;
+		// Clean bordered card instead of a flat gray fill.
+		background: var(--academy-surface-color) !important;
+		border: 1px solid var(--academy-border-color);
+		border-radius: $aq-radius-sm;
+		padding: 6px 22px !important;
+		margin: 0 auto 24px !important;
+	}
+
+	&__details {
+		p {
+			display: flex !important;
+			align-items: center;
+			justify-content: space-between;
+			gap: 14px;
+			margin: 0 !important;
+			padding: 13px 0;
+			border-bottom: 1px solid var(--academy-border-color);
+			font-size: 14px;
+			color: var(--academy-secondary-gray-color);
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			span:last-child {
+				font-weight: 700;
+				color: var(--academy-text-color);
+			}
+		}
+	}
+
+	&__buttons {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+// Compact quiz buttons — the shared `lg` Button is oversized in this context.
+.academy-quiz-buttons,
+.academy-quiz-start-button,
+.academy-quiz-start__buttons {
+	.academy-btn {
+		padding: 9px 20px !important;
+		min-height: 0 !important;
+		font-size: 13.5px !important;
+		line-height: 1.35 !important;
+		justify-content: center;
+	}
+}
+
+.academy-quiz-start-button,
+.academy-quiz-start__buttons {
+	.academy-btn {
+		min-width: 150px;
+	}
+}
+
+// -----------------------------------------------------------------------------
+// TAKING FLOW
+// -----------------------------------------------------------------------------
+.academy-lesson-quiz__inner {
+	background: var(--academy-surface-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: $aq-radius;
+	box-shadow: none;
+	overflow: hidden;
+}
+
+// header row: question no · attempts · timer
+.academy-lesson-quiz__header {
+	display: flex !important;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 22px !important;
+	background: var(--academy-gray-color) !important;
+	border-bottom: 1px solid var(--academy-border-color);
+}
+
+.academy-quiz-head-item {
+	font-size: 13px;
+	color: var(--academy-secondary-gray-color);
+	font-weight: 600;
+
+	&--time,
+	.academy-quiz-timer {
+		margin-left: auto;
+	}
+}
+
+.academy-quiz-timer {
+	// `!important` on every `color` in this block: an old pre-redesign rule
+	// a few lines up (`.academy-lesson-quiz__header .academy-quiz-head-item--time
+	// span { color: #333 }`) targets ANY span nested in the time slot — which
+	// this pill and its `__label`/`__value` spans all are — at specificity
+	// (0,0,4,1), four tiers above this component's single-class selectors.
+	// Without it every tier silently rendered as flat #333 text regardless
+	// of tint/background, defeating the whole point of the color escalation.
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 6px 14px;
+	border-radius: 20px;
+	background: rgba(123, 104, 238, 0.1);
+	border: 1px solid rgba(123, 104, 238, 0.25);
+	font-size: 12.5px;
+	font-weight: 700;
+	color: var(--academy-primary-color) !important;
+	font-variant-numeric: tabular-nums;
+	transition: background-color 0.25s ease, border-color 0.25s ease,
+		color 0.25s ease;
+
+	// "Hide quiz time": the timer keeps running (it decides expiry) but must
+	// not leave its empty pill behind.
+	&--hidden {
+		display: none;
+	}
+
+	&__icon {
+		flex-shrink: 0;
+	}
+
+	&__label {
+		font-weight: 600;
+		color: inherit !important;
+		opacity: 0.85;
+	}
+
+	&__value {
+		font-weight: 700;
+		letter-spacing: 0.2px;
+		color: inherit !important;
+	}
+
+	// Under a minute left: amber. Draws the eye without yet feeling alarming.
+	&--warning {
+		background: rgba(217, 119, 6, 0.12);
+		border-color: rgba(217, 119, 6, 0.32);
+		color: #d97706 !important;
+	}
+
+	// 6-10 seconds left: red tint + a soft pulsing ring and a gentle
+	// heartbeat scale, the same escalation pattern as checkout/exam
+	// countdown timers — impossible to miss without being jarring yet.
+	&--critical {
+		background: rgba(220, 38, 38, 0.12);
+		border-color: rgba(220, 38, 38, 0.35);
+		color: var(--academy-danger-color, #dc2626) !important;
+		animation: academy-quiz-timer-pulse 1s ease-in-out infinite;
+	}
+
+	// Last 5 seconds: a tint pulsing harder still just reads as "the same
+	// state, a bit more agitated" — flipping to a solid alarm badge with a
+	// faster, stronger pulse is what actually reads as a distinct, final
+	// moment.
+	&--final {
+		background: var(--academy-danger-color, #dc2626);
+		border-color: var(--academy-danger-color, #dc2626);
+		color: #fff !important;
+		animation: academy-quiz-timer-pulse-strong 0.8s ease-in-out infinite;
+
+		.academy-quiz-timer__label {
+			opacity: 0.85;
+		}
+	}
+
+	&--expired {
+		background: var(--academy-gray-color);
+		border-color: var(--academy-border-color);
+		color: var(--academy-secondary-gray-color) !important;
+		animation: none;
+	}
+}
+
+@keyframes academy-quiz-timer-pulse {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35);
+		transform: scale(1);
+	}
+	50% {
+		box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
+		transform: scale(1.045);
+	}
+}
+
+@keyframes academy-quiz-timer-pulse-strong {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+		transform: scale(1);
+	}
+	50% {
+		box-shadow: 0 0 0 6px rgba(220, 38, 38, 0);
+		transform: scale(1.05);
+	}
+}
+
+.academy-lesson-quiz__body {
+	width: 100% !important;
+	height: auto !important;
+	background: var(--academy-surface-color) !important;
+	padding: 24px 26px !important;
+
+	h3 {
+		font-size: 17px !important;
+		line-height: 1.5 !important;
+		color: var(--academy-text-color) !important;
+		margin: 0 0 6px !important;
+	}
+
+	// Clears the question image's alignment float (left/right) so the
+	// answer options below never wrap around it.
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+.academy-quiz-content {
+	font-size: 15px;
+	color: var(--academy-secondary-gray-color);
+	margin-bottom: 16px !important;
+}
+
+// Wraps <QuizAudioPlayer> when a question's description has an embedded
+// audio clip (Quiz.js) — same 16px spacing token as .academy-quiz-content
+// above it, since the player is block-level by default already.
+.academy-quiz-audio {
+	margin-bottom: 16px;
+}
+
+// Uploaded question image (Quiz.js / question-body.php), wrapped so its
+// builder-configured size/alignment settings (question_settings.image) can
+// be applied without disturbing the image's own intrinsic sizing.
+.academy-quiz-question-image-wrap {
+	display: block;
+	max-width: 100%;
+	margin: 0 0 16px;
+
+	.academy-quiz-question-image {
+		display: block;
+		width: 100%;
+		height: auto;
+		margin: 0;
+	}
+
+	.academy-quiz-question-image-caption {
+		margin-top: 8px;
+		font-size: 13px;
+		color: var(--academy-secondary-gray-color);
+		text-align: center;
+	}
+
+	&.academy-quiz-question-image--size-small {
+		width: 25%;
+	}
+	&.academy-quiz-question-image--size-medium {
+		width: 50%;
+	}
+	&.academy-quiz-question-image--size-large {
+		width: 75%;
+	}
+	&.academy-quiz-question-image--size-full {
+		width: 100%;
+	}
+
+	&.academy-quiz-question-image--align-left {
+		float: left;
+		margin-right: 16px;
+	}
+	&.academy-quiz-question-image--align-right {
+		float: right;
+		margin-left: 16px;
+	}
+	&.academy-quiz-question-image--align-center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+// Bare <img> fallback for any render path that hasn't adopted the wrapper
+// above (kept for backward compatibility).
+.academy-quiz-question-image {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0 0 16px;
+}
+
+// ---- answer options as clean selectable cards ----
+.academy-lesson-quiz-answer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.academy-quiz-answer {
+	display: flex !important;
+	align-items: center;
+	gap: 12px;
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 13px 15px !important;
+	border: 1.5px solid var(--academy-border-color) !important;
+	border-radius: $aq-radius-sm !important;
+	background: var(--academy-surface-color) !important;
+	cursor: pointer;
+	transition: 0.15s ease;
+	font-size: 14.5px;
+	color: var(--academy-text-color);
+
+	&:hover {
+		border-color: var(--academy-primary-color) !important;
+		background: var(--academy-secondary-color) !important;
+	}
+
+	// selected state — wrapper gets it when its input is checked
+	&:has(input:checked) {
+		border-color: var(--academy-primary-color) !important;
+		background: var(--academy-secondary-color) !important;
+	}
+
+	input[type='radio'],
+	input[type='checkbox'] {
+		accent-color: var(--academy-primary-color);
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+		cursor: pointer;
+	}
+
+	// The control holder: drop the legacy gray block + heavy padding, just let
+	// the styled radio/checkbox sit flush at the end of the row.
+	.academy-lesson-quiz-answer-input-wrapper {
+		margin-left: auto;
+		padding: 0 !important;
+		background: transparent !important;
+		border-radius: 0 !important;
+	}
+
+	&--image,
+	&--textAndImage,
+	&--image-answer {
+		flex-direction: column !important;
+		align-items: stretch !important;
+		width: auto !important;
+		padding: 12px !important;
+		gap: 12px;
+
+		.academy-image {
+			width: 100% !important;
+			height: 150px !important;
+			border-radius: $aq-radius-sm;
+			background-size: cover;
+			background-position: center;
+		}
+
+		// legacy `.academy-quiz-answer-image` wrapper (SingleChoice/MultipleChoice
+		// "image"/"textAndImage" cards) still carries a hard-coded 230px width and
+		// an offset drop-shadow sized for the old non-grid layout; neutralize both
+		// so the tile fits its grid track instead of bleeding into the next card.
+		.academy-quiz-answer-image {
+			width: 100% !important;
+			height: 150px !important;
+			box-shadow: none !important;
+			background: transparent !important;
+		}
+	}
+
+	// image-answer = image tile + a caption/answer text input beneath it
+	&--image-answer {
+		.academy-quiz-image-answer {
+			width: 100% !important;
+			height: auto !important;
+			background: transparent !important;
+			box-shadow: none !important;
+		}
+		.academy-lesson-quiz-image-answer-input {
+			width: 100%;
+			margin-top: 4px;
+		}
+	}
+}
+
+// grid for image-type answers — !important beats the deep legacy
+// `.academy-lessons … .academy-lesson-quiz-answer { display:flex }` selector.
+.academy-lesson-quiz-answer:has(.academy-quiz-answer--image),
+.academy-lesson-quiz-answer:has(.academy-quiz-answer--textAndImage),
+.academy-lesson-quiz-answer:has(.academy-quiz-answer--image-answer) {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+	gap: 14px !important;
+	align-items: start !important;
+}
+
+// short answer + image-answer text inputs + fill-in-the-blanks
+.academy-lesson-quiz-short-answer,
+.academy-lesson-quiz-image-answer-input {
+	width: 100%;
+	min-height: 90px;
+	padding: 12px 14px;
+	border: 1.5px solid var(--academy-border-color) !important;
+	border-radius: $aq-radius-sm;
+	font-family: inherit;
+	font-size: 14px;
+	background: var(--academy-surface-color);
+	color: var(--academy-text-color);
+	resize: vertical;
+
+	&:focus {
+		outline: none;
+		border-color: var(--academy-primary-color) !important;
+	}
+}
+
+.academy-lesson-quiz-image-answer-input {
+	min-height: 0;
+}
+
+.academy-blanks-input {
+	display: inline-block;
+	min-width: 90px;
+	padding: 4px 10px;
+	margin: 0 4px;
+	border: none;
+	border-bottom: 2px solid var(--academy-primary-color);
+	background: var(--academy-secondary-color);
+	border-radius: 6px 6px 0 0;
+	font-family: inherit;
+	font-size: 14px;
+	color: var(--academy-text-color);
+
+	&:focus {
+		outline: none;
+		background: var(--academy-surface-color);
+	}
+}
+
+// ---- taking nav buttons ----
+.academy-quiz-buttons {
+	display: flex !important;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 26px !important;
+	border-top: 1px solid var(--academy-border-color);
+	background: var(--academy-surface-color);
+
+	&__prevNext {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-left: auto;
+	}
+}
+
+// -----------------------------------------------------------------------------
+// TIME EXPIRED
+// -----------------------------------------------------------------------------
+.academy-lesson-quiz__expire-message {
+	display: flex !important;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 24px;
+	width: 100% !important;
+	background: var(--academy-surface-color) !important;
+	border: 1px solid var(--academy-border-color);
+	border-radius: $aq-radius;
+	padding: 28px 30px !important;
+}
+
+.academy-lesson-quiz__expire-image {
+	flex-shrink: 0;
+
+	img {
+		width: 140px;
+		height: auto;
+	}
+}
+
+.academy-lesson-quiz__expire {
+	width: auto !important;
+	height: auto !important;
+	flex: 1;
+	min-width: 240px;
+
+	.academy-quiz-expire-message {
+		font-size: 15px;
+		color: var(--academy-secondary-gray-color);
+		margin-bottom: 16px;
+	}
+}
+
+// -----------------------------------------------------------------------------
+// RESULTS SUMMARY (list header) — the attempts cards / answer review already
+// use modern token styles; just modernize the summary panel + legacy table.
+// -----------------------------------------------------------------------------
+.academy-quiz-result {
+	background: var(--academy-surface-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: $aq-radius;
+	padding: 22px 24px;
+	box-shadow: none;
+
+	.academy-quiz-heading,
+	> h3 {
+		font-size: 18px;
+		margin: 0 0 14px;
+		color: var(--academy-text-color-black);
+	}
+
+	&__details {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px 26px;
+
+		p,
+		> div {
+			display: flex;
+			flex-direction: column;
+			font-size: 13px;
+			color: var(--academy-dark-gray-color);
+
+			span:last-child,
+			b {
+				font-size: 15px;
+				font-weight: 700;
+				color: var(--academy-text-color);
+				margin-top: 2px;
+			}
+		}
+	}
+}
+
+// instructor feedback box + back button
+.academy-quiz-attempt-feedback {
+	background: var(--academy-surface-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: $aq-radius;
+	padding: 18px 22px;
+	margin-top: 18px;
+
+	.academy-quiz-attempt-entry-title {
+		font-size: 15px;
+		margin: 0 0 8px;
+		color: var(--academy-text-color-black);
+	}
+
+	&__message {
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__empty {
+		margin: 0;
+		font-size: 13.5px;
+		font-style: italic;
+		color: var(--academy-dark-gray-color);
+	}
+}
+
+// top-aligned back link — sits above the attempt heading, consistent across
+// all quiz result views (matches the React attempt-modal close/back affordance)
+.academy-quiz-attempt-back--top {
+	display: flex;
+	margin-bottom: 16px;
+
+	.academy-quiz-attempt-back__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px;
+		border: 1px solid var(--academy-border-color);
+		border-radius: 10px;
+		background: var(--academy-surface-color);
+		color: var(--academy-secondary-gray-color);
+		font-size: 13.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: 0.15s ease;
+
+		.academy-icon {
+			font-size: 14px;
+		}
+
+		&:hover {
+			border-color: var(--academy-primary-color);
+			color: var(--academy-text-color);
+			background: var(--academy-gray-color);
+		}
+	}
+}
+
+// score-status pills reused across result views
+.academy-passed {
+	color: var(--academy-success-color) !important;
+}
+.academy-failed {
+	color: var(--academy-danger-color) !important;
+}
+.academy-skipped,
+.academy-pending {
+	color: var(--academy-warning-color) !important;
+}
+
+@media (max-width: 600px) {
+	.academy-quiz-start,
+	.academy-lesson-quiz__body,
+	.academy-lesson-quiz__expire-message {
+		padding: 18px 16px !important;
+	}
+	.academy-quiz-buttons {
+		padding: 14px 16px !important;
+	}
+}

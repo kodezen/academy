@@ -1,0 +1,42 @@
+.academy-course-generate.academy-flex {
+    align-items: unset;
+}
+
+.academy-course-generate {
+    &--container {
+        .academy-separator-wrap {
+            .academy-separator {
+                margin: 12px 0 12px 0;
+            }
+        }
+    }
+
+    &--builder {
+        .academy-column-items .academy-column-items {
+            .academy-accordion {
+                &__contents {
+                    border: 1px solid var(--academy-border-color);
+                    border-radius: 4px;
+                    padding: 12px;
+                }
+
+                &__title--open {
+                    border-bottom: 1px solid var(--academy-border-color);
+                    padding-bottom: 8px;
+                }
+            }
+        }
+    }
+
+    &__response {
+        h3, h4 {
+            margin: 0;
+        }
+    }
+}
+
+.academy-btn {
+    &--course-ai-generate {
+        width: 100%;
+    }
+}

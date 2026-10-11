@@ -1,0 +1,42 @@
+@forward './themeCompatibility/all_themes';
+@forward './themeCompatibility/astra';
+@forward './themeCompatibility/hello_academy';
+@forward './themeCompatibility/hello_elementor';
+@forward './themeCompatibility/neve';
+
+.academy-review_container {
+    [data-theme="block"] & {
+        position: relative;
+        .academy-review-thumnail {
+            img {
+                border-radius: 50%;
+            }
+
+        }
+
+        .academy-review-meta__author {
+            position: absolute;
+            left: 86px;
+            top: 0;
+        }
+
+        .academy-review-meta__published-date moment-init, time {
+            position: absolute;
+            left: 86px;
+            top: 26px;
+        }
+
+        .academy-review__rating {
+            position: absolute;
+            left: 86px;
+            top: 52px;
+        }
+
+        .academy-review_container__edit-btn {
+            padding: 0;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}

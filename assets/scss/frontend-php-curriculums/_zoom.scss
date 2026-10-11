@@ -1,0 +1,185 @@
+.academy-zoom-content{
+    &--expire {
+        border: 1px solid #ED9700;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-weight: 500;
+        .academy-icon {
+            min-width: 50px;
+            display: flex;
+            justify-content: center;
+            &--information {
+                &::before{
+                    color: #ED9700;
+                }
+            }
+        }
+    }
+    &__wrapper{
+        padding: 45px;
+        background: var(--academy-gray-color);
+        min-height: 450px;
+    }
+    &__inner-wrapper {
+        padding: 35px;
+        background: var(--academy-background-gray-color);
+        border-radius: 16px;
+        min-height: 380px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    &__content-top{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        h3{
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 40px;
+            color: var(--academy-text-color);
+            margin: 0;
+            text-align: center;
+        }
+        .academy-zoom-schedule {
+            &__time {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+            &__details {
+                width: 132px;
+                height: 110px;
+                background: #FFFFFF;
+                border: 2px solid #121112;
+                border-radius: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .academy-time{
+                    &__value{
+                        margin: 0 0 -10px 0;
+                        font-weight: 500;
+                        font-size: 46px;
+                        line-height: 56px;
+                        color: var(--academy-primary-color);
+                    }
+                    &__unit {
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 26px;
+                        color: var(--academy-text-color);
+                    }
+                }
+            }
+            &__buttons {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                .academy-btn-zoom {
+                    background: transparent;
+                    color: var(--academy-primary-color)E;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 28px;
+                    border: none;
+                    cursor: pointer;
+                    .academy-icon {
+                        &--go-on {
+                            font-size: 18px;
+                            &::before{
+                                color: var(--academy-primary-color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__content-bottom{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    &__title {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 40px;
+        color: var(--academy-primary-color);
+    }
+    &__content {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 28px;
+        color: var(--academy-primary-color);
+    }
+
+    &__meeting-date, &__meeting-id, &__password, &__host-email, &__description {
+        display: flex;
+        gap: 30px;
+        .academy-zoom-details{
+            &__label {
+                min-width: 150px;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 28px;
+                color: var(--academy-text-color);
+            }
+            &__value {
+                font-weight: 400;
+                font-size: 17px;
+                line-height: 27px;
+                color: var(--academy-text-color);
+                word-break: break-all;
+            }
+        }
+    }
+} 
+
+@media all and (max-width: 480px) {
+    .academy-zoom-content {
+        &__wrapper{
+            padding: 20px;
+        }
+        &__inner-wrapper {
+            padding: 10px 18px;
+        }
+        &__meeting-date, &__meeting-id, &__password, &__host-email {
+            flex-direction: column;
+            gap: 5px;
+        }
+        &__content-top {
+            h3 {
+                font-size: 26px;
+            }
+            .academy-zoom-schedule{
+                &__buttons {
+                    gap: 15px;
+                }
+                &__details {
+                    width: 110px;
+                }
+            }
+        }
+        &__content-bottom{
+            width: 100%;
+        }
+        &--expire {
+            gap: 5px;
+            padding: 10px;
+            font-size: 14px;
+            .academy-icon {
+                min-width: 30px;
+            }
+        }
+    }
+} 

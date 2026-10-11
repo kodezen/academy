@@ -1,0 +1,25 @@
+.academy-bulk-purchase-modal-radio {
+    justify-content: unset !important;
+    gap: 12px;
+
+    &--select {
+        flex-direction: row-reverse !important;
+        label{
+            white-space: nowrap;
+        }
+    }
+}
+
+.academy-react-modal--bulk-purchase {
+    .academy-react-modal__content {
+        .academy-column-items {
+            .academy-select {
+                .academy-react-select__menu {
+                    .academy-react-select__menu-list {
+                        max-height: 140px !important;
+                    }
+                }
+            }
+        }
+    }
+}

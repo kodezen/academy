@@ -1,0 +1,72 @@
+.academy-price-field {
+    .meta-field {
+        &--woocommerce {
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 16px;
+            label {
+                padding: 0 !important;
+            }
+            &__body {
+                display: flex;
+                flex-direction: row !important;
+                align-items: center;
+                gap: 0 !important;
+                input[type=number] {
+                    width: 212px !important;
+                    height: 42px !important;
+                    border-radius: 4px 0 0 4px;
+                    margin: 0;
+                    border: 1px solid var(--academy-border-color);
+                    &:focus {
+                        border-color: none !important;
+                        box-shadow: none;
+                        outline: none;
+                    }
+                }
+                .academy-span {
+                    background: var(--academy-gray-color);
+                    font-size: 14px;
+                    line-height: 20px;
+                    border: 1px solid var(--academy-border-color);                    
+                    border-left: none;
+                    padding: 10px 12px;
+                    border-radius: 0 4px 4px 0;
+                }
+            }
+        }
+        .academy-input {
+            display: flex;
+            align-items: center;
+            padding: 0;
+            input[type=number] {
+                height: 38px !important;
+                border-radius: 4px 0 0 4px;
+                border-right: none;
+                margin: 0;
+                border: none;
+                &:focus {
+                    border-color: none !important;
+                    box-shadow: none;
+                    outline: none;
+                }
+            }
+            span {
+                background: var(--academy-background-gray-color);
+                padding: 9px 14px;
+                line-height: 20px;
+                border-left-width: 0;
+                border-radius: 0 4px 4px 0;
+            }
+            .academy-span {
+                background: var(--academy-gray-color);
+                font-size: 14px;
+                line-height: 20px;
+                border: 1px solid var(--academy-border-color);
+                padding: 10px 12px;
+                border-radius: 0 4px 4px 0;
+                border-left: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,114 @@
+.academy-lesson-content-prev-next-btn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+.academy-btn--previous-lesson,
+.academy-btn--next-lesson {
+    background: var(--academy-primary-color);
+    color: #fff;
+    border-radius: 0;
+    padding: 0;
+    height: 50px;
+    position: absolute !important;
+    top: 50% !important;
+    margin-top: -25px;
+    visibility: hidden;
+    overflow: visible !important;
+    opacity: 0;
+    transition: all .5s ease;
+    z-index: 1001;
+    pointer-events: auto;
+    &::after {
+        display: none;
+    }
+    .academy-icon{
+        &::before {
+            color: #fff;
+        }
+    }
+    .academy-btn__label {
+        display: none;
+        opacity: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+        transition: all .5s ease;
+    }
+    .academy-btn__icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    &.academy-btn--disabled {
+        visibility: hidden;
+    }
+}
+.academy-btn--previous-lesson {
+    left: 0;
+    &:hover{
+        .academy-btn__label {
+            opacity: 1;
+            display: block;
+        }
+    }
+}
+.academy-btn--next-lesson {
+    right: 0;
+    &:hover{
+        right: 0;
+        .academy-btn__label {
+            opacity: 1;
+            display: block;
+        }
+    }
+}
+
+.academy-lessons-content-scroll .academy-lessons-content .academy-btn--next-lesson {
+    right: 400px;
+}
+
+@media all and (max-width: 480px) {
+    .academy-lessons-content {
+        .academy-lesson-content-prev-next-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: auto;
+            height: auto;
+            background: #fff;
+            box-shadow: none;
+            pointer-events: auto;
+            z-index: 1000;
+        }
+        .academy-btn--previous-lesson,
+        .academy-btn--next-lesson {
+            height: 50px;
+            position: static !important;
+            width: 50%;
+            margin: 8px 0;
+            pointer-events: auto;
+            .academy-btn__icon{
+                height: 35px;
+            }
+            .academy-btn__label {
+                display: block;
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -1,0 +1,267 @@
+.academy-editor-btn-image, .academy-editor-btn-settings {
+    border: none;
+    background: #FFECCA;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.academy-editor-btn-alignment, .academy-editor-text-color {
+    border: none;
+    background: var(--academy-gray-color);
+    padding: 0px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.academy-editor-bg-color {
+    border: none;
+    background: var(--academy-gray-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.academy-editor-btn {
+    border: none;
+    background: #FFECCA;
+    padding: 5px 10px;
+    border-radius: 4px;
+    &:not(:last-child) {
+        margin-left: 8px;
+    }
+    cursor: pointer;
+    &--html {
+        margin-bottom: 10px;
+        margin-left: 0 !important;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        .academy-icon {
+            margin-bottom: 1px;
+            &::before {
+                font-size: 10px;
+            }
+        }
+    }
+    &-alignment {
+        position: relative;
+    }
+}
+
+.academy-editor-alignment-dropdown {
+    position: absolute;
+    top: 36px;
+    left: 185px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 6px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.academy-input-textarea {
+    border: 1px solid var(--academy-border-color);
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
+    min-height: '400px';
+}
+
+// Color picker
+.academy-editor-btn-color-picker {
+    border: none;
+    background: #FFECCA;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    &__bg {
+        margin-left: 8px;
+    }
+}
+
+.academy-editor-color-picker {
+    position: relative;
+    display: inline-block;
+
+    &__dropdown {
+        background: #fff;
+        position: absolute;
+        top: 36px;
+        left: 0;
+        z-index: 1000;
+        background: '#fff';
+        border: 1px solid var(--academy-border-color);
+        border-radius: 6px;
+        padding: 12px;
+        box-shadow: var(--academy-shadow-overlay);
+        min-width: 240px;
+        max-width: 280px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        padding: 6px 8px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        font-size: 12px;
+    }
+
+    &__label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 10px;
+    }
+
+    &__inner {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0),
+            linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
+        background-size: 4px 4px;
+        background-position: 0 0, 2px 2px;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 2px;
+        position: relative;
+    }
+
+    &__colors {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 2px;
+        margin-bottom: 12px;
+    }
+
+    &__color {
+        width: 20px;
+        height: 20px;
+        background-color: var(--box-color);
+        border: 1px solid var(--academy-border-color);
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.1s ease;
+    }
+
+    &__selected {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 10px;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    &__custom-wrap {
+        border-top: 1px solid var(--academy-border-color);
+        padding-top: 12px;
+        margin-top: 8px;
+    }
+
+    &__custom {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 12px;
+        background-color: var(--academy-background-gray-color);
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        cursor: pointer;
+        color: var(--academy-text-color);
+        transition: all 0.1s ease;
+    }
+
+    &__set-color {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    &__color-input {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: transparent;
+    }
+
+    &__custom-input {
+        flex: 1;
+        padding: 6px 8px;
+        font-size: 12px;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        outline: none;
+    }
+}
+// Color picker
+
+// Default styles modifier for react-simple-wysiwyg
+.rsw-ce {
+    min-height: 300px;
+    max-height: 500px;
+    &:focus {
+        outline: none !important;
+    }
+}
+
+.rsw-toolbar {
+    flex-wrap: wrap;
+    row-gap: 8px;
+}
+// Default styles modifier for react-simple-wysiwyg
+
+.media-selected {
+    outline: 2px solid var(--academy-primary-color) !important;
+    outline-offset: 2px !important;
+}
+
+.academy-media-settings-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background: var(--academy-gray-color);
+    border: 1px solid var(--academy-border-color);
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.academy-media-settings-toolbar .academy-flex {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.academy-list-btn {
+    background: none;
+    border: 1px solid var(--academy-border-color);
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    min-width: 32px;
+    height: 32px;
+}
+
+.academy-list-btn:hover {
+    background-color: var(--academy-gray-color);
+    border-color: #999;
+}
+
+.academy-list-btn:active {
+    background-color: #e5e5e5;
+}

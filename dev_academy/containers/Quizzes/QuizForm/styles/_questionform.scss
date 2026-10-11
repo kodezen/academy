@@ -1,0 +1,219 @@
+.academy-question-form::-webkit-scrollbar {
+	width: 6px; /* Width of the scrollbar */
+	border-radius: 30px;
+}
+.academy-question-form::-webkit-scrollbar-thumb {
+  background-color: var(--academy-border-color); /* Color of the thumb */
+  border-radius: 30px; /* Rounded corners of the thumb */
+}
+.academy-question-form-wrap {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	position: relative;
+	border: 1px solid var(--academy-border-color);
+	&__heading {
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 24px;
+		// Not sticky: pinning to the page viewport collides with the sticky
+		// course-builder topbar on scroll.
+		padding: 16px 24px;
+		margin: 0;
+		border-bottom: 1px solid var(--academy-border-color);
+	}
+	&--header {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 12px;
+		padding: 0 0 16px 0;
+		margin-bottom: 16px;
+		border-bottom: 1px solid var(--academy-border-color);
+		.academy-btn {
+			&--question-submit, &--question-cancel {
+				background: var(--academy-secondary-color);
+				color: var(--academy-primary-color);
+			}
+		}
+	}
+	// Same actions repeated under the form so Save/Update is reachable without
+	// scrolling back up. Top divider instead of the header's bottom one.
+	&--footer {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 12px;
+		padding: 16px 0 0 0;
+		margin-top: 16px;
+		border-top: 1px solid var(--academy-border-color);
+		.academy-btn {
+			&--question-submit, &--question-cancel {
+				background: var(--academy-secondary-color);
+				color: var(--academy-primary-color);
+			}
+		}
+	}
+}
+
+.academy-question-form {
+	padding: 24px;
+	overflow-y: scroll;
+	// The input[type=number]/textarea rules below only ever set spacing —
+	// never background/color — so they rendered with the browser's default
+	// white background + black text regardless of theme.
+	input:not([type="checkbox"]):not([type="radio"]),
+	textarea {
+		background: var(--academy-surface-color);
+		color: var(--academy-text-color);
+		&::placeholder {
+			color: var(--academy-placeholder-color);
+		}
+	}
+	&--loading {
+		height: calc(100% - 64px);
+		width: 100;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.academy-question-form__field {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 24px;
+		.academy-form-group-d-flex {
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+			margin-top: 24px;
+			.academy-form-group--select {
+				width: 316px;
+				// High enough for its open dropdown to cover the adjacent
+				// Points field, but below the sticky editor topbar (z-index 99)
+				// so the closed control never paints over it on scroll.
+				z-index: 50;
+				// Matches the Point(s) number input's 44px height below so all
+				// three fields in the row sit flush instead of the select's 38px
+				// default leaving it shorter than its siblings.
+				.academy-custom-select--container {
+					min-height: 44px;
+				}
+			}
+		}
+		.academy-form-group {
+			margin-bottom: 20px;
+			input[type="number"] {
+				height: 44px;
+			}
+			&--negative-mark {
+				flex-direction: row;
+				gap: 16px;
+				label {
+					display: flex;
+					flex-direction: column;
+					flex: 1;
+					min-width: 0;
+					gap: 8px;
+					.academy-quiz-sub-title {
+						font-size: 12px;
+						color: var(--academy-secondary-gray-color);
+						font-weight: 400;
+					}
+				}
+				.academy-form-control {
+					width: 70px;
+					flex-shrink: 0;
+				}
+			}
+		}
+		.entry-left {
+			flex: 1;
+			min-width: 0;
+			.academy-btn--description {
+				padding: 4px;
+				font-size: 12px;
+				font-weight: 500;
+				line-height: 18px;
+				margin-bottom: 20px;
+			}
+			.academy-form-group {
+				&--title {
+					margin-bottom: 8px;
+				}
+				.academy-react-select__value-container {
+					height: 44px;
+				}
+				&--answer {
+					.academy-quiz-answer-label {
+						font-weight: 500;
+						font-size: 14px;
+						line-height: 19px;
+						color: var(--academy-text-color);
+						margin: 0;
+						margin-bottom: 20px;
+						padding-bottom: 16px;
+						border-bottom: 1px solid var(--academy-border-color);
+					}
+				}
+				&__loading-message {
+					padding: 30px;
+					text-align: center;
+					.academy-form-group-message {
+						font-weight: 500;
+						font-size: 20px;
+						line-height: 19px;
+						letter-spacing: 0.02em;
+						color: var(--academy-text-color);
+					}
+				}
+			}
+		}
+
+		.entry-right {
+			width: 300px;
+			flex-shrink: 0;
+			border: 1px solid var(--academy-border-color);
+			border-radius: 8px;
+			padding: 16px;
+			.academy-question-setting__heading {
+				font-size: 16px;
+				font-weight: 500;
+				line-height: 24px;
+				padding:  0 0 16px 0;
+				margin: 0 0 16px 0;
+				border-bottom: 1px solid var(--academy-border-color);
+			}
+			.academy-form-group {
+				&--switch-control {
+					flex-direction: row;
+					align-items: center;
+					justify-content: space-between;
+				}
+				textarea {
+					min-height: 75px;
+				}
+			}
+			.academy-question-form-d-flex {
+				display: flex;
+				flex-direction: column;
+				flex-wrap: wrap;
+			}
+		}
+	}
+
+	.academy-btn {
+		&--bg-purple {
+			margin-top: 30px;
+		}
+	}
+}
+
+@media all and (max-width: 991px) {
+	.academy-question-form__field {
+		flex-direction: column;
+	}
+	.academy-question-form__field .entry-right {
+		width: 100%;
+	}
+}

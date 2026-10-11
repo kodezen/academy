@@ -1,0 +1,72 @@
+#wpbody-content, #wpcontent {
+    padding: 0 !important;
+    font-size: 14px;
+    color: var(--academy-text-color);
+    background: var(--academy-background-gray-color);
+}
+.academywrap {
+    position: relative;
+    min-height: calc(100vh - 100px);
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    .academy-topbar {
+        position: sticky;
+        top: 32px;
+        left: 160px;
+        // Fill the screen whatever box sizing the page uses; the course
+        // editor's border-box sizing used to leave a 50px gap on the right.
+        box-sizing: border-box;
+        width: 100%;
+        z-index: 99;
+    }
+}
+
+// Placeholders: lighter than typed text and in the same font as it.
+::placeholder {
+    color: var(--academy-placeholder-color);
+    font-family: inherit;
+    font-weight: 400;
+    opacity: 1; /* Firefox */
+}
+
+.academy-react-select__placeholder {
+    color: var(--academy-placeholder-color) !important;
+}
+
+input, textarea, select {
+    color: var(--academy-text-color);
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+// :where() so this contributes zero specificity on the descendant side —
+// third-party content mounted inside Academy's app (e.g. Easy Content
+// Manager's field renderer, embedded via ecm.react-editor.register-*
+// filters) can rely on its OWN icon-font rules like `.dashicons { ... }`
+// (same specificity as a plain `*` here) to still win regardless of
+// stylesheet load order, instead of silently losing its glyphs to this
+// blanket text-font override.
+:where(.academywrap) * {
+    font-family: inherit;
+}
+
+// The embedded @kodezen editor assumes the host page applies a global
+// `box-sizing: border-box` (as Tailwind preflight normally does) — it only sets
+// it explicitly on a handful of panels. Academy ships Tailwind preflight OFF,
+// so every other editor element falls back to `content-box` and its panels/
+// controls size incorrectly (padding + borders pushed outside the width),
+// which reads as "editor styles not loading". Supply border-box scoped to the
+// editor (its root subtree + any portalled `emb-` element such as dropdowns/
+// modals) without changing the rest of the preflight-off admin UI.
+.emb-embed-root,
+.emb-embed-root *,
+.emb-embed-root *::before,
+.emb-embed-root *::after,
+[class^="emb-"],
+[class^="emb-"] *,
+[class*=" emb-"],
+[class*=" emb-"] * {
+    box-sizing: border-box;
+}

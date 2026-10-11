@@ -1,0 +1,163 @@
+<?php
+namespace Academy\Classes;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+
+class FileUpload {
+
+	/**
+	 * Server-executable / dangerous extensions that must never be written to the
+	 * public academy_uploads directory, regardless of the per-call allowlist.
+	 * Blocking these prevents an uploaded file (or a file inside an uploaded zip)
+	 * from being executed as a webshell.
+	 *
+	 * `htm`/`html` are blocked as stored script; `.htaccess` and `.shtml` because
+	 * they can change how the web server executes other files in the directory
+	 * (handlers, SSI).
+	 *
+	 * @return string[]
+	 */
+	protected function get_disallowed_extensions() {
+		return apply_filters( 'academy/upload_disallowed_extensions', array(
+			'php',
+			'php3',
+			'php4',
+			'php5',
+			'php7',
+			'php8',
+			'pht',
+			'phtml',
+			'phps',
+			'phar',
+			'shtml',
+			'cgi',
+			'pl',
+			'asp',
+			'aspx',
+			'jsp',
+			'jspx',
+			'htaccess',
+			'htm',
+			'html',
+			'exe',
+			'so',
+			'dll',
+			'sh',
+			'bat',
+			'com',
+		) );
+	}
+
+	/**
+	 * @param string $ext File extension (without dot).
+	 * @return bool True when the extension is disallowed.
+	 */
+	protected function is_disallowed_extension( $ext ) {
+		return in_array( strtolower( (string) $ext ), $this->get_disallowed_extensions(), true );
+	}
+
+	public function upload_file( $file, $supported_file_types = [] ) {
+		if ( ! empty( $file ) && ! empty( $file['name'] ) ) {
+			$filename = $file['name'];
+			do_action( 'academy/before_upload_file', $filename );
+		}
+
+		$this->create_folder();
+
+		$results = array(
+			'error' => apply_filters( 'academy/file_upload_error_message', __( 'Error occurred, please try again', 'academy' ) ),
+			'path' => '',
+			'url' => '',
+			'file_name' => ''
+		);
+
+		$path = ( isset( $file['name'] ) ) ? sanitize_text_field( $file['name'] ) : '';
+		$ext  = pathinfo( $path, PATHINFO_EXTENSION );
+
+		// Never write an executable file into the public uploads folder, even
+		// when the caller passes no allowlist.
+		if ( $this->is_disallowed_extension( $ext ) ) {
+			return apply_filters( 'academy/not_supported_upload_file_error_message', __( 'Invalid file extension', 'academy' ) );
+		}
+
+		if ( count( $supported_file_types ) && ! in_array( $ext, $supported_file_types, true ) ) {
+			return apply_filters( 'academy/not_supported_upload_file_error_message', __( 'Invalid file extension', 'academy' ) );
+		}
+
+		$filename    = md5( time() ) . basename( $path );
+		$file        = ( isset( $file['tmp_name'] ) ) ? file_get_contents( sanitize_text_field( $file['tmp_name'] ) ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown -- local file, not a remote URL
+		$upload_file = wp_upload_bits( $filename, null, $file );
+
+		if ( $upload_file['error'] ) {
+			$results['error'] = $upload_file['error'];
+			return $results;
+		}
+
+		// Both paths are inside the uploads dir (the one writable location, also on VIP),
+		// and WP_Filesystem may need FTP credentials here — so a plain rename.
+		rename( $upload_file['file'], $this->get_file_path( $filename ) ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_rename, WordPress.WP.AlternativeFunctions.rename_rename -- move within uploads, see above
+
+		$file_data  = $this->get_file_data( $filename );
+		$results['error'] = '';
+		$results['path']        = $file_data['path'];
+		$results['url']         = $file_data['url'];
+		$results['file_name']   = $filename;
+
+		return $results;
+	}
+
+	public function get_file_data( $filename ) {
+		return array(
+			'path' => $this->get_file_path( $filename ),
+			'url' => $this->get_file_url( $filename ),
+		);
+	}
+
+	public function get_file_path( $filename ) {
+		return $this->get_upload_dir() . '/' . $filename;
+	}
+
+	public function get_file_url( $filename ) {
+		return $this->get_upload_url() . '/' . $filename;
+	}
+
+	public function get_upload_url() {
+		$upload     = wp_upload_dir();
+		$upload_url = $upload['baseurl'];
+		$upload_url = $upload_url . '/academy_uploads';
+		return $upload_url;
+	}
+
+	public function get_upload_dir() {
+		$upload     = wp_upload_dir();
+		$upload_dir = $upload['basedir'];
+		$upload_dir = $upload_dir . '/academy_uploads';
+		return $upload_dir;
+	}
+	public function create_folder() {
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . '/wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+		$upload_dir = $this->get_upload_dir();
+
+		if ( ! $wp_filesystem->is_dir( $upload_dir ) ) {
+			wp_mkdir_p( $upload_dir );
+		}
+	}
+	public function delete_file( $file_name ) {
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . '/wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+		if ( is_dir( $file_name ) ) {
+			return $wp_filesystem->rmdir( $file_name, true );
+		}
+		return false;
+	}
+}

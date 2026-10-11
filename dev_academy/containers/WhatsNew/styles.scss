@@ -1,0 +1,39 @@
+// Rules kept here are intentionally not converted to Tailwind:
+// - `content: url()` replaces a real element's content with the logo image
+// - icon-font (`academy-icon`) color/size overrides — icon spans stay untouched
+// - override of the shared `.academy-btn` component's generated modifier class
+
+.academy-whatsnew__logo-icon {
+    width: 54px;
+    content: url("../../../assets/images/logo.svg");
+}
+
+.academy-whatsnew__changelogs-list {
+    span:nth-child(1) {
+        color: #0AAB2D;
+    }
+}
+
+.academy-whatsnew__reviews-rating {
+    .academy-icon--star {
+        color: #FFB800;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.academy-whatsnew .academy-btn--compare {
+    color: var(--academy-text-color);
+    background: var(--academy-surface-color);
+    width: fit-content;
+
+    .academy-icon--rocket1 {
+        &::before {
+            font-size: 20px;
+        }
+    }
+
+    &:hover {
+        background: var(--academy-surface-color);
+    }
+}

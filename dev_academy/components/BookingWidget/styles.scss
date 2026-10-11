@@ -1,0 +1,253 @@
+.academy-widget {
+    &--calendar{
+        display: flex;
+        gap: 30px;
+        .academy-custom-select {
+            &--time-zone {
+                background: var(--academy-surface-color);
+                .academy-custom-select--container {
+                    width: 240px;
+                }
+            }
+
+            &--time-format {
+                background: var(--academy-surface-color);
+            }
+        }
+        .academy-calendar{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .academy-time-fields{
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                .academy-select {
+                    &--time-format{
+                        width:30%;
+                    }
+                    &--time-zone{
+                        width: 70%;
+                    }
+                }
+            }
+            .react-calendar {
+                border: 1px solid var(--academy-border-color);
+                border-radius: 8px;
+                padding: 15px;
+                width: 350px;
+            }
+        }
+
+        .academy-booking-slots{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 280px;
+            max-height: 400px;
+            overflow-y: auto;
+            transition: all ease 0.4s;
+            h3 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 500;
+                padding: 0 0 10px 0;
+            }
+            &--slot {
+                display: flex;
+                justify-content: center;
+                .academy-booking-slot{
+                    transition: all ease 0.4s;
+                    padding: 8px 10px;
+                    border: 1px solid var(--academy-primary-color);
+                    color: var(--academy-primary-color);
+                    display: flex;
+                    justify-content: center;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    width: 100%;
+                }
+            }
+            &--active {
+                gap: 10px;
+                justify-content: space-between;
+                button {
+                    padding: 8px 10px;
+                    background: var(--academy-primary-color);
+                    color: #fff;
+                    border: none;
+                    outline: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: all ease 0.6s;
+                }
+            }
+            &--slot-booked {
+                .academy-booking-slot{
+                    color: var(--academy-text-color);
+                    border-radius: 4px;
+                    background: var(--academy-gray-color);
+                    border: 1px solid var(--academy-border-color);
+                }
+            }
+        }
+    }
+}
+
+.academy-booking-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 500px;
+    .academy-form-group {
+        width: 100%;
+        &__label {
+            font-size: 16px;
+        }
+    }
+    button {
+        padding: 16px 20px;
+        background: var(--academy-primary-color);
+        color: #fff;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all ease 0.6s;
+    }
+}
+
+.react-calendar {
+	// Follow the theme font, not react-calendar's own Arial stack.
+	font-family: inherit;
+    .date-range-active {
+        padding: 0;
+        position: relative;
+        font-weight: 500;
+        pointer-events: unset !important;
+        background: var(--academy-secondary-color);
+        color: var(--academy-primary-color);
+        border-radius: 50%;
+        &:hover, &:focus {
+            background: var(--academy-primary-color);
+            color: #fff !important;
+        }
+    }
+    .date-selected {
+        background: var(--academy-primary-color) !important;
+        color: #fff !important;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        position: relative;
+        z-index: 999;
+    }
+    .react-calendar__tile--now {
+        background-color: transparent;
+        color: var(--academy-primary-color);
+        padding: 0;
+        position: relative;
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 38px;
+            left: 20px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--academy-primary-color);
+            z-index: 999;
+        }
+        &:hover {
+            background: var(--academy-primary-color);
+            color: #fff !important;
+        }
+    }
+    .react-calendar__tile--hasActive {
+        background: rgba(123, 104, 238, 0.2);
+        color: var(--academy-primary-color) !important;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        padding: 0;
+        &:hover {
+            background: var(--academy-primary-color);
+            color: #fff !important;
+        }
+    }
+    .inactive {
+        color: var(--academy-dark-gray-color);
+        pointer-events: none;
+    }
+}
+
+@media all and (max-width: 425px) {
+    .academy-widget {
+        &--calendar {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+@media all and (max-width: 375px) {
+    .academy-widget {
+        &--calendar {
+            .academy-calendar {
+                .react-calendar {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+// Learn page tutor booking calender date select for Astra theme
+.wp-theme-astra .academy-widget--calendar .academy-calendar .react-calendar {
+    .react-calendar__navigation {
+        color: var(--academy-text-color);
+        button {
+            padding: 12px;
+            background: var(--academy-background-gray-color);
+            color: var(--academy-text-color);
+            &:hover {
+                background: var(--academy-primary-color);
+                color: #fff;
+            }
+        }
+        .react-calendar__navigation__label {
+            white-space: nowrap;
+        }
+    }
+    .react-calendar__viewContainer {
+        .react-calendar__year-view, .react-calendar__decade-view, .react-calendar__century-view {
+            .react-calendar__year-view__months, .react-calendar__decade-view__years, .react-calendar__century-view__decades {
+                .react-calendar__tile {
+                    background: var(--academy-background-gray-color);
+                    color: var(--academy-text-color);
+                    &:hover {
+                        background: var(--academy-primary-color);
+                        color: #fff;
+                    }
+                }
+
+                .react-calendar__tile--now {
+                    height: auto;
+                    width: auto;
+                    border-radius: 4px;
+                    background: var(--academy-primary-color);
+                    color: #fff;
+                    abbr {
+                        color: #fff;
+                    }
+                    &::before {
+                        bottom: 32px;
+                        background: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

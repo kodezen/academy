@@ -1,0 +1,16 @@
+{
+    "name": "academylms/phpcs-vip",
+    "description": "Isolated WordPress VIP coding standards toolchain (dev-only, kept out of the committed plugin vendor/).",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "require-dev": {
+        "automattic/vipwpcs": "^3.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

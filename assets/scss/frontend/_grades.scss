@@ -1,0 +1,233 @@
+// Student "Grades" dashboard tab.
+// Server-rendered via templates/frontend-dashboard/pages/grades.php as a
+// collapsed accordion (one <details> per course) — a student can be enrolled
+// in far more courses than fit on screen as always-expanded cards, so only
+// the summary row (title, progress, quiz pass count, certificate) is visible
+// until a course is expanded. Scoped under .academy-grades-dashboard so it
+// is immune to theme table/link/details styling.
+
+.academy-grades-dashboard {
+	--ag-primary: var(--academy-primary-color, #6c5ce7);
+	--ag-border: var(--academy-border-color, #e5e7eb);
+	--ag-soft: #f5f6f9;
+	--ag-muted: #6b7280;
+	--ag-ink: #1f2430;
+
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--ag-ink);
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+}
+
+.academy-grades-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.academy-grades-course {
+	background: #fff;
+	border: 1px solid var(--ag-border);
+	border-radius: 5px;
+
+	&[open] {
+		.academy-grades-course__toggle {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__summary {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 14px 18px;
+		cursor: pointer;
+		list-style: none;
+
+		&::-webkit-details-marker {
+			display: none;
+		}
+	}
+
+	&__toggle {
+		flex: 0 0 auto;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		color: var(--ag-muted);
+		transition: transform 0.15s ease, background 0.15s ease;
+
+		.academy-icon {
+			font-size: 16px;
+		}
+	}
+
+	&__summary:hover &__toggle {
+		background: var(--ag-soft);
+	}
+
+	&__title {
+		flex: 1 1 220px;
+		min-width: 0;
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--ag-ink);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&__progress {
+		flex: 1 1 160px;
+		max-width: 220px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	&__quiz-stat {
+		flex: 0 0 auto;
+		font-size: 12px;
+		color: var(--ag-muted);
+		white-space: nowrap;
+	}
+
+	&__certificate {
+		flex: 0 0 auto;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--ag-primary);
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&__body {
+		padding: 0 18px 18px;
+		border-top: 1px solid var(--ag-border);
+		padding-top: 14px;
+	}
+
+	&__view-course {
+		margin: 0 0 10px;
+		font-size: 13px;
+
+		a {
+			color: var(--ag-primary);
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+.academy-grades-progress__track {
+	flex: 1 1 auto;
+	height: 6px;
+	background: var(--academy-gray-color);
+	border-radius: 99px;
+	overflow: hidden;
+}
+
+.academy-grades-progress__fill {
+	display: block;
+	height: 6px;
+	background: var(--ag-primary);
+	border-radius: 99px;
+}
+
+.academy-grades-progress__label {
+	flex: 0 0 auto;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--ag-muted);
+	white-space: nowrap;
+}
+
+.academy-grades-table-wrap {
+	overflow-x: auto;
+}
+
+.academy-grades-table {
+	width: 100%;
+	min-width: 480px;
+	border-collapse: collapse;
+	border: 1px solid var(--ag-border);
+	font-size: 13px;
+
+	thead th {
+		text-align: left;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--ag-muted);
+		background: var(--ag-soft);
+		padding: 10px 14px;
+		white-space: nowrap;
+		border-bottom: 1px solid var(--ag-border);
+	}
+
+	tbody td {
+		padding: 11px 14px;
+		vertical-align: middle;
+		border-bottom: 1px solid var(--ag-border);
+	}
+
+	// The last row keeps the same border-bottom as every other row rather than
+	// zeroing it out — with border-collapse: collapse, an explicit 0-width
+	// border on the last row can win the collapse against the table's own
+	// outer border in some browsers, leaving the bottom edge invisible.
+	// Matching widths/colors merge into one clean line with no such conflict.
+
+	// Status pills (.academy-passed/.academy-failed/.academy-draft) come from
+	// the shared common/status partial; shrink their default padding to fit
+	// inline in a table cell here instead of a full-width row.
+	.academy-passed,
+	.academy-failed,
+	.academy-pending,
+	.academy-draft {
+		display: inline-flex;
+		min-width: 0;
+		padding: 4px 12px;
+	}
+}
+
+@media (max-width: 640px) {
+	.academy-grades-course__summary {
+		flex-wrap: wrap;
+	}
+
+	.academy-grades-course__title {
+		flex-basis: 100%;
+	}
+
+	.academy-grades-course__progress {
+		flex: 1 1 auto;
+		max-width: none;
+		order: 3;
+	}
+
+	.academy-grades-course__quiz-stat {
+		order: 4;
+	}
+
+	.academy-grades-course__certificate {
+		order: 5;
+	}
+}

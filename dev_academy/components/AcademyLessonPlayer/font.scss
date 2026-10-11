@@ -1,0 +1,22 @@
+// The player's controls follow the theme font instead of their own font stack.
+.kzp {
+	font-family: inherit;
+
+	// The scrubber and volume sliders are plain `<input type="range">` elements
+	// that the player renders as the browser's native control tinted with
+	// `accent-color`. Some themes blanket every `input[type="range"]` with
+	// `appearance: none` and then paint their own `::-webkit-slider-thumb` /
+	// `::-webkit-slider-runnable-track` -- which bleeds onto our sliders and
+	// stacks a second, broken-looking control (a fat themed thumb and shadowed
+	// track) on top of ours. Force the native appearance back on just our two
+	// sliders so the theme's thumb/track pseudo-elements go inert and
+	// `accent-color` can style them again. The `.kzp`-scoped double-class
+	// selector outweighs a bare `input[type="range"]` rule, so no `!important`
+	// is needed here.
+	.kzp-scrubber,
+	.kzp-vol-range {
+		-webkit-appearance: auto;
+		appearance: auto;
+		accent-color: #fff;
+	}
+}

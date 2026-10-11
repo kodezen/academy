@@ -1,0 +1,26 @@
+.academy-react-modal {
+    &--user-details {
+        .academy-react-modal {
+            &__content {
+                .academy-user-details__info-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    justify-content: center;
+                    &--item {
+                        display: flex;
+                        gap: 16px;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .academy-react-modal--user-details {
+        width: 100%;
+    }
+}

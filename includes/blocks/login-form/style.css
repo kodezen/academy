@@ -1,0 +1,18 @@
+/* Style presets for the form. */
+.wp-block-academy-login-form.is-style-card > * {
+	max-width: 480px;
+	margin-inline: auto;
+	padding: 2rem;
+	border: 1px solid var(--academy-border-color, #e4e7ec);
+	border-radius: 14px;
+	background: var(--academy-surface-color, #fff);
+	box-shadow: none;
+}
+
+.wp-block-academy-login-form.is-style-minimal > *,
+.wp-block-academy-login-form.is-style-minimal form {
+	padding: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+}

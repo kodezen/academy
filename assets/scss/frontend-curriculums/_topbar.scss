@@ -1,0 +1,264 @@
+.academy-lesson-topbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    gap: 30px;
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--academy-border-color);
+    background: var(--academy-surface-color);
+    z-index: 9998;
+    &--enabled {
+        position: relative;
+    }
+
+    &--not-enabled {
+        position: fixed;
+    }
+
+    .academy-btn {
+        &--angle-down{
+            visibility: hidden;
+        }
+    }
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .topbar-hr {
+            border: 1px solid var(--academy-border-color);
+            height: 12px;
+            margin: 0;
+        }
+        .academy-logo{
+            display: flex;
+            align-items: center;
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            img {
+                width: 40px;
+            }
+        }
+        .academy-course-title{
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            line-height: 24px;
+            margin-bottom: 2px;
+            a {
+                text-decoration: none;
+                color: var(--academy-text-color);
+            }
+        }
+    }
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        // Always pin the action menu to the far right, even if the left
+        // cluster (back + course title) is narrow or empty.
+        margin-left: auto;
+        .academy-btn--share {
+            padding: 0 8px;
+            height: 38px;
+        }
+        .academy-course-close {
+            border:1px solid var(--academy-primary-color);
+            padding: 12px;
+            border-radius: 4px;
+            height: 38px;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            .academy-icon {
+                margin-top: -2px;
+                &::before {
+                    color: var(--academy-primary-color);
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+.academy-btn {
+    &--angle-down {
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        .academy-icon {
+            &--angle-down {
+                &::before {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+
+.academy-course-progress{ 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    &__label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        cursor: pointer;
+        .academy-icon {
+            font-size: 6px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        p {
+            margin: 0;
+            font-size: 15px;
+            text-transform: capitalize;
+            min-width: 100px;
+        }
+    }
+    .academy-progress-details{
+        position: absolute;
+        width: 250px;
+        background-color: var(--academy-primary-color);
+        top: 60px;
+        left: -105px;
+        padding: 20px;
+        z-index: 9999;
+
+        &:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            top: -20px;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: var(--academy-primary-color) transparent transparent transparent;
+            rotate: 180deg;
+        }
+
+        p {
+            margin: 0;
+            color: #fff;
+            font-size: 12px;
+        }
+    }   
+}
+
+.academy-course-complete , .academy-course-progress {
+    &--header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        &:hover{
+            background: var(--academy-gray-color);
+            border-radius: 4px;
+            box-shadow: none;
+            color: var(--academy-primary-color);
+            outline: none !important;
+        }
+    p{
+        margin: 0;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 20px;
+        }
+    .academy-icon{
+        margin-bottom: 6px;
+        &--filled-checkmark::before {
+            font-size: 16px;
+            color: var(--academy-primary-color);
+        }}
+    }
+}
+
+@media all and (max-width: 768px) {
+    .academy-lesson-topbar{
+        position: unset;
+    }
+}
+@media all and (max-width: 480px) {
+    .academy-course-progress {
+        &__label {
+            p {
+                font-size: 12px;
+                min-width: 80px;
+            }
+        }
+        .academy-progress-details {
+            left: -40px;
+        }
+    }
+    .academy-lesson-topbar{
+        padding: 8px 12px;
+        gap: 0px;
+        &__left {
+            gap: 8px;
+            flex: 1;
+            min-width: 0; // let the course title truncate instead of overflowing
+            .academy-course-title {
+                margin-bottom: 4px;
+                a {
+                    font-size: 15px;
+                }
+            }
+        }
+        // Show the action cluster inline on mobile (was pushed off-screen).
+        &__right {
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .academy-btn {
+            &--angle-down{
+                visibility: visible;
+                position: relative;
+                padding: 10px;
+            }
+        }
+        &--relative-position {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            width: 100%;
+            height: 70px;
+            background-color: var(--academy-surface-color);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: none;
+            border: 1px solid var(--academy-border-color);
+            z-index: 998;
+        }
+        &--extended-height {
+            height: 120px;
+            column-gap: 56px;
+            row-gap: 0px;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            .academy-lesson-menu__options {
+                right: 50%;
+                transform: translateX(50%);
+            }
+        }
+        // Keep the ⋯ dropdown fully on-screen on mobile.
+        .academy-lesson-menu__options {
+            right: 0;
+        }
+    }
+}
+@media all and (max-width: 320px) {
+    .academy-lesson-topbar{
+        &--relative-position {
+            gap: 5px;
+        }
+    }
+}
+

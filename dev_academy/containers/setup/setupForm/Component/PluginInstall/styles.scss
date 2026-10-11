@@ -1,0 +1,66 @@
+.academy-install-plugin {
+    position: relative; 
+    &__top {
+        border: 1px solid var(--academy-border-color);
+        padding: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    &__label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+    }
+
+    &__left {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    &__title {
+        color: var(--academy-text-color);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+    }
+
+    &__subtitle {
+        color: var(--academy-secondary-gray-color);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+    &__description {
+        color: var(--academy-secondary-gray-color);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+    &__installed {
+        padding: 4px 8px;
+        background: #00AD6B;
+        color: #fff;
+        border-radius: 4px;
+    }
+    &__installing {
+        padding: 4px 16px;
+        border: 1px solid var(--academy-border-color);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        border-radius: 4px;
+        .academy-preloader  {
+            svg {
+                width: 18px;
+                height: 18px;
+                margin: 4px !important;
+            }
+        }
+    }
+}

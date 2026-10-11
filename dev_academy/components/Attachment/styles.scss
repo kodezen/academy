@@ -1,0 +1,144 @@
+.academy-upload-attachment {
+    background-color: var(--academy-surface-color);
+    display: flex;
+    flex-direction: row;
+    border: 1px dashed var(--academy-border-color);
+    gap: 24px;
+    padding: 14px;
+    border-radius: 10px;
+    min-height: 140px;
+    margin-top: 8px;
+    &--left {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 200px;
+        height: 140px;
+        background: var(--academy-gray-color);
+        border: 1px dashed var(--academy-border-color);
+        border-radius: 4px;
+        &__linear {
+            height: 80px;
+            width: 80px;
+            background: linear-gradient(180deg, rgba(229, 229, 229, 0.48) 50%, rgba(247, 248, 248, 0.00) 100%, rgba(229, 229, 229, 0.00) 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &--img {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--academy-surface-color);
+                border: 1px solid var(--academy-border-color);
+                height: 56px;
+                width: 56px;
+                border-radius: 50%;
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        &__uploaded {
+            &__large img {
+                width: 100%;
+                height: 140px;
+                margin-top: 4px;
+                border-radius: 4px;
+            }
+
+            &__small {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 80px;
+                width: 80px;
+                background: linear-gradient(180deg, rgba(229, 229, 229, 0.48) 50%, rgba(247, 248, 248, 0.00) 100%, rgba(229, 229, 229, 0.00) 100%);
+                border-radius: 50%;
+                img {
+                    background: var(--academy-surface-color);
+                    border: 1px solid var(--academy-border-color);
+                    height: 56px;
+                    width: 56px;
+                    border-radius: 50%;
+                    padding: 12px;
+                }
+            }
+        }
+    }
+
+    &--right {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-grow: 1;
+        min-width: 0;
+        &--items {
+            flex: 1;
+            min-width: 0;
+            h3 {
+                font-size: 14px;
+                margin: 0 0 8px 0;
+                word-break: break-word;
+            }
+
+            p {
+                margin: 0 0 8px 0;
+                word-break: break-word;
+            }
+            
+            .academy-upload-label {
+                margin: 0 0 8px 0;
+                font-size: 14px;
+            }
+        }
+
+        .academy-btn-delete {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            // <button> doesn't inherit text color from its parent like other
+            // elements do (it's a form control with its own UA default,
+            // `buttontext` — effectively black) — without this the icon fell
+            // back to that default, invisible against a dark surface.
+            color: var(--academy-secondary-gray-color);
+            .academy-icon {
+                font-size: 20px;
+                &:hover {
+                    color: #FF4D4D;
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .academy-upload-attachment {
+        flex-direction: column;
+        gap: 16px;
+        &--left {
+            width: 100%;
+            min-height: 150px;
+        }
+    }
+}
+
+// Compact vertical layout for narrow containers (e.g. the lesson editor
+// sidebar), where the default 200px-min horizontal layout overflows.
+.academy-upload-attachment--vertical {
+    flex-direction: column;
+    gap: 16px;
+    .academy-upload-attachment--left {
+        width: 100%;
+        min-width: 0;
+        height: 150px;
+    }
+    .academy-upload-attachment--right {
+        width: 100%;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

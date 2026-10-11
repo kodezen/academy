@@ -1,0 +1,378 @@
+.academy-discover {
+	max-width: 1180px;
+	margin: 0 auto;
+
+	/* ---------- Hero ---------- */
+	&__hero {
+		position: relative;
+		overflow: hidden;
+		text-align: center;
+		background: linear-gradient(135deg, var(--academy-secondary-color), var(--academy-surface-color));
+		border: 1px solid var(--academy-border-color);
+		border-radius: 16px;
+		padding: 52px 32px;
+		margin: 24px 0 28px;
+	}
+
+	&__hero-inner {
+		position: relative;
+		z-index: 1;
+	}
+
+	&__hero-orbs {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	&__orb {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(28px);
+		opacity: 0.5;
+		will-change: transform;
+
+		&--1 {
+			width: 220px;
+			height: 220px;
+			top: -60px;
+			left: -40px;
+			background: radial-gradient(circle at 30% 30%, #7c8cff, transparent 70%);
+			animation: academy-discover-float-a 14s ease-in-out infinite;
+		}
+		&--2 {
+			width: 180px;
+			height: 180px;
+			bottom: -70px;
+			right: 6%;
+			background: radial-gradient(circle at 50% 50%, #34d399, transparent 70%);
+			animation: academy-discover-float-b 18s ease-in-out infinite;
+		}
+		&--3 {
+			width: 140px;
+			height: 140px;
+			top: 12%;
+			right: 18%;
+			background: radial-gradient(circle at 50% 50%, #fbbf24, transparent 70%);
+			animation: academy-discover-float-a 20s ease-in-out infinite reverse;
+		}
+	}
+
+	&__eyebrow {
+		display: inline-block;
+		font-size: 12px;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--academy-primary-color);
+		margin-bottom: 12px;
+	}
+
+	&__title {
+		font-size: 26px;
+		line-height: 1.35;
+		font-weight: 700;
+		max-width: 720px;
+		margin: 0 auto 12px;
+		color: var(--academy-text-color-black, var(--academy-text-color));
+	}
+
+	&__subtitle {
+		font-size: 15px;
+		line-height: 1.6;
+		max-width: 620px;
+		margin: 0 auto 22px;
+		color: var(--academy-secondary-gray-color, #6b7280);
+	}
+
+	&__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		padding: 11px 26px;
+		border-radius: 8px;
+		background: var(--academy-primary-color);
+		color: #fff;
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		box-shadow: 0 8px 20px -8px var(--academy-primary-color);
+		transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+
+		&:hover {
+			filter: brightness(0.97);
+			color: #fff;
+			transform: translateY(-1px);
+			box-shadow: 0 12px 26px -8px var(--academy-primary-color);
+		}
+	}
+
+	/* ---------- Toolbar (pills + search, wrapping as one row) ---------- */
+	&__toolbar {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		padding: 16px;
+		margin-bottom: 24px;
+		background: var(--academy-surface-color);
+		border: 1px solid var(--academy-border-color);
+		border-radius: 12px;
+	}
+
+	/* Pinned to the end of the row; wraps down with whichever pills don't fit. */
+	&__search {
+		margin-left: auto;
+	}
+
+	&__pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		padding: 8px 14px;
+		border-radius: 999px;
+		border: 1px solid var(--academy-border-color);
+		background: var(--academy-surface-color);
+		color: var(--academy-text-color);
+		font-size: 13px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.15s ease;
+
+		&:hover {
+			border-color: var(--academy-primary-color);
+			color: var(--academy-primary-color);
+		}
+
+		&.is-active {
+			background: var(--academy-primary-color);
+			border-color: var(--academy-primary-color);
+			color: #fff;
+
+			.academy-discover__pill-count {
+				background: rgba(255, 255, 255, 0.24);
+				color: #fff;
+			}
+		}
+	}
+
+	&__pill-count {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 20px;
+		height: 20px;
+		padding: 0 6px;
+		border-radius: 999px;
+		background: var(--academy-secondary-color, #eef2ff);
+		color: var(--academy-secondary-gray-color, #6b7280);
+		font-size: 12px;
+		font-weight: 600;
+	}
+
+	/* ---------- Sections & grid ---------- */
+	&__section {
+		margin-bottom: 36px;
+
+		&--row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 24px;
+		}
+	}
+
+	&__section-col {
+		flex: 1 1 280px;
+		min-width: 260px;
+	}
+
+	&__group {
+		font-size: 15px;
+		font-weight: 700;
+		margin: 0 0 16px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid var(--academy-border-color);
+		color: var(--academy-text-color);
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 20px;
+	}
+
+	/* ---------- Card ---------- */
+	&__card {
+		--card-accent: var(--academy-primary-color);
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		background: var(--academy-surface-color);
+		border: 1px solid var(--academy-border-color);
+		border-radius: 12px;
+		padding: 22px 20px 20px;
+		text-decoration: none;
+		box-shadow: 0 0.5px 2px rgba(16, 24, 40, 0.12);
+		transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+
+		&-top {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 3px;
+			background: var(--card-accent);
+			transform: scaleX(0);
+			transform-origin: left;
+			transition: transform 0.22s ease;
+		}
+
+		&:hover {
+			border-color: color-mix(in srgb, var(--card-accent) 55%, var(--academy-border-color));
+			transform: translateY(-4px);
+			box-shadow: 0 16px 30px -14px color-mix(in srgb, var(--card-accent) 60%, transparent);
+
+			.academy-discover__card-top {
+				transform: scaleX(1);
+			}
+
+			.academy-discover__card-badge {
+				transform: scale(1.06) rotate(-3deg);
+			}
+
+			.academy-discover__card-arrow {
+				transform: translateX(4px);
+			}
+		}
+
+		/* StoreEngine's brand is two-toned, so its hover state gets a
+		   matching gradient border + glow instead of the single-color
+		   accent every other card uses. */
+		&.academy-discover__card--storeengine:hover {
+			border-image: linear-gradient(135deg, #ff5000, #008dff) 1;
+			box-shadow:
+				-6px 6px 26px -16px rgba(255, 80, 0, 0.45),
+				6px -6px 26px -16px rgba(0, 141, 255, 0.45);
+		}
+
+		&-badge {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 44px;
+			height: 44px;
+			border: 1px solid;
+			border-radius: 8px;
+			background: transparent;
+			font-size: 18px;
+			font-weight: 700;
+			margin-bottom: 14px;
+			transition: transform 0.2s ease;
+
+			img {
+				width: 26px;
+				height: 26px;
+				object-fit: contain;
+			}
+		}
+
+		&-title {
+			font-size: 16px;
+			font-weight: 600;
+			margin: 0 0 6px;
+			color: var(--academy-text-color);
+		}
+
+		&-details {
+			font-size: 13px;
+			line-height: 1.55;
+			margin: 0 0 14px;
+			color: var(--academy-secondary-gray-color, #6b7280);
+		}
+
+		&-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+			margin-top: auto;
+			font-size: 13px;
+			font-weight: 600;
+			// Links read the same on every card; the card's own color stays
+			// on its top strip and badge.
+			color: var(--academy-primary-color);
+		}
+
+		&-arrow {
+			display: inline-block;
+			transition: transform 0.18s ease;
+		}
+	}
+
+	/* ---------- Empty state ---------- */
+	&__empty {
+		text-align: center;
+		padding: 56px 24px;
+		border: 1px dashed var(--academy-border-color);
+		border-radius: 12px;
+
+		h3 {
+			margin: 0 0 6px;
+			font-size: 17px;
+			font-weight: 700;
+			color: var(--academy-text-color);
+		}
+		p {
+			margin: 0 0 18px;
+			font-size: 14px;
+			color: var(--academy-secondary-gray-color, #6b7280);
+		}
+	}
+
+	&__reset {
+		padding: 9px 20px;
+		border-radius: 8px;
+		border: 1px solid var(--academy-primary-color);
+		background: transparent;
+		color: var(--academy-primary-color);
+		font-size: 13px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: 0.15s ease;
+
+		&:hover {
+			background: var(--academy-primary-color);
+			color: #fff;
+		}
+	}
+}
+
+@keyframes academy-discover-float-a {
+	0%,
+	100% {
+		transform: translate(0, 0);
+	}
+	50% {
+		transform: translate(24px, 18px);
+	}
+}
+
+@keyframes academy-discover-float-b {
+	0%,
+	100% {
+		transform: translate(0, 0);
+	}
+	50% {
+		transform: translate(-26px, -16px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.academy-discover__orb {
+		animation: none !important;
+	}
+}

@@ -1,0 +1,370 @@
+.academy-custom-select {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 4px;
+	&--disabled {
+		pointer-events: none;
+	}
+	.academy-components-control-label {
+		margin-bottom: 0;
+	}
+	&--container {
+		width: 100%;
+		min-height: 38px;
+		background: var(--academy-surface-color);
+		border: 1px solid var(--academy-border-color);
+		border-radius: 4px;
+		padding-right: 8px;
+		position: relative;
+		// A narrow fixed-width control (e.g. settings pages' 240px control
+		// column) plus a long selected value can otherwise push the ×/arrow
+		// past this box's own rounded corner instead of stopping at it.
+		overflow: hidden;
+
+		// Keyboard focus sits on the hidden trigger; show it on the box.
+		&:has(.academy-custom-select--trigger:focus-visible) {
+			border-color: var(--academy-primary-color);
+			box-shadow: 0 0 0 1px var(--academy-primary-color);
+		}
+	}
+	// Visually hidden, still focusable and still a `<label htmlFor>` target.
+	&--trigger {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+	&--inner-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: var(--academy-text-color);
+		// Same size as the options in the menu and the search input, so the
+		// selected value and the list read as one thing.
+		font-family: inherit;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		border-radius: 8px;
+		min-height: inherit;
+		cursor: pointer;
+	}
+	&--indicator {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		// Never let the value area's content (a long selected label, the ×
+		// clear button) squeeze this down — it's the fixed point of the
+		// row, not something that trades space with the text beside it.
+		flex-shrink: 0;
+		gap: 2px;
+		.academy-icon {
+			&--arrow-down {
+				font-size: 20px;
+			}
+		}
+		// Clear (×): beside the arrow, whatever the value's length.
+		.academy-remove-option {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 20px;
+			height: 20px;
+			padding: 0;
+			background: transparent;
+			border: none;
+			border-radius: 4px;
+			// The row's own colour, so a select drawn white-on-purple (the
+			// course editor's instructor picker) gets a white × too.
+			color: inherit;
+			cursor: pointer;
+			.academy-icon::before {
+				color: currentColor;
+				font-size: 10px;
+			}
+			&:hover .academy-icon::before {
+				color: var(--academy-primary-color);
+			}
+		}
+	}
+	&--single-value {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		// One value, one line: only a multi select grows to a second row.
+		flex-wrap: nowrap;
+		min-width: 0;
+		min-height: 36px;
+		position: relative;
+		.academy-select-single-label {
+			display: flex;
+			align-items: center;
+			flex: 1;
+			min-width: 0;
+			font-size: 14px;
+			line-height: 20px;
+			font-weight: 400;
+			color: var(--academy-text-color);
+			cursor: pointer;
+			// A long selected label (e.g. a page/post title) is cut to one
+			// line with an ellipsis, like a native text input would.
+			&--text {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				min-width: 0;
+			}
+		}
+		// The type-to-filter input lies over the selected label instead of
+		// taking a place beside it (which wrapped it onto a second line). The
+		// label stays readable until someone types, then it is hidden.
+		.academy-custom-select--input-container {
+			position: absolute;
+			inset: 0 0 0 8px;
+			display: flex;
+			align-items: center;
+		}
+		.academy-custom-select--search-option {
+			width: 100% !important;
+		}
+	}
+	&--multi-value {
+		padding: 2px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+		position: relative;
+		margin-left: 6px;
+		width: 100%;
+		.academy-select-default-text {
+			position: absolute;
+			left: 8px;
+		}
+		.academy-multi-select {
+			&--option {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-width: 0;
+				max-width: 100%;
+				padding: 4px;
+				gap: 4px;
+				border-radius: 4px;
+				background: var(--academy-gray-color);
+				&span {
+					padding: 2px 4px;
+				}
+
+				.academy-remove-option {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					padding: 0 4px;
+					min-height: 0;
+					height: 16px;
+					line-height: 1;
+					background: transparent;
+					border: none;
+					box-shadow: none;
+					outline: none;
+					cursor: pointer;
+					&:hover,
+					&:focus,
+					&:active {
+						background: transparent;
+						box-shadow: none;
+						outline: none;
+					}
+					.academy-icon {
+						&::before {
+							color: var(--academy-text-color);
+							font-size: 8px;
+						}
+					}
+				}
+			}
+			&--option-close {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: var(--academy-text-color);
+				&:hover {
+					color: #ffff;
+					background-color: rgba(255, 0, 0, 0.607);
+				}
+			}
+			// A long label wraps inside the chip; the line-height has to fit
+			// the font or wrapped lines draw on top of each other.
+			&--option-label {
+				min-width: 0;
+				padding: 0 0 0 4px;
+				font-size: 12px;
+				line-height: 16px;
+				overflow-wrap: anywhere;
+			}
+		}
+		&-close-option {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: var(--academy-text-color);
+			&:hover {
+				color: #ffff;
+				background-color: rgba(255, 0, 0, 0.607);
+			}
+		}
+	}
+	&--options {
+		position: absolute;
+		width: 100%;
+		padding: 4px 0;
+		max-height: 0;
+		border-radius: 6px;
+		margin-top: 3px;
+		background-color: var(--academy-surface-color);
+		// The border gives edge-definition once --academy-border-color flips to
+		// its lighter dark value; the shadow itself is overridden below for dark
+		// mode since a dark-tinted shadow disappears against a dark page.
+		border: 1px solid var(--academy-border-color);
+		box-shadow: var(--academy-shadow-overlay);
+
+		[data-academy-theme="dark"]:not([data-academy-user-theme="light"]) &,
+		[data-academy-user-theme="dark"] & {
+			// A shadow tinted from the light palette (rgba(19,25,27,...)) reads as
+			// near-black-on-black here. Deepen + widen it and add a faint light
+			// hairline glow so the popup visibly lifts off the dark page behind it.
+			box-shadow: 0px 12px 32px 0px rgba(0, 0, 0, 0.55),
+				0 0 0 1px rgba(255, 255, 255, 0.05);
+		}
+		opacity: 0;
+		z-index: 999;
+		overflow-y: auto;
+		// Thin, rounded scrollbar instead of hiding it outright — with a lot of
+		// options in view (e.g. the video source list once its addon-gated
+		// entries are added) there's otherwise no hint that more content sits
+		// below the fold.
+		scrollbar-width: thin;
+		scrollbar-color: var(--academy-border-color) transparent;
+		&::-webkit-scrollbar {
+			width: 6px;
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: var(--academy-border-color);
+			border-radius: 999px;
+		}
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: var(--academy-primary-color);
+		}
+		&--toggle {
+			max-height: 250px;
+			opacity: 1;
+		}
+		.academy-grouped-items {
+			margin-bottom: 4px;
+			&--title {
+				padding: 6px 12px;
+				margin: 0;
+				background: var(--academy-gray-color);
+				pointer-events: none;
+			}
+			.academy-no-data-message {
+				margin: 0;
+				padding: 4px 0;
+				text-align: center;
+			}
+		}
+	}
+	&--option {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		font-family: inherit;
+		font-size: 14px;
+		color: var(--academy-text-color);
+		padding: 8px 12px;
+		font-weight: 400;
+		line-height: 20px;
+		border-radius: 8px;
+		transition: background-color 0.2s ease-in-out;
+		cursor: pointer;
+		&:hover {
+			background: var(--academy-gray-color);
+		}
+		&--active {
+			background: var(--academy-gray-color);
+			font-weight: 500;
+			cursor: default;
+			&:hover {
+				background: var(--academy-gray-color);
+			}
+		}
+		&-label {
+			min-width: 0;
+			overflow-wrap: anywhere;
+		}
+		&-check {
+			flex-shrink: 0;
+			color: var(--academy-text-color);
+		}
+	}
+	&--box {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		position: relative;
+		// The value/text area, not the fixed-size arrow beside it (see
+		// `&--indicator`'s `flex-shrink: 0`), is what should give up space
+		// first when a long selected label doesn't fit the row.
+		min-width: 0;
+		.academy-custom-select--single-value {
+			padding-left: 8px !important;
+		}
+	}
+	&--input-container {
+		width: auto;
+		flex: 1 1 auto;
+	}
+	&--search-option {
+		min-width: 10px !important;
+		height: auto !important;
+		min-height: 20px !important;
+		font-family: inherit !important;
+		font-size: 14px !important;
+		line-height: 20px !important;
+		outline: none !important;
+		border: none !important;
+		padding: 0 0 !important;
+		cursor: pointer !important;
+		background: transparent !important;
+		&:focus {
+			outline: none !important;
+			border: none !important;
+			box-shadow: none !important;
+		}
+	}
+
+	&--default-text {
+		margin-left: 4px;
+	}
+}
+
+// Option label for a Pro-locked / addon-off item that still shows in the
+// list instead of vanishing — label text plus a trailing badge.
+.academy-select-option--locked {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}

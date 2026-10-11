@@ -1,0 +1,161 @@
+// Easy Content Manager renders its custom-taxonomy widget with its own
+// Chakra UI/Emotion styling, which doesn't pick up Academy's admin look at
+// all — it ships build-hashed classnames (`css-xxxxxx`) that change on every
+// ECM release, so this only ever targets ECM's stable structural classes and
+// the `data-scope`/`data-part` attributes its checkbox/button primitives
+// always carry, restyling it to match Academy's native
+// academy-widget--category taxonomy list and its academy-btn buttons (see
+// dev_academy/components/Term/styles.scss and assets/scss/common/_button.scss).
+.academy-widget--taxonomy{
+	.easy-content-manager-custom-filed-render {
+		> p {
+			font-size: 14px;
+			font-weight: 500;
+			line-height: 20px;
+			margin: 0 0 8px;
+			color: var(--academy-text-color);
+		}
+
+		.content-manager-search-component {
+			position: relative;
+			display: block;
+			margin-bottom: 8px;
+
+			&__input {
+				height: 38px;
+				width: 100%;
+				padding-left: 40px;
+				padding-right: 20px;
+				background: var(--academy-surface-color);
+				color: var(--academy-text-color);
+				border: 1px solid var(--academy-border-color);
+				border-radius: 4px;
+				box-shadow: none;
+			}
+
+			&__search {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 15px;
+				display: flex;
+				align-items: center;
+				font-size: 15px;
+				color: var(--academy-dark-gray-color);
+			}
+		}
+
+		.ecm-term-list {
+			max-height: 200px;
+			overflow: auto;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			[data-scope="checkbox"][data-part="root"] {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				// ECM's own editor CSS applies a generic `label { margin-bottom: 24px }`
+				// reset that isn't meant for these inline checkbox rows — kill it here.
+				margin-bottom: 0;
+				cursor: pointer;
+
+				// the nested-children wrapper always follows the checkbox
+				// label as a sibling inside the same row — indent it like
+				// .term-list__item .term-list__item does natively.
+				+ div:not(:empty) {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+					margin-left: 15px;
+				}
+			}
+
+			// !important throughout this rule: Chakra v3's own recipe CSS for
+			// this part (ECM now wraps the whole widget in its own
+			// `<ChakraProvider>`, added in the 1.2.6 update) competes for the
+			// exact same `[data-scope="checkbox"][data-part="control"]`
+			// selector at equal-or-higher priority and otherwise wins,
+			// rendering the control with no visible box at all (0-size,
+			// borderless) instead of the checkbox square below.
+			[data-scope="checkbox"][data-part="control"] {
+				display: inline-block !important;
+				width: 16px !important;
+				height: 16px !important;
+				flex-shrink: 0 !important;
+				border: 1px solid var(--academy-border-color) !important;
+				border-radius: 3px !important;
+				background: var(--academy-surface-color) !important;
+				box-shadow: none !important;
+
+				&[data-state="checked"] {
+					background: var(--academy-primary-color) !important;
+					border-color: var(--academy-primary-color) !important;
+				}
+
+				svg {
+					width: 10px !important;
+					height: 10px !important;
+					stroke: #fff !important;
+				}
+			}
+
+			[data-scope="checkbox"][data-part="label"] {
+				color: var(--academy-text-color) !important;
+				font-size: 13px !important;
+				font-weight: 400 !important;
+			}
+		}
+
+		button.chakra-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			border: 0;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: 500;
+
+			// the "+ Add New Category" trigger (identified by its plus icon,
+			// never by a build-hashed class) stays a plain text-link button.
+			&:has(.easy-content-manager-icon--simple-add) {
+				margin-top: 8px;
+				padding: 0;
+				background: transparent;
+				box-shadow: none;
+				font-weight: 400;
+				color: var(--academy-primary-color);
+
+				.easy-content-manager-icon--simple-add {
+					font-size: 14px;
+				}
+			}
+
+			// the create-form's Create/Cancel pair (the only other buttons ECM
+			// renders here) get Academy's real academy-btn--sm look: Create is
+			// first and primary (academy-btn--preset-purple), Cancel is its
+			// sibling (academy-btn--preset-gray).
+			&:not(:has(.easy-content-manager-icon--simple-add)) {
+				padding: 8px 14px;
+				font-size: 12px;
+				color: #fff;
+				background: var(--academy-primary-color);
+
+				+ button.chakra-button {
+					margin-left: 10px;
+					color: var(--academy-text-color);
+					background: var(--academy-gray-color);
+				}
+			}
+		}
+
+		.ecm-widget--taxonomy{
+			.ecm-widget__body > div > label{
+				margin-bottom: 12px !important;
+			}
+		}
+	}
+}

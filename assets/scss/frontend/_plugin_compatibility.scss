@@ -1,0 +1,11 @@
+// mangboard plugin compatibility
+
+@media (max-width: 768px) {
+  .mb-mobile{
+    .board-list{
+      table, table tbody, table td, table tr{
+        display: revert-layer;
+      }
+    }
+  }
+}

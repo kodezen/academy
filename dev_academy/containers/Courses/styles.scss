@@ -1,0 +1,111 @@
+// The "Instant YouTube Course" and "Add New Course" buttons on the Courses
+// list topbar — sized to match the Save & Continue split button
+// (SubmitBox/styles.scss's `.academy-status-split .academy-btn--split-primary`,
+// 8px vertical / 16px horizontal padding, vs. the base `.academy-btn`'s own
+// 10px/16px at the same specificity) and styled per the Figma reference
+// (node 13802:21650): a light-red YouTube button with its own icon, and the
+// existing purple Add button with a plus icon.
+.academy-btn--instant-youtube,
+.academy-btn--add-new-course {
+	padding: 8px 16px !important;
+	// A border matching the button's own background is there from the
+	// start (not just added on hover) — adding one only on `:hover` changed
+	// the box's content area at that moment, which read as the whole button
+	// jumping a pixel. Same size always; hover only swaps the border color.
+	// `!important`: `.academy-btn`'s own `border: 0` is the same specificity.
+	border: 1px solid transparent !important;
+}
+
+.academy-btn--instant-youtube {
+	// `!important`: `preset="transparent"` (`_button.scss`) sets its own
+	// unconditional `background`/`color` at the same specificity — whichever
+	// file the bundler happens to concatenate last would otherwise win.
+	//
+	// Every color here is a fixed literal, not a theme variable: this is a
+	// fixed light-red brand button (Figma node 13802:21650), same in light
+	// and dark admin theme. `--academy-text-color-black` flips to a
+	// near-white in dark mode (for text on surfaces that stay dark), which
+	// made the label unreadable against this button's always-light
+	// background — see the dark-mode override in includes/classes/global-css.php.
+	background: #ffeded !important;
+	color: #131d2b !important;
+	border-color: #ffeded;
+
+	&:hover,
+	&:focus {
+		background: #ffeded !important;
+		color: #131d2b !important;
+		border-color: #ff4d4d !important;
+	}
+
+	&__icon {
+		width: 20px;
+		height: auto;
+	}
+}
+
+.academy-btn--add-new-course {
+	border-color: var(--academy-primary-color);
+	// Explicit gap instead of relying on `.academy-btn--label`'s own
+	// padding (zeroed below) — the plus icon was rendering at the base
+	// `.academy-icon` size (inherits the button's 14px font-size), much
+	// bigger than the Figma reference's 10px glyph.
+	gap: 8px;
+
+	&:hover,
+	&:focus {
+		border-color: #ff4d4d;
+	}
+
+	.academy-btn--label {
+		padding: 0;
+	}
+
+	.academy-icon--plus {
+		// The glyph itself isn't centered in its own em-box (common with
+		// icon fonts) — `.academy-btn`'s `align-items: center` only
+		// centers this whole span, not the glyph drawn inside it, which is
+		// why it sat visibly low next to the label.
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+
+		&::before {
+			font-size: 10px;
+		}
+	}
+}
+
+// Empty Courses list: "Create your first course". The button sits inside a
+// router <Link>, whose admin link underline ran under the label.
+.academy-empty-courses__create {
+	display: inline-flex;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		box-shadow: none;
+	}
+}
+
+// Same plus as the topbar's "Add New Course" (above): a 10px glyph centred
+// beside the label, not the button's 14px.
+.academy-btn--first-course {
+	gap: 8px;
+
+	.academy-btn--label {
+		padding: 0;
+	}
+
+	.academy-icon--plus {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+
+		&::before {
+			font-size: 10px;
+		}
+	}
+}

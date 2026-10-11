@@ -1,0 +1,816 @@
+.academy-table {
+    border: 1px solid var(--academy-border-color);
+    border-radius: 8px;
+    box-shadow: none;
+    background: var(--academy-surface-color);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 24px;
+    &__container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1280px;
+    }
+
+    &__sub-header {
+        display: flex;
+        // `flex-end`, not `center`: every column here (tabs, search,
+        // Columns button) ends at this same line regardless of its own
+        // height, so the active tab's underline (anchored to the tab's own
+        // bottom edge, see below) is *guaranteed* to sit exactly on this
+        // row's shared `border-bottom` — not just approximately, the way
+        // matching padding numbers by hand across columns used to be.
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        border-bottom: 1px solid var(--academy-border-color);
+        .academy-btn {
+            padding: 8px 18px;
+            min-width: 120px;
+            &:hover {
+                border-color: var(--academy-primary-color);
+            }
+        }
+        .academy-table{
+            &__sub-header-left {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                width: 100%;
+                .academy-search-component {
+                    padding-bottom: 10px;
+                }
+
+                .academy-table-sub-header-tabs {
+                    display: flex;
+                    align-items: flex-end;
+                    .tab {
+                        // The 16px text-to-underline gap lives on the tab
+                        // itself now (not the container) — the `::after`
+                        // below sits at `bottom: 0`, i.e. this tab's own
+                        // bottom edge, which `flex-end` above pins to the
+                        // row's shared border no matter what.
+                        padding: 0px 12px 16px;
+                        color: var(--academy-text-color);
+                        cursor: pointer;
+                        position: relative;
+                        // Matches backend/_typography.scss's `.wp-admin
+                        // .academy-table-sub-header-tabs .tab` rule — that
+                        // one only reaches the wp-admin course builder
+                        // bundle, not this frontend/instructor dashboard
+                        // one, so without it here the tabs had no font-size
+                        // of their own and inherited whatever was ambient.
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height: 20px;
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 0;
+                            height: 1px;
+                            background: var(--academy-primary-color);
+                            transition: width 0.3s ease, left 0.3s ease, background 0.3s ease;
+                        }
+
+                        &:hover::after {
+                            width: 100%;
+                            left: 0;
+                        }
+
+                        &:hover {
+                            color: var(--academy-primary-color);
+                        }
+                    }
+
+                    .is-active {
+                        cursor: default;
+                        color: var(--academy-primary-color);
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 1px;
+                            background: var(--academy-primary-color);
+                            transition: width 0.3s ease, left 0.3s ease, background 0.3s ease;
+                        }
+                        &:hover::after {
+                            width: 100%;
+                            left: 0;
+                            background: var(--academy-primary-color);
+                        }
+                    }
+                }
+            }
+
+            &__sub-header-actions-left {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            &__sub-header-right {
+                .academy-table{
+                    &__sub-header-filter-icon {
+                        position: relative;
+                        padding-bottom: 10px;
+                    }
+                }
+
+                .academy-btn {
+                    &--table-column {
+                        height: 40px;
+                    }
+                }
+            }
+
+            &-sub-header-actions-right {
+                display: flex;
+                &--border {
+                    margin-left: 10px;
+                    height: 38px;
+                    width: 1px;
+                    background: var(--academy-border-color);
+                }
+                .academy-btn--export {
+                    height: 38px;
+                    background: transparent;
+                    border:1px solid var(--academy-border-color);
+                    gap: 10px;
+                    color: var(--academy-text-color);
+                    margin-left: 10px;
+                    .academy-btn--label {
+                        color: var(--academy-text-color);
+                    }
+                    .academy-icon--export:before{
+                        color: var(--academy-text-color);
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
+    &--has-slider {
+        // `auto`, not `scroll`: PHP-rendered tables hardcode this class
+        // unconditionally (they can't measure scrollWidth/clientWidth like the
+        // React ListTable's ResizeObserver check does), so `scroll` was forcing
+        // a scrollbar to always show even when the row already fits.
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    &__table {
+        padding: 24px 0 0 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        // Without a sub-header (tabs/search/Columns row) above it, this
+        // padding stacks with `.academy-table`'s own 24px on every side —
+        // ~48px above the header row vs. 24px below the last one. The
+        // sub-header normally needs that top gap to breathe; a table
+        // without one doesn't, so drop it and let the outer 24px alone
+        // give even spacing top and bottom.
+        &--no-subheader {
+            padding-top: 0;
+        }
+        .academy-table__head {
+            .academy-table{
+                &__head-row {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 4px;
+                }
+                &__row-cell {
+                    background: var(--academy-gray-color);
+                    color: var(--academy-heading-color);
+                    flex: 1;
+                    padding: 10px 16px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    min-height: 30px;
+                    display: flex;
+                    // With the padding, 110px lets an eight-column table (Courses)
+                    // fit the card at 1440px instead of clipping its Actions.
+                    min-width: 110px;
+                    align-items: center;
+                    white-space: nowrap;
+                    &:nth-child(2) {
+                        justify-content: flex-start !important;
+                    }
+                    &:not(:first-child) {
+                        justify-content: center;
+                    }
+                    &--isLabelWidth {
+                        min-width: 160px;
+                    }
+                }
+                
+                &__row-cell-checkbox {
+                    max-width: 20px;
+                    min-width: 20px;
+                    input {
+                        width: 16px;
+                        height: 16px;
+                        margin-left: 2px;
+                    }
+                }
+            }
+        }
+
+        .academy-table__body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .academy-oops {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                .academy-btn--table-btn {
+                    margin: 8px auto;
+                }
+            }
+            .academy-table{
+                &__body-row {
+                    width: 100%;
+                    display: flex;
+                }
+                &__row-cell {
+                    border-bottom: 1px solid var(--academy-border-color);
+                    flex: 1;
+                    padding: 10px 16px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 20px;
+                    min-height: 30px;
+                    min-width: 110px;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    p {
+                        margin: 0;
+                    }
+                    &:nth-child(2) {
+                        justify-content: flex-start !important;
+                    }
+                    &:not(:first-child) {
+                        justify-content: center;
+                    }
+                    .academy-table-title {
+                        cursor: pointer;
+                        a {
+                            color: var(--academy-primary-color);
+                        }
+                    }
+                    
+                    .academy-btn--copy {
+                        padding: 4px;
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        .academy-icon {
+                            &--duplicate {
+                                font-size: 20px;
+                                &::before {
+                                    color: var(--academy-primary-color);
+                                }
+                            }
+                        }
+                    }
+
+                    .academy-table-action {
+                        .academy-btn {
+                            &--academy-wordpress-button {
+                                min-width: auto;
+                                padding: 4px;
+                            }
+                        }
+                    }
+
+                    .academy-table-item-control {
+                        display: flex;
+                        align-items: center;
+                        column-gap: 15px;
+                        row-gap: 5px;
+                        &--column {
+                            flex-direction: column;
+                            row-gap: 10px;
+                        }
+                        .academy-table-item-control-link {
+                            padding: 0 0 0 2px;
+                        }
+                        .academy-menu-buttons {
+                            .academy-menu-icon {
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+                        .academy-btn {
+                            min-width: 75px;
+                            padding: 7px 12px;
+                            &--give-answer {
+                                min-width: 100px;
+                                background: var(--academy-primary-color);
+                                color: #fff;
+                            }
+                            &--given-answer {
+                                min-width: 100px;
+                                background: rgba(123,104,238,0.2);
+                                color: var(--academy-primary-color);
+                            }
+                            &--start-meeting {
+                                min-width: 110px;
+                                .academy-btn--label {
+                                    color: #fff;
+                                }
+                            }
+                            &--evaluate {
+                                min-width: 100px;
+                            }
+                            &--cancel {
+                                min-width: 80px !important;
+                            }
+                            &--details {
+                                min-width: 90px !important;
+                                background: var(--academy-secondary-color);
+                                color: var(--academy-primary-color);
+                            }
+                            &--record {
+                                min-width: 130px !important;
+                            }
+                            &--live {
+                                min-width: 95px !important;
+                            }
+                            &--meeting-details {
+                                min-width: 135px !important;
+                            }
+                
+                            &--label {
+                                font-size: 12px;
+                                font-weight: normal;
+                                padding-left: 8px;
+                            }
+                            .academy-icon  {
+                                &--edit {
+                                    &::before {
+                                        color: inherit;
+                                    }
+                                }
+                                &--eye {
+                                    &::before {
+                                        color: inherit;
+                                    }
+                                }
+                            } 
+                        }
+                        a {
+                            text-decoration: none;
+                        }
+                       
+                    }
+
+                    .academy-table-title-wrap {
+                        .academy-table-email {
+                            font-size: 12px;
+                        }
+                        .academy-table-title {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            p {
+                                margin: 0;
+                            }
+                            a {
+                                font-weight: 500;
+                                text-decoration: none;
+                                &:focus  {
+                                    box-shadow: none;
+                                }
+                            }
+                            .academy-icon {
+                                &--filled-checkmark {
+                                    &::before{
+                                        color: #269644 ;
+                                    }
+                                }
+                                &--close {
+                                    &::before{
+                                        color: #F4483F ;
+                                    }
+                                }
+                                &--go-on {
+                                    &::before{
+                                        color: var(--academy-primary-color);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        .academy-tooltip { 
+                            position: relative;
+                            cursor: pointer;
+                            margin-left: 0;
+                            &::after {
+                                content: attr(data-tooltip);
+                                background: var(--academy-primary-color);
+                                position: absolute;
+                                white-space: nowrap;
+                                box-shadow: var(--academy-shadow-overlay);
+                                color: #fff;
+                                padding: 10px;
+                                border-radius: 4px;
+                                height: auto;
+                                font-size: 14px;
+                                top: -50px;
+                                opacity: 0;
+                                visibility: hidden;
+                                z-index: 1;
+                                border: 1px solid var(--academy-primary-color);
+                                text-align: justify;
+                                min-width: 40px;
+                                line-height: 24px;
+                            }
+                        
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                width: 0;
+                                height: 0;
+                                top: -8px;
+                                left: 20px;
+                                transform: translateX(-50%);
+                                border-width: 10px;
+                                border-style: solid;
+                                border-color: var(--academy-primary-color) transparent transparent transparent;
+                                opacity: 0;
+                                visibility: hidden;
+                                z-index: 1;
+                            }
+                        
+                            &:hover::after, &:hover::before {
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
+
+                        .academy-table-sub-title { 
+                            .academy-tooltip {
+                                &__text {
+                                    display: flex;
+                                    width: max-content;
+                                    transform: translateX(-30%);
+                                    &:after {
+                                        left: 30%;
+                                    }
+                                }
+
+                                &::before {
+                                    top: -14px;
+                                    left: 8px;
+                                }
+
+                                &::after {
+                                    visibility: hidden;
+                                }
+                            }
+                        }
+                    }
+
+                    .academy-table-sub-title {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 5px;
+                        margin-top: 8px;
+                        &__item {
+                            font-size: 12px;
+                            color: var(--academy-text-color);
+                            font-weight: 400;
+                            white-space: nowrap;
+                            display: flex;
+                            align-items: center;
+                            &--separator {
+                                color: var(--academy-dark-gray-color);
+                                font-size: 4px;
+                                margin-right: 8px;
+                                &__topic {
+                                    color: #fff;
+                                    font-size: 4px;
+                                    margin-right: 8px;
+                                }
+                            }
+                            &--label {
+                                color: var(--academy-secondary-gray-color);
+                                margin-right: 4px;
+                            }
+                            &--text {
+                                color: var(--academy-secondary-gray-color);
+                                margin-left: 4px;
+                                &__topic {
+                                    color: #fff;
+                                    margin-right: 8px;
+                                }
+                            }
+                            &--length {
+                                color: #fff;
+                                margin-right: 8px;
+                            }
+                        }
+                    }
+
+                    .academy-table-completed-courses {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        a {
+                            display: block;
+                        }
+                        .academy-table-course-item {
+                            display: flex;
+                        }
+                        .academy-btn--link {
+                            background: transparent;
+                            padding: 0;
+                            border: 0;
+                            cursor: pointer;
+                            .academy-icon {
+                                margin-left: 5px;
+                                &--go-on {
+                                    &::before {
+                                        color: var(--academy-primary-color);
+                                    }
+                                }
+                                &--delete {
+                                    &::before {
+                                        color: #E8493F;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .academy-assignment-details-column {
+                        margin: 0 0 4px 0;
+                    }
+
+                    .academy-list-wrap__term-lists {
+                        a {
+                            text-decoration: none;
+                            color: var(--academy-primary-color);
+                            &:focus {
+                                box-shadow: none;
+                            }
+                        }
+                    }
+
+                    // Row actions: the "…" menu is a 32px square matching the
+                    // outlined buttons beside it (e.g. Manage), bordered on the
+                    // button itself so its whole box is the click target.
+                    .academy-dropdown-menu {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        width: 32px;
+                        height: 32px;
+                        padding: 0 !important;
+                        border: 1px solid var(--academy-border-color) !important;
+                        border-radius: 4px;
+                        background: var(--academy-surface-color);
+                        transition: border-color 0.15s ease, background-color 0.15s ease;
+                        &:hover {
+                            border-color: var(--academy-primary-color) !important;
+                            background: var(--academy-gray-color) !important;
+                        }
+                        &:focus {
+                            outline: none;
+                        }
+                        &:focus-visible {
+                            outline: 2px solid var(--academy-primary-color);
+                            outline-offset: 2px;
+                        }
+                        .academy-icon {
+                            line-height: 1;
+                        }
+                    }
+
+                    .academy-table-item-control > .academy-btn {
+                        height: 32px;
+                        min-height: 32px;
+                        padding: 0 12px;
+                        font-size: 13px;
+                        line-height: 1;
+                    }
+                }
+
+                &__row-cell-checkbox {
+                    max-width: 20px;
+                    min-width: 20px;
+                    input {
+                        width: 16px;
+                        height: 16px;
+                        margin-left: 2px;
+                    }
+                }
+            }
+        }
+    }
+
+    &__loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 24px 0 0 0;
+        .academy-table{
+            &__footer-right {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            &__footer-pagination, &__footer-pagination, &__footer-pagination {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    }
+
+    &__filter-modal {
+        padding: 24px;
+        &__top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--academy-border-color);
+            padding-bottom: 16px;
+            .academy-btn {
+                color: var(--academy-primary-color);
+                padding: 0;
+            }
+        }
+
+        &__footer {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            align-items: center;
+            border-top: 1px solid var(--academy-border-color);
+            padding: 16px 0 0 0;
+        }
+    }
+
+    &__filter-items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 0 16px;
+    }
+}
+
+.academy-table__filter-checked-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--academy-surface-color);
+    border: 1px solid var(--academy-border-color);
+    border-radius: 4px;
+    z-index: 9999;
+    pointer-events: none;
+    input {
+        margin-top: 2px;
+        pointer-events: visible;
+    }
+    .academy-table-filter-item-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        .academy-table-filter-item-title {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            color: var(--academy-text-color);
+        }
+        .academy-icon {
+            pointer-events: visible;
+            cursor: pointer;
+            &::before {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.academy-table {
+    &--attachment-downloads {
+        .academy-table__container {
+            .academy-table__table {
+                padding-top: 0 !important;
+            }
+        }
+    }
+}
+
+// Empty table: the icon in its round.
+.academy-empty-state__icon .academy-icon::before {
+    font-size: 24px;
+    color: var(--academy-primary-color);
+}
+
+// Row and select-all checkboxes: drawn here instead of the WordPress admin
+// default, whose 21px tick sits off-centre in a 16px box, whose focus ring
+// stays after a click, and which has no look for "some rows selected".
+// `.academy-table` in front: it has to outrank the brand-colour rule in
+// backend/_controls.scss (`body[class*="page_academy"] input[type=checkbox]:checked`).
+.academy-table .academy-table__row-cell-checkbox {
+    display: flex;
+    align-items: center;
+
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        display: inline-block;
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        margin: 0 0 0 2px;
+        padding: 0;
+        border: 1.5px solid var(--academy-dark-gray-color);
+        border-radius: 4px;
+        background-color: var(--academy-surface-color);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 10px 10px;
+        box-shadow: none;
+        cursor: pointer;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+
+        // WordPress draws its tick in ::before; this box draws its own.
+        &::before {
+            content: none !important;
+            display: none !important;
+        }
+
+        &:hover {
+            border-color: var(--academy-primary-color);
+        }
+
+        // Only for keyboard focus, so a click leaves no ring behind.
+        &:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: var(--academy-dark-gray-color);
+        }
+
+        &:focus-visible {
+            border-color: var(--academy-primary-color);
+            box-shadow: 0 0 0 2px var(--academy-surface-color), 0 0 0 4px var(--academy-primary-color);
+        }
+
+        &:checked,
+        &:indeterminate {
+            border-color: var(--academy-primary-color);
+            background-color: var(--academy-primary-color);
+        }
+
+        &:checked {
+            background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%2010%27%3E%3Cpath%20d%3D%27M1.5%205.2l2.3%202.3%204.7-5%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+        }
+
+        // Some rows selected, not all (the header box only).
+        &:indeterminate {
+            background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2010%2010%27%3E%3Cpath%20d%3D%27M2%205h6%27%20fill%3D%27none%27%20stroke%3D%27%23ffffff%27%20stroke-width%3D%271.6%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E");
+        }
+
+        &:checked:hover,
+        &:indeterminate:hover {
+            filter: brightness(0.92);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}

@@ -1,0 +1,66 @@
+.academy-question {
+    display: flex;
+    justify-content: space-between;
+    background: var(--academy-surface-color);
+    border-radius: 8px;
+    align-items: center;
+    padding: 12px 0 12px 0px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--academy-text-color);
+    z-index: 9999;
+    pointer-events: none;
+    h4 {
+        font-size: 18px;
+        margin: 0;
+    }
+    &-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        color: var(--academy-text-color-black);
+        .academy-icon {
+            pointer-events: painted;
+            cursor: pointer;
+        }
+    }
+    .academy-dropdown-menu {
+        pointer-events: painted;
+    }
+}
+
+.academy-dropdown-menu--question {
+    .academy-more-options {
+        background: var(--academy-surface-color);
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        box-shadow: var(--academy-shadow-overlay);
+        .academy-btn {
+            background: transparent;
+            color: var(--academy-text-color-black);
+            .academy-icon {
+                &::before {
+                    color: var(--academy-text-color-black);
+                }
+            }
+            // Fixed (not tokens) on purpose: this hover is a deliberate
+            // always-dark-fill + always-white-text inverted highlight,
+            // independent of page theme — converting to theme tokens would
+            // make it invisible in dark mode (light-on-light).
+            &:hover {
+                background: #131d2b;
+                color: #FFFFFF;
+                .academy-icon {
+                    &::before {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}

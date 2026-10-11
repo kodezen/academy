@@ -1,0 +1,79 @@
+.academy-postbox {
+    border: 1px solid var(--academy-border-color);
+    box-shadow: none;
+    background: var(--academy-surface-color);
+    margin-bottom: 24px;
+    border-radius: 4px;
+
+    &__header {
+        h2 {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            margin: 0 0 10px 0;
+            // wp-admin colors a bare <h2> near-black, which vanishes on the
+            // dark surface (e.g. "Course Builder").
+            color: var(--academy-heading-color);
+        }
+    }
+
+    &--custom-fields {
+        padding: 30px;
+    }
+    &--lesson {
+        .academy-postbox__body {
+            padding: 30px;
+        }
+    }
+
+    &--course-author {
+        .academy-postbox__body {
+            padding: 20px;
+            .academy-post-form-group {
+                .academy-post-form-info {
+                    label {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    &--scorm {
+        margin: 0;
+        border: 1px dashed var(--academy-border-color) !important;
+        border-radius: 10px !important;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .academy-postbox {
+        &__body {
+            .academy-post-form-group {
+                flex-direction: column;
+                align-items: flex-start;
+                .academy-post-form-body {
+                    width: 100%;
+                    .academy-select--full {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        &--scorm {
+            .academy-postbox__body {
+                padding: 16px;
+                .meta-field {
+                    margin: 0;
+                    flex-direction: column-reverse;
+                    align-items: center;
+                    gap: 12px;
+                    &__label {
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }
+}

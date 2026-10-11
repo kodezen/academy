@@ -1,0 +1,92 @@
+// Course Taxonomy lives in the wide `.entry-left` column (see
+// CourseFormInner.js) rather than the narrow 28%-width `.entry-right`
+// sidebar — categories, tags, and however many extra taxonomies ECM
+// registers (`ecm.react-editor.register-taxonomy`) lay out side-by-side in
+// a grid instead of piling up vertically, which is what made this box grow
+// very tall when it lived in the sidebar.
+.academy-widget--taxonomy {
+    padding: 24px;
+
+    &__heading {
+        display: block;
+    }
+
+    // Category / Tags / Excerpt sit in one row.
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px 24px;
+        align-items: start;
+
+        // No individual card/box per widget here — they sit side-by-side
+        // with nothing but the grid gap between them, inside the shared
+        // `.academy-widget--taxonomy` box (overrides `.academy-widget`'s own
+        // default box chrome). Scoped to the grid only — the ECM promo card
+        // below (`.academy-widget--ecm-promo`, also base-classed
+        // `.academy-widget`) keeps its own box.
+        .academy-widget {
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            box-shadow: none;
+            background: transparent;
+        }
+    }
+
+    // ECM's own taxonomy widgets (or, when ECM isn't active, the promo
+    // card) sit in their own full-width row below that, not as part of the
+    // grid above — a variable-length list wrapped in one
+    // `.easy-content-manager-custom-filed-render` container; making that
+    // container itself a grid lays its taxonomies out side-by-side the same
+    // way, whatever their count, without Academy needing to know about ECM's
+    // internals beyond that one class name. The rest of ECM's own look
+    // (search box, term-list, Chakra checkbox/button internals via their
+    // `data-scope`/`data-part` attributes) is handled centrally in
+    // `assets/scss/backend/ecm-taxonomy-overrides.scss` — only the two rules
+    // below don't fit there, since that file styles what's *inside*
+    // `.easy-content-manager-custom-filed-render`, not the grid wrapper
+    // itself or `TaxonomyField`'s own outer box.
+    &__ecm {
+        margin-top: 24px;
+
+        .easy-content-manager-custom-filed-render {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px 24px;
+        }
+
+        // No box around ECM's own taxonomy widgets either — matches the
+        // Category/Tags/Excerpt grid above now that it's unboxed too.
+        .ecm-widget {
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            margin: 0;
+            box-shadow: none;
+            background: transparent;
+        }
+    }
+
+    .academy-widget--ecm-promo {
+        margin-top: 24px;
+        margin-bottom: 0 !important;
+        .academy-sub-title {
+            margin: 6px 0 12px 0;
+        }
+    }
+
+    // Matches WordPress core's own convention for its native Categories
+    // metabox (`#categorychecklist{max-height:200px;overflow-y:auto}`) — a
+    // backstop so a taxonomy with many terms still can't blow out the grid
+    // cell's height, independent of the side-by-side layout above.
+    .term-list,
+    .ecm-term-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
+.academy-taxonomy-attachment {
+    margin-top: 24px !important;
+}

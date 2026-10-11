@@ -1,0 +1,32 @@
+.academy-react-modal--quiz-form {
+    background: var(--academy-background-gray-color);
+    .academy-react-modal{ 
+        &__head {
+            border-bottom: 1px solid var(--academy-border-color);
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        &__content {
+            padding: 0;
+            max-height: unset !important;
+            overflow-y: unset !important;
+            background: var(--academy-gray-color);
+        }
+    }
+}
+
+@media all and (max-width: 991px) {
+	.academy-react-modal {
+		&--quiz-form{
+			width: 600px;
+		}
+	}
+}
+
+@media all and (max-width: 480px) {
+	.academy-react-modal {
+		&--quiz-form{
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,38 @@
+.DS_Store
+node_modules/
+/vendor/prefixed/mpdf/mpdf/ttfonts/
+/vendor/prefixed/**/*.md
+/bin/
+!assets/scss/vendor
+assets/js/*.txt
+.git
+.idea
+**/*.map
+assets/build/backend-dist.css
+assets/build/frontendCommon-dist.css
+assets/build/frontendCurriculums-dist.css
+assets/build/frontendDashboard-dist.css
+prepros.config
+composer.phar
+openspec/
+.agents/
+.claude/
+CLAUDE.md
+
+# Playwright E2E
+test-results/
+playwright-report/
+tests/
+.env
+tsconfig.json
+playwright.config.ts
+scripts
+
+# === Cross-platform build kit output (tool itself in build-tools/ is tracked) ===
+.build-cache/
+/dist/
+
+# PHPUnit
+.phpunit.result.cache
+build-tools/phpcs-vip/vendor/
+phpcs-vip-report.*

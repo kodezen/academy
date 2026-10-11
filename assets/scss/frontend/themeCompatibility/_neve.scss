@@ -1,0 +1,40 @@
+.theme-neve , .wp-theme-neve{
+  .academy-lesson-topbar__left{
+    .topbar-hr{
+      width: 1px;
+    }
+  }
+  .academy-lessons {
+    .academy-lessons-content-wrap {
+      .academy-lessons-content__text{
+        p:empty {
+          display: none;
+        }
+        ol , ul{
+          padding-left: 20px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+
+  .academy-course-curriculum-wrapper .academy-course-curriculum-contents .academy-lessons-content-wrap .academy-lessons-content .academy-lessons-content__text {
+    ol , ul{
+      padding-left: 20px;
+      margin-left: 20px;
+    }
+  }
+  .academy-single-course .academy-single-course__content-item ol{
+    padding-left: 20px;
+    margin-left: 20px;
+  }
+  .academy-course-curriculum-wrapper .academy-course-curriculum-contents .academy-lessons-content-wrap
+  .academy-lessons-content .academy-lessons-content__text  ol , ul{
+          padding-left: 20px;
+          margin-left: 20px;
+      }
+  .academy-single-course__content-item--description  ol ,ul{
+      padding-left: 20px;
+      margin-left: 20px;
+  }
+} 

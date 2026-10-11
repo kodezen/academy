@@ -1,0 +1,10 @@
+.academy-fonts-download-content-content__warning {
+	.academy-icon {
+		&--info-circle {
+			&::before {
+				color: var(--academy-warning-color);
+				font-size: 24px;
+			}
+		}
+	}
+}

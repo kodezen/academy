@@ -1,0 +1,155 @@
+// =============================================================================
+// Curriculum sidebar enrichment
+// Course progress header, per-section meta + completion tag, per-lesson
+// type-labeled meta line + done check. Scoped to the sidebar so shared class
+// names (e.g. .academy-entry-left, also used by the assignment uploader) are
+// not affected. Uses the shared --academy-* tokens.
+// =============================================================================
+.academy-lesson-sidebar-content {
+	// ---- course progress header ----
+	.academy-lesson-sidebar-progress {
+		padding: 14px 16px 16px;
+		border-bottom: 1px solid var(--academy-border-color);
+
+		&__stats {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px 14px;
+			font-size: 12px;
+			color: var(--academy-dark-gray-color);
+			margin-bottom: 10px;
+		}
+
+		&__track {
+			height: 7px;
+			border-radius: 20px;
+			background: var(--academy-gray-color);
+			overflow: hidden;
+		}
+
+		&__fill {
+			display: block;
+			height: 100%;
+			border-radius: 20px;
+			background: var(--academy-primary-color);
+			transition: width 0.3s ease;
+		}
+
+		&__cap {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 7px;
+			font-size: 11.5px;
+			color: var(--academy-dark-gray-color);
+
+			b {
+				color: var(--academy-text-color);
+				font-weight: 600;
+			}
+		}
+	}
+
+	// ---- section header (title + meta + completion tag) ----
+	.academy-learn-page-topics-title {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		&__main {
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+			flex: 1;
+			text-align: left;
+		}
+
+		&__text {
+			font-size: 13.5px;
+			font-weight: 600;
+			line-height: 1.35;
+		}
+
+		&__meta {
+			font-size: 11.5px;
+			font-weight: 400;
+			color: var(--academy-dark-gray-color);
+			margin-top: 2px;
+		}
+
+		&__tag {
+			flex-shrink: 0;
+			font-size: 10.5px;
+			font-weight: 700;
+			padding: 3px 8px;
+			border-radius: 20px;
+			color: var(--academy-primary-color);
+			background: var(--academy-secondary-color);
+
+			&--done {
+				color: var(--academy-success-color);
+				background: rgba(5, 150, 105, 0.12);
+			}
+
+			&--expired {
+				color: var(--academy-danger-color);
+				background: rgba(220, 38, 38, 0.12);
+			}
+		}
+	}
+
+	// ---- lesson item (type-labeled meta line + done check) ----
+	.academy-learn-page-topics-lesson-item {
+		.academy-entry-left {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			min-width: 0;
+
+			// lesson-type glyphs default to a large size — scale them down to
+			// match the compact drawer typography.
+			.academy-icon {
+				font-size: 19px;
+				line-height: 1;
+				flex-shrink: 0;
+
+				&::before {
+					font-size: 19px;
+				}
+			}
+		}
+
+		&__textwrap {
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+		}
+
+		&__text {
+			font-size: 13px;
+			line-height: 1.35;
+		}
+
+		&__meta {
+			font-size: 11px;
+			color: var(--academy-dark-gray-color);
+			margin-top: 1px;
+			text-transform: capitalize;
+
+			&--expired {
+				color: var(--academy-danger-color);
+				font-weight: 600;
+			}
+		}
+
+		&__done {
+			display: grid;
+			place-items: center;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background: var(--academy-success-color);
+			color: #fff;
+			flex-shrink: 0;
+		}
+	}
+}

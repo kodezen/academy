@@ -1,0 +1,71 @@
+.academy-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 15px;
+    .academy-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        background: var(--academy-gray-color);
+        padding: 0;
+        &:hover {
+            background: var(--academy-primary-color);
+            .academy-icon {
+                color: #FFF;
+            }
+        }
+        .academy-icon {
+            color: var(--academy-dark-gray-color);
+            font-size: 14px;
+        }
+    }
+    .academy-pagination-list {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px;
+        margin: 0;
+        &__item {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin: 0;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 36px;
+            border: 1px solid var(--academy-border-color);
+            &:hover {
+                background: var(--academy-gray-color);
+                color: var(--academy-text-color-black);
+            }
+        }
+        &__item-dots {
+            letter-spacing: 4px;
+            font-weight: 500;
+            padding-left: 4px;
+            color: none;
+            pointer-events: none;
+            &:hover {
+                background: none;
+                color: none;
+                border-radius: unset;
+            }
+        }
+        &__item-active {
+            background: var(--academy-primary-color);
+            color: #fff;
+            cursor: default;
+            &:hover {
+                background: var(--academy-primary-color);            
+                color: #fff;
+            }
+        }
+    }
+}

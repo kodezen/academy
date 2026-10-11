@@ -1,0 +1,137 @@
+.academy-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 16px;
+    box-shadow: var(--academy-shadow-overlay);
+    border-radius: 4px;
+    min-width: 400px;
+    z-index: 99999;
+    background: var(--academy-surface-color);
+    color: var(--academy-text-color);
+    &--success {
+        background: #00AD6B;
+        color: #fff;
+    }
+
+    &--dashboard {
+        position: fixed;
+        left: 40%;
+        transform: translateX(-50%);
+        bottom: 35px;    
+        .academy-btn{
+            background: transparent;
+        }
+    }
+
+    &--lesson {
+        position: fixed;
+        left: 40%;
+        transform: translateX(-50%);
+        bottom: 35px;
+        padding: 20px 32px;
+        .academy-btn {
+            &--bg-red {
+                padding: 4px !important;
+            }
+        }
+    }
+
+    &--info {
+        background: var(--academy-primary-color);
+        color: #fff;
+    }
+
+    &--warning {
+        background: #FDB022;
+        color: #fff;
+    }
+
+    &--error {
+        background: #FF4D4D;
+        color: #fff;
+    }
+    
+    .academy-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;    
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &--check{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &::before{
+                font-size: 20px;
+                color: #f8f8f8;
+            }
+        }
+
+        &--success {
+            background: #00AD6B;
+        }
+
+        &--info {
+            background: var(--academy-primary-color);
+        }
+
+        &--warning {
+            background: #FDB022;
+        }
+
+        &--error {
+            background: #FFEDED;
+        }
+
+        &--notification {
+            font-size: 25px;
+            // &::before{
+            //     color: #FDB022;
+            // }
+        }
+
+        &--information {
+            font-size: 22px;
+            &::before{
+                color: #fff;
+            }
+        }
+
+        &--information-error {
+            font-size: 22px;
+            // &::before{
+            //     color: #FF4D4D;
+            // }
+        }
+    }
+
+    .academy-btn {
+        padding: 12px 0;
+        .academy-icon--close {
+            background: transparent;
+            &::before{
+                color: #fff;
+            }
+        }
+    }
+
+    &__message {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .academy-notification {
+        min-width: 90%;
+    }
+}

@@ -1,0 +1,156 @@
+.academy-sortable {
+    row-gap: 24px;
+    display: flex;
+    flex-direction: column;
+    // &__answer-title{
+    //     font-size: 14px !important;
+    // }
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        input {
+            background: var(--academy-surface-color);
+            border: 1px solid var(--academy-border-color);
+            border-radius: 8px;
+            font-weight: 400;
+            font-size: 14px;
+            height: 44px;
+            padding: 16px 22px;
+            line-height: 17px;
+            color: var(--academy-text-color);
+            margin-top: 16px;
+
+            &:focus-visible {
+                outline: none;
+            }
+        }
+        .bars {
+            span {
+                width: 18px;
+            }
+        }
+        .sortable-bars{
+            cursor: move;
+        }
+        img {
+            width: 30px;
+            height: 30px;
+        }
+    }
+    
+    &__item {
+        align-items: center;
+        background: var(--academy-surface-color);
+        border: 1px solid var(--academy-border-color);
+        border-radius: 8px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: var(--academy-text-color);
+        padding: 0 15px;
+        height: 44px;
+        // No resting z-index: these cards are flex items, so a positive
+        // z-index would stack them above the sticky editor topbar (z-index 99)
+        // and paint over it on scroll. Only the actively-dragged item needs to
+        // lift — and only above its sibling cards, not the whole page.
+        display: flex;
+        gap: 10px;
+        width: initial;
+        justify-content: space-between;
+        user-select: none;
+
+        &-active{
+            z-index: 10;
+        }
+
+        &-title {
+            display: flex;
+            flex-direction: column;
+
+            span.label {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 19px;
+                color: var(--academy-text-color);
+                margin-bottom: 15px;
+            }
+        }
+
+        &-image {
+            span.label {
+                display: block;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 19px;
+                color: var(--academy-text-color);
+                margin-bottom: 15px;
+            }
+        }
+
+        &-format {
+            margin-top: 10px;
+            label {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                color: var(--academy-text-color);
+            }
+
+            .academy-sortable-format {
+                label {
+                    margin-right: 24px;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: var(--academy-text-color);
+                }
+
+                input[type=radio] {
+                    margin-right: 8px !important;
+                }
+            }
+        }
+
+        &-field {
+            display: flex;
+            align-items: center;
+            input[type="checkbox"],
+            input[type="radio"] {
+                margin: 0;
+            }
+        }
+    
+        .text {
+            display: flex;
+            justify-content: space-between;
+            width: calc(100% - 30px);
+        }
+    
+        span.bars {
+            width: 18px;
+            margin-top: 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 12px;
+            span {
+                height: 1px;
+                width: 100%;
+                background: var(--academy-dark-gray-color);
+            }
+        }
+    }
+}
+
+.academy-sortable__item{
+    user-select: none;
+    .academy-sortable__title{
+        min-height: 27px;
+        .academy-sortable__answer-title{
+            font-size: 14px;
+        }
+    }
+}

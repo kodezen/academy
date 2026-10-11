@@ -1,0 +1,21 @@
+.academy-table {
+    &--quiz_attempts {
+        .academy-table__container {
+            .academy-table__sub-header {
+                .academy-table__sub-header-left {
+                    .academy-table-sub-header-actions-right {
+                        .academy-table-sub-header-actions-right--border {
+                            margin-right: 10px;
+                        }
+
+                        .academy-btn {
+                            &--quiz-attempts-export {
+                                height: 40px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

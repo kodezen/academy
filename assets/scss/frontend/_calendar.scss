@@ -1,0 +1,300 @@
+// Frontend dashboard > Event Calendar (academy-pro calendar addon). Markup
+// comes from academy-pro templates/frontend-dashboard/pages/calendar.php and
+// the event list from addons/calendar/assets/js/script.js. Everything is
+// scoped under `.academy-calendar` — the old file styled bare `table`/`th`
+// (with !important margins), which would leak onto every dashboard table.
+.academy-calendar {
+    color: var(--academy-text-color);
+    font-size: 14px;
+    line-height: 20px;
+
+    // Month switcher: ‹ September 2026 ›
+    #academy-calendar__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    #academy-calendar-title {
+        order: 1;
+        flex: 1;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+        color: var(--academy-heading-color, var(--academy-text-color));
+    }
+
+    #academy-prev-month,
+    #academy-next-month {
+        order: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 6px;
+        background: var(--academy-surface-color);
+        color: var(--academy-text-color);
+        font-size: 12px;
+        line-height: 1;
+        cursor: pointer;
+        transition: border-color 0.2s ease, color 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            border-color: var(--academy-primary-color);
+            color: var(--academy-primary-color);
+            outline: none;
+        }
+    }
+
+    #academy-next-month {
+        order: 3;
+    }
+
+    // Month grid.
+    table#academy-calendar-body {
+        display: table;
+        width: 100%;
+        margin: 0 0 32px;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 0;
+        // Outline via box-shadow: the dashboard's own table reset zeroes
+        // `border` on tables with higher specificity.
+        box-shadow: 0 0 0 1px var(--academy-border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--academy-surface-color);
+
+        > thead,
+        > tbody {
+            display: table-row-group;
+        }
+
+        tr {
+            display: table-row;
+        }
+
+        th,
+        td {
+            display: table-cell;
+            padding: 0;
+            border: 0;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            padding: 12px 4px;
+            background: var(--academy-gray-color, var(--academy-background-gray-color));
+            border-bottom: 1px solid var(--academy-border-color);
+            color: var(--academy-secondary-gray-color);
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        td {
+            height: 52px;
+            // Block themes stripe table rows; the grid should be flat.
+            background: var(--academy-surface-color);
+            // Set the date number's color explicitly: inheriting it left dark
+            // numbers on the dark surface in dark mode.
+            color: var(--academy-text-color);
+            border-top: 1px solid var(--academy-border-color);
+            font-size: 14px;
+            font-weight: 500;
+
+            &:not(:first-child) {
+                border-left: 1px solid var(--academy-border-color);
+            }
+        }
+
+        tbody tr:first-child td {
+            border-top: 0;
+        }
+
+        // Days with events — script.js paints them with the primary color
+        // inline; make them read as clickable.
+        td[id^='event-day-'][style*='background-color'] {
+            cursor: pointer;
+        }
+    }
+
+    // Loading / "Nothing scheduled".
+    .calendar-data-loading {
+        display: flex;
+        justify-content: center;
+        padding: 32px 16px;
+        border: 1px dashed var(--academy-border-color);
+        border-radius: 8px;
+        color: var(--academy-secondary-gray-color);
+    }
+
+    // One card per day that has events: date on the left, events on the right.
+    .academy-calendar-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        scroll-margin-top: 80px;
+
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+
+        &__title {
+            flex: 0 0 72px;
+            padding: 10px 0;
+            border-radius: 8px;
+            background: var(--academy-gray-color, var(--academy-background-gray-color));
+            text-align: center;
+        }
+
+        &__day {
+            color: var(--academy-heading-color, var(--academy-text-color));
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 32px;
+        }
+
+        &__month {
+            color: var(--academy-secondary-gray-color);
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        &__content {
+            flex: 1;
+            min-width: 0;
+            padding: 16px 20px;
+            border: 1px solid var(--academy-border-color);
+            border-radius: 8px;
+            background: var(--academy-surface-color);
+        }
+    }
+
+    .academy-event-divider {
+        height: 1px;
+        margin: 16px 0;
+        background: var(--academy-border-color);
+    }
+
+    .academy-calendar-event {
+        &__row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            + .academy-calendar-event__row {
+                margin-top: 10px;
+            }
+        }
+
+        &__title {
+            min-width: 0;
+            color: var(--academy-heading-color, var(--academy-text-color));
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            text-decoration: none;
+            overflow-wrap: anywhere;
+
+            &:hover {
+                color: var(--academy-primary-color);
+            }
+        }
+
+        &__status {
+            flex-shrink: 0;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 18px;
+
+            &__upcoming {
+                background: #e6f7f0;
+                color: #15b477;
+            }
+
+            &__ongoing {
+                background: #e8effd;
+                color: #2a65e4;
+            }
+
+            &__expired {
+                background: #ffeded;
+                color: #ff5656;
+            }
+        }
+
+        &__details {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 20px;
+        }
+
+        // Each detail is a wrapper div + an inner span sharing the same class.
+        &__platform,
+        &__duration,
+        &__host {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--academy-secondary-gray-color);
+            font-size: 13px;
+            line-height: 18px;
+
+            .academy-icon {
+                font-size: 16px;
+                font-style: normal;
+
+                &::before {
+                    color: var(--academy-secondary-gray-color);
+                }
+            }
+        }
+
+        &__start {
+            flex-shrink: 0;
+            color: var(--academy-text-color);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 18px;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        table#academy-calendar-body td {
+            height: 40px;
+        }
+
+        .academy-calendar-card {
+            flex-direction: column;
+            gap: 8px;
+
+            &__title {
+                flex-basis: auto;
+                display: flex;
+                align-items: baseline;
+                gap: 6px;
+                padding: 0;
+                background: none;
+            }
+        }
+
+        .academy-calendar-event__row {
+            flex-wrap: wrap;
+        }
+    }
+}

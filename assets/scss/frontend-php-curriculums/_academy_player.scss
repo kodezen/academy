@@ -1,0 +1,7 @@
+// Lesson-player theming. The library exposes its palette as CSS custom
+// properties, so the learn page only has to point them at Academy's tokens —
+// no overrides of the player's own rules.
+.academy-lesson-player .kzp {
+	--kzp-accent: var(--academy-primary-color, #4f46e5);
+	--kzp-radius: 8px;
+}

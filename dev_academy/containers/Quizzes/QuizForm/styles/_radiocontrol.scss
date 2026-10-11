@@ -1,0 +1,86 @@
+.academy-switch-fields-wrapper {
+    display: flex;
+    gap: 10px;
+
+    .academy-radio-2 {
+        display: flex !important;
+        cursor: pointer;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 0.375em;
+
+        input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            padding: 0.375em 0.75em 0.375em 0.375em;
+            border-radius: 99em;
+            transition: 0.25s ease;
+            border: 1px solid var(--academy-border-color);
+
+            &:before {
+                display: flex;
+                flex-shrink: 0;
+                content: "";
+                background-color: var(--academy-surface-color);
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                margin-right: 0.375em;
+                transition: 0.25s ease;
+                box-shadow: inset 0 0 0 1px var(--academy-primary-color);
+            }
+        }
+
+        input:checked+span {
+            background-color: var(--academy-surface-color);
+            color: var(--academy-primary-color);
+
+            &:before {
+                box-shadow: inset 0 0 0 4px var(--academy-primary-color);
+            }
+        }
+
+        // FeedbackRadioControl renders `.academy-quiz-mode` (a column-flex
+        // block for the title+desc) instead of the `span` above, so the dot
+        // is positioned absolutely rather than laid out as a row flex item —
+        // that way it doesn't care about `.academy-quiz-mode`'s own
+        // flex-direction.
+        .academy-quiz-mode {
+            position: relative;
+            // !important: _quizform.scss's card rule for this same class
+            // chains through more ancestor classes and sets padding-left via
+            // its shorthand, which would otherwise win and collapse the room
+            // reserved for the dot below.
+
+            &:before {
+                content: "";
+                position: absolute;
+                left: 12px;
+                // Centered on the title line specifically (16px top padding
+                // + half of .academy-title's 20px line-height, minus half
+                // the dot's own 22px), not on the whole title+description
+                // block — otherwise a longer description pulls the dot down
+                // away from the title it's paired with.
+                top: 15px;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                background-color: var(--academy-surface-color);
+                box-shadow: inset 0 0 0 1px var(--academy-primary-color);
+                transition: 0.25s ease;
+            }
+        }
+
+        input:checked+.academy-quiz-mode {
+            &:before {
+                box-shadow: inset 0 0 0 4px var(--academy-primary-color);
+            }
+        }
+    }
+}

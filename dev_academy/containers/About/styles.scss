@@ -1,0 +1,231 @@
+.academy-about {
+	--about-fg: var(--academy-text-color, #131d2b);
+	--about-ink: var(--academy-text-color-black, #141127);
+	--about-muted: var(--academy-description-color, #6b7280);
+	--about-surface: var(--academy-surface-color, #fff);
+	--about-border: var(--academy-border-color, #e5e7eb);
+	--about-brand: var(--academy-primary-color, #7b68ee);
+
+	color: var(--about-fg);
+
+	/* Changelog and Get Involved sit in a centred column under the bar. */
+	&__body {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px 64px;
+	}
+
+	/* ---------- Header bar: logo, tabs, theme ---------- */
+	&__bar {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: 16px;
+		padding: 24px max(24px, calc((100% - 1520px) / 2));
+		background: var(--about-surface);
+		border-bottom: 1px solid var(--about-border);
+	}
+
+	&__logo {
+		display: block;
+		width: 151px;
+		height: 40px;
+		object-fit: contain;
+	}
+
+	&__tabs {
+		display: flex;
+		gap: 0;
+		padding: 4px;
+		border-radius: 99px;
+		background: #f2f2f2;
+		overflow-x: auto;
+	}
+
+	&__tab {
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 11px 24px;
+		border: 1px solid transparent;
+		border-radius: 99px;
+		background: transparent;
+		font-size: 16px;
+		line-height: 24px;
+		font-weight: 400;
+		white-space: nowrap;
+		color: #404c58;
+		cursor: pointer;
+		transition: color 0.15s ease, background-color 0.15s ease;
+
+		img {
+			display: block;
+			flex: none;
+		}
+
+		&:hover {
+			color: var(--about-ink);
+		}
+		&:focus-visible {
+			outline: 2px solid var(--about-brand);
+			outline-offset: 2px;
+		}
+		&.is-active {
+			color: #fff;
+			font-weight: 500;
+			background: var(--about-brand);
+			border-color: #fff;
+		}
+	}
+
+	&__actions {
+		justify-self: end;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	&__close {
+		flex: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		border: 1px solid var(--about-border);
+		background: var(--about-surface);
+		color: var(--about-ink);
+		text-decoration: none;
+		transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+		svg {
+			display: block;
+		}
+
+		&:hover {
+			border-color: var(--about-brand);
+			color: var(--about-brand);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--about-brand);
+			outline-offset: 2px;
+		}
+	}
+
+	&__theme {
+		justify-self: end;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 7px 12px;
+		border-radius: 99px;
+		border: 1px solid var(--about-border);
+		background: var(--about-surface);
+		font-size: 14px;
+		line-height: 20px;
+		font-weight: 500;
+		color: var(--about-ink);
+		cursor: pointer;
+
+		img {
+			display: block;
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--about-brand);
+			outline-offset: 2px;
+		}
+	}
+
+	/* ---------- Panels ---------- */
+	&__panel {
+		padding-top: 28px;
+	}
+
+	/* ---------- Get involved ---------- */
+	&__involved {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+
+	&__involved-card {
+		padding: 24px;
+		border-radius: 14px;
+		border: 1px solid var(--about-border);
+		background: var(--about-surface);
+
+		h4 {
+			margin: 0 0 8px;
+			font-size: 17px;
+			font-weight: 700;
+			color: var(--academy-heading-color, var(--about-fg));
+		}
+		p {
+			margin: 0 0 16px;
+			font-size: 14px;
+			color: var(--about-muted);
+		}
+		a {
+			font-size: 14px;
+			font-weight: 600;
+			color: var(--about-brand);
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	@media (max-width: 900px) {
+		&__body {
+			padding: 0 16px 48px;
+		}
+
+		&__bar {
+			grid-template-columns: 1fr auto;
+			padding: 16px;
+		}
+
+		&__tabs {
+			grid-column: 1 / -1;
+			grid-row: 2;
+			justify-self: center;
+			max-width: 100%;
+		}
+
+		&__tab {
+			padding: 8px 16px;
+			font-size: 14px;
+		}
+
+		&__involved {
+			grid-template-columns: 1fr;
+		}
+	}
+}
+
+/* The About page runs edge to edge: the bar and What's New sections set
+   their own inner widths, so the admin content cap is lifted here. */
+.academy-page-content.academy-page-content--about {
+	max-width: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* The tab strip and moon icon are drawn for light surfaces. */
+html[data-academy-user-theme="dark"] .academy-about {
+	.academy-about__tabs {
+		background: var(--academy-background-gray-color, #0e131b);
+	}
+	.academy-about__tab:not(.is-active) {
+		color: var(--academy-description-color, #a9b0bc);
+	}
+	.academy-about__theme img {
+		filter: invert(1);
+	}
+}

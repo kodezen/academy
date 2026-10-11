@@ -1,0 +1,1114 @@
+// =============================================================================
+// Global learn-page activity drawers (Announcements + Q&A)
+// -----------------------------------------------------------------------------
+// Two top-bar entry-point buttons open a shared right-side slide-in drawer that
+// hosts the existing Announcements / Q&A components. Layout-independent — works
+// with every content type and every data-academy-* layout combination.
+// Uses the shared --academy-* design tokens.
+// =============================================================================
+
+// ---- Top-bar entry-point buttons ----
+// keep the right-hand action cluster evenly spaced and aligned
+.academy-lesson-topbar__right {
+	gap: 10px;
+}
+
+.academy-lesson-activity-btn {
+	position: relative;
+	width: 40px;
+	height: 40px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--academy-border-color);
+	border-radius: 10px;
+	background: transparent;
+	color: var(--academy-secondary-gray-color);
+	cursor: pointer;
+	transition: 0.15s ease;
+
+	.academy-icon {
+		font-size: 17px;
+		line-height: 1;
+	}
+	.academy-icon.academy-icon--moon {
+		font-size: 30px;
+	}
+	.academy-icon.academy-icon--sun {
+		font-size: 24px;
+	}
+
+	&:hover,
+	&--active {
+		color: var(--academy-primary-color);
+		border-color: var(--academy-primary-color);
+		background: var(--academy-secondary-color);
+	}
+
+	// Text-label variant (e.g. "Take Note") instead of a plain icon glyph —
+	// the base button is a fixed 40x40 circle, which clips real words.
+	&--text {
+		width: auto;
+		padding: 0 14px;
+		font-size: 13px;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	&__dot {
+		position: absolute;
+		top: 7px;
+		right: 7px;
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: var(--academy-danger-color);
+		border: 2px solid #fff;
+	}
+
+	// Unread count bubble (Q&A). Sits on the top-right corner of the button.
+	&__count {
+		position: absolute;
+		top: -6px;
+		right: -6px;
+		min-width: 18px;
+		height: 18px;
+		padding: 0 5px;
+		display: grid;
+		place-items: center;
+		border-radius: 9px;
+		background: var(--academy-danger-color);
+		border: 2px solid #fff;
+		color: #fff;
+		font-size: 10px;
+		font-weight: 700;
+		line-height: 1;
+	}
+}
+
+// ---- Scrim ----
+.academy-learn-drawer-scrim {
+	position: fixed;
+	inset: 0;
+	background: rgba(15, 14, 22, 0.45);
+	z-index: 99998;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.2s ease, visibility 0.2s ease;
+
+	&--open {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+// ---- Drawer ----
+.academy-learn-drawer {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 420px;
+	max-width: 93vw;
+	background: var(--academy-surface-color);
+	z-index: 99999;
+	display: flex;
+	flex-direction: column;
+	transform: translateX(100%);
+	// No box-shadow here: a `translateX(100%)` only moves the drawer by its
+	// own width, not fully past its shadow's negative offset + blur radius,
+	// so an always-on shadow here bled a visible strip onto the right edge
+	// of the page even while the drawer was closed/off-screen. Only the
+	// open state (in view, sliding over content) needs the shadow.
+	transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	outline: none;
+
+	&--open {
+		transform: translateX(0);
+		box-shadow: -12px 0 28px var(--academy-drawer-shadow-color);
+	}
+
+	&__head {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 18px 20px;
+		border-bottom: 1px solid var(--academy-border-color);
+		flex-shrink: 0;
+	}
+
+	&__head-icon {
+		width: 38px;
+		height: 38px;
+		display: grid;
+		place-items: center;
+		border-radius: 9px;
+		background: var(--academy-secondary-color);
+		color: var(--academy-primary-color);
+		font-size: 18px;
+		flex-shrink: 0;
+	}
+
+	&__titles {
+		min-width: 0;
+		flex: 1;
+
+		b {
+			display: block;
+			font-size: 16px;
+			color: var(--academy-text-color-black);
+			line-height: 1.3;
+		}
+
+		small {
+			display: block;
+			font-size: 12px;
+			color: var(--academy-dark-gray-color);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	&__close,
+	&__dock {
+		width: 34px;
+		height: 34px;
+		flex-shrink: 0;
+		border: none;
+		background: transparent;
+		border-radius: 8px;
+		color: var(--academy-secondary-gray-color);
+		cursor: pointer;
+		display: grid;
+		place-items: center;
+
+		&:hover {
+			background: var(--academy-gray-color);
+			color: var(--academy-text-color);
+		}
+	}
+
+	// Dock/undock toggle — highlighted when the panel is pinned (docked).
+	&__dock--on {
+		color: var(--academy-primary-color);
+		background: var(--academy-secondary-color);
+
+		&:hover {
+			color: var(--academy-primary-color);
+			background: var(--academy-secondary-color);
+		}
+	}
+
+	&__body {
+		flex: 1;
+		overflow-y: auto;
+		padding: 4px 0 24px;
+
+		// Nothing here previously signaled that the panel (course content,
+		// Announcements, Q&A — this is the one shared scroll container for
+		// all three) continues below the fold: no visible scrollbar (near-
+		// invisible by default on macOS/most touchpads until actively
+		// dragged) and no cue that more content exists past the last visible
+		// item. A slim always-there scrollbar plus a soft edge fade fixes
+		// both. The fade is CSS-only and inherently correct — built from two
+		// opaque "cover" layers that scroll WITH the content (`local`)
+		// masking two shadow layers that stay put (`scroll`), so each edge's
+		// shadow is only ever visible while there's unscrolled content in
+		// that direction, and disappears exactly at the true start/end. No
+		// scroll listener needed.
+		background:
+			linear-gradient(var(--academy-surface-color) 30%, rgba(0, 0, 0, 0)) local,
+			linear-gradient(rgba(0, 0, 0, 0), var(--academy-surface-color) 70%) 0 100% local,
+			radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0)) 0 0,
+			radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0)) 0 100%;
+		background-repeat: no-repeat;
+		background-size: 100% 36px, 100% 36px, 100% 12px, 100% 12px;
+		background-attachment: local, local, scroll, scroll;
+
+		scrollbar-width: thin;
+		scrollbar-color: var(--academy-border-color) transparent;
+		&::-webkit-scrollbar {
+			width: 6px;
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background: var(--academy-border-color);
+			border-radius: 10px;
+			&:hover {
+				background: var(--academy-secondary-gray-color);
+			}
+		}
+	}
+}
+
+// ---- left-side variant (curriculum drawer) ----
+.academy-learn-drawer--left {
+	right: auto;
+	left: 0;
+	transform: translateX(-100%);
+}
+.academy-learn-drawer--left.academy-learn-drawer--open {
+	transform: translateX(0);
+	box-shadow: 12px 0 28px var(--academy-drawer-shadow-color);
+}
+
+// Keep the drawer clear of the WordPress admin bar.
+body.admin-bar {
+	.academy-learn-drawer {
+		top: 32px;
+	}
+}
+@media screen and (max-width: 782px) {
+	body.admin-bar {
+		.academy-learn-drawer {
+			top: 46px;
+		}
+	}
+}
+
+@media (max-width: 600px) {
+	.academy-learn-drawer {
+		width: 100vw;
+		max-width: 100vw;
+	}
+}
+
+// The curriculum drawer docks BELOW the full-width topbar (70px tall) instead
+// of overlapping it. Desktop only — on mobile it stays a full-height overlay.
+// Placed after the base/admin-bar rules so it wins by source order.
+@media (min-width: 783px) {
+	.academy-learn-drawer--below-topbar {
+		// `--academy-learn-topbar-offset` is set by Topbar/index.js from the
+		// topbar's actual measured position (it varies once "Page Header &
+		// Footer" is on and a theme header of unknown height sits above the
+		// topbar). The static 70px fallback only covers the moment before
+		// that effect runs (and the "Page Header & Footer" off case, where it
+		// happens to be correct already).
+		top: var(--academy-learn-topbar-offset, 70px);
+		// Docked is page furniture, not a slide-over: it only needs to sit
+		// above the content, NOT above the top bar (9998), its dropdown, or the
+		// activity drawers + scrim (99998/99999). A high z-index here would hide
+		// the topbar dropdown and let the sidebar poke through the scrim.
+		z-index: 90;
+		// A normal sidebar, not a floating panel — drop the slide-over shadow
+		// and separate it with a plain divider instead. The shadow stays on the
+		// overlay drawer.
+		box-shadow: none;
+		border-right: 1px solid var(--academy-border-color);
+	}
+	// Right-docked: divider on its left edge instead.
+	.academy-learn-drawer--below-topbar:not(.academy-learn-drawer--left) {
+		border-right: none;
+		border-left: 1px solid var(--academy-border-color);
+	}
+	body.admin-bar .academy-learn-drawer--below-topbar {
+		top: 102px; // 32px admin bar + 70px topbar
+	}
+}
+
+// ---- push mode: shift the content beside the docked curriculum drawer ----
+// The offset is owned entirely by the content column's own space reservation
+// (.academy-lessons-content-scroll / --expanded-sidebar, sized to the drawer and
+// flipped to the correct side by the layout engine in _learn-layouts.scss). We
+// only add the open/close transition here — an extra wrapper margin reserved the
+// drawer's space a SECOND time and fought that reservation when the panel opened.
+.academy-lesson-content-wrapper--pushed {
+	transition: margin 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Reserve the content space on the SAME side as the docked drawer (driven by
+// the Curriculum Drawer Position), independent of the nav-placement axis.
+// Same specificity as the nav flip in _learn-layouts but imported later, so
+// the drawer position wins.
+.academy-lessons .academy-lesson-content-wrapper--pushed-left {
+	.academy-lessons-expanded-sidebar,
+	.academy-lessons-content-scroll {
+		margin-left: auto !important;
+		margin-right: 0 !important;
+	}
+}
+.academy-lessons .academy-lesson-content-wrapper--pushed-right {
+	.academy-lessons-expanded-sidebar,
+	.academy-lessons-content-scroll {
+		margin-right: auto !important;
+		margin-left: 0 !important;
+	}
+}
+
+// ---- top-bar "Course content" toggle button ----
+.academy-lesson-curriculum-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	flex-shrink: 0;
+	padding: 8px 14px;
+	border: 1px solid var(--academy-border-color);
+	border-radius: 8px;
+	background: #fff;
+	color: var(--academy-text-color);
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.15s ease;
+
+	svg {
+		flex-shrink: 0;
+	}
+
+	&:hover {
+		border-color: var(--academy-primary-color);
+		color: var(--academy-primary-color);
+		background: var(--academy-secondary-color);
+	}
+}
+
+@media (max-width: 782px) {
+	.academy-lesson-curriculum-toggle {
+		padding: 8px;
+		gap: 0;
+	}
+	.academy-lesson-curriculum-toggle__label {
+		display: none;
+	}
+}
+
+// ---- fit the curriculum (Topics) inside the left drawer ----
+// High-specificity + source-order to override the layout engine's docked/hidden
+// rules for .academy-lesson-sidebar-content when it lives inside the drawer.
+.academy-learn-drawer .academy-curriculum-drawer-body {
+	.academy-lesson-sidebar-content {
+		display: flex !important;
+		flex-direction: column !important;
+		position: static !important;
+		top: auto !important;
+		left: auto !important;
+		width: 100% !important;
+		max-width: none !important;
+		height: auto !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		border: none !important;
+		box-shadow: none !important;
+		overflow: visible !important;
+		animation: none !important;
+	}
+
+	// the drawer header already shows "Course content" + close
+	.academy-lesson-sidebar-content__title {
+		display: none !important;
+	}
+	.academy-empty-message {
+		padding:0 20px;
+	}
+
+	// The PHP-rendered progress header sits directly in the drawer body, not
+	// inside `.academy-lesson-sidebar-content` where the same rules live for the
+	// React player, so it needs its own padding, track and caption styles.
+	> .academy-lesson-sidebar-progress {
+		padding: 14px 20px 16px;
+		border-bottom: 1px solid var(--academy-border-color);
+
+		.academy-lesson-sidebar-progress__track {
+			height: 7px;
+			border-radius: 20px;
+			background: var(--academy-gray-color);
+			overflow: hidden;
+		}
+
+		.academy-lesson-sidebar-progress__fill {
+			display: block;
+			height: 100%;
+			border-radius: 20px;
+			background: var(--academy-primary-color);
+			transition: width 0.3s ease;
+		}
+
+		.academy-lesson-sidebar-progress__cap {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 7px;
+			font-size: 11.5px;
+			color: var(--academy-dark-gray-color);
+
+			b {
+				color: var(--academy-text-color);
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+// ---- top-bar "back to course" breadcrumb button ----
+.academy-lesson-breadcrumb {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	padding: 0;
+	border: 1px solid var(--academy-border-color);
+	border-radius: 10px;
+	color: var(--academy-text-color);
+	text-decoration: none;
+	transition: 0.15s ease;
+	// Match the topbar activity buttons: size/line-height on the icon span so
+	// the glyph centers instead of sitting high on its baseline.
+	.academy-icon {
+		font-size: 15px;
+		line-height: 1;
+	}
+	&:hover {
+		border-color: var(--academy-primary-color);
+		color: var(--academy-primary-color);
+		background: var(--academy-secondary-color);
+	}
+
+	&__back {
+		width: 32px;
+		height: 32px;
+		display: grid;
+		place-items: center;
+		flex-shrink: 0;
+		border-radius: 8px;
+		color: var(--academy-secondary-gray-color);
+		transition: 0.15s ease;
+
+		.academy-icon {
+			font-size: 14px;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		line-height: 1.25;
+
+		small {
+			font-size: 10px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			color: var(--academy-dark-gray-color);
+		}
+
+		b {
+			font-size: 14px;
+			font-weight: 600;
+			color: var(--academy-text-color);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			transition: 0.15s ease;
+		}
+	}
+}
+
+// ---- top-bar start: collapse button · logo · divider · ‹ course title ----
+// Same as the block learn page's top bar.
+.academy-lesson-topbar .academy-lesson-topbar__left {
+	gap: 8px;
+	min-width: 0;
+}
+
+.academy-lesson-topbar__toggle {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--academy-secondary-gray-color);
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+
+	&:hover,
+	&[aria-expanded="true"] {
+		background: var(--academy-gray-color);
+		color: var(--academy-text-color);
+	}
+
+	// Chevron points in while the panel is open (collapse), out while closed.
+	.academy-lesson-topbar__toggle-chevron {
+		transition: transform 0.2s ease;
+		transform-origin: 14px 12px;
+	}
+
+	&[aria-expanded="false"] .academy-lesson-topbar__toggle-chevron {
+		transform: scaleX(-1);
+	}
+
+	// Panel on the right: mirror the whole icon.
+	&--right svg {
+		transform: scaleX(-1);
+	}
+}
+
+.academy-lesson-topbar__divider {
+	flex: none;
+	width: 1px;
+	height: 22px;
+	background: var(--academy-border-color);
+}
+
+.academy-lesson-topbar__back {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-width: 0;
+	height: 38px;
+	padding: 0 12px 0 8px;
+	border-radius: 8px;
+	color: var(--academy-text-color);
+	text-decoration: none;
+	transition: background-color 0.15s ease, color 0.15s ease;
+
+	&:hover,
+	&:focus {
+		background: var(--academy-gray-color);
+		color: var(--academy-primary-color);
+		text-decoration: none;
+	}
+
+	.academy-lesson-topbar__back-icon {
+		flex: none;
+		color: var(--academy-secondary-gray-color);
+		transition: transform 0.15s ease, color 0.15s ease;
+	}
+
+	&:hover .academy-lesson-topbar__back-icon {
+		color: var(--academy-primary-color);
+		transform: translateX(-2px);
+	}
+
+	// Screen-reader-only label, whatever the theme ships.
+	.screen-reader-text {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.academy-lesson-topbar__course-title {
+		color: inherit;
+		line-height: 1.3;
+	}
+}
+
+// ---- top-bar course title (left-aligned, beside the Course content button) ----
+.academy-lesson-topbar__course-title {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--academy-text-color);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+	max-width: 38vw;
+}
+
+@media (max-width: 782px) {
+	.academy-lesson-breadcrumb {
+		max-width: 160px;
+	}
+	.academy-lesson-breadcrumb__text small {
+		display: none;
+	}
+	// Back + title take the remaining space; title truncates.
+	.academy-lesson-topbar__left {
+		flex: 1;
+		min-width: 0;
+	}
+	.academy-lesson-topbar .academy-lesson-topbar__left {
+		gap: 4px;
+	}
+	.academy-lesson-topbar__divider {
+		display: none;
+	}
+	.academy-lesson-topbar__back {
+		padding: 0 8px 0 4px;
+	}
+	.academy-lesson-topbar__course-title {
+		flex: 1;
+		max-width: none;
+		font-size: 15px;
+	}
+	// Compact the right-hand action buttons so the whole cluster fits.
+	.academy-lesson-activity-btn,
+	.academy-lesson-topics-toggle {
+		width: 36px;
+		height: 36px;
+	}
+	// Progress shows the ring only (drop the "Your Progress" label).
+	.academy-progress-trigger__label {
+		display: none;
+	}
+	.academy-progress-trigger {
+		gap: 0;
+	}
+}
+
+// ---- top-bar "Your Progress" trigger (opens the progress drawer) ----
+.academy-progress-trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 4px 12px 4px 5px;
+	border: 1px solid var(--academy-border-color);
+	border-radius: 999px;
+	color: var(--academy-text-color);
+	font-size: 12.5px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.15s ease;
+
+	&:hover {
+		border-color: var(--academy-primary-color);
+		background: var(--academy-secondary-color);
+	}
+
+	&__label {
+		white-space: nowrap;
+	}
+
+	.academy-progressbar {
+		flex-shrink: 0;
+
+		svg {
+			width: 28px;
+			height: 28px;
+		}
+	}
+
+	.academy-progressbar__text {
+		font-size: 9px;
+	}
+}
+
+// ---- progress drawer panel ----
+.academy-progress-panel {
+	padding: 8px 18px 20px;
+
+	&__ring {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 12px 0 18px;
+		border-bottom: 1px solid var(--academy-border-color);
+	}
+
+	&__pct {
+		b {
+			display: block;
+			font-size: 26px;
+			font-weight: 800;
+			line-height: 1.1;
+			color: var(--academy-text-color-black);
+		}
+
+		span {
+			font-size: 13px;
+			color: var(--academy-secondary-gray-color);
+		}
+	}
+
+	&__stats {
+		list-style: none;
+		margin: 0;
+		padding: 12px 0;
+		border-bottom: 1px solid var(--academy-border-color);
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 7px 0;
+			font-size: 13.5px;
+			color: var(--academy-secondary-gray-color);
+
+			b {
+				color: var(--academy-text-color);
+				font-weight: 700;
+			}
+		}
+	}
+
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	&__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 11px 16px;
+		border: 1px solid var(--academy-border-color);
+		border-radius: 10px;
+		background: #fff;
+		color: var(--academy-text-color);
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: 0.15s ease;
+
+		&:hover {
+			border-color: var(--academy-primary-color);
+			color: var(--academy-primary-color);
+			background: var(--academy-secondary-color);
+		}
+
+		&--primary {
+			background: var(--academy-primary-color);
+			border-color: var(--academy-primary-color);
+			color: #fff;
+
+			&:hover {
+				filter: brightness(1.07);
+				background: var(--academy-primary-color);
+				color: #fff;
+			}
+		}
+	}
+}
+
+// ---- Q&A scope toggle (inside the Q&A drawer) ----
+.academy-qa-scope {
+	display: flex;
+	gap: 4px;
+	margin: 16px 0px;
+	padding: 4px;
+	background: var(--academy-gray-color);
+	border: 1px solid var(--academy-border-color);
+	border-radius: 10px;
+
+	&__btn {
+		flex: 1;
+		padding: 8px 10px;
+		border: none;
+		background: transparent;
+		border-radius: 7px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--academy-secondary-gray-color);
+		cursor: pointer;
+		transition: 0.15s ease;
+		text-transform: capitalize;
+
+		&:hover {
+			color: var(--academy-text-color);
+		}
+
+		&--active {
+			background: #fff;
+			color: var(--academy-primary-color);
+			box-shadow: none;
+		}
+	}
+}
+
+// ---- Q&A status badge ----
+.academy-qa-status {
+	display: inline-block;
+	font-size: 10.5px;
+	font-weight: 700;
+	padding: 3px 9px;
+	border-radius: 20px;
+	white-space: nowrap;
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+
+	&--answered {
+		color: var(--academy-success-color);
+		background: rgba(5, 150, 105, 0.12);
+	}
+
+	&--waiting {
+		color: var(--academy-warning-color);
+		background: rgba(245, 158, 11, 0.14);
+	}
+}
+
+// ---- Q&A "posting on" context ----
+.academy-question-form__context {
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--academy-dark-gray-color);
+	margin: -4px 0 10px;
+}
+
+// ---- Announcement item polish ----
+.academy-announcement-item {
+	&__head {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		.academy-icon {
+			color: var(--academy-primary-color);
+			font-size: 16px;
+			flex-shrink: 0;
+		}
+
+		h3 {
+			margin: 0;
+		}
+	}
+
+	&__meta {
+		display: flex;
+		justify-content: center;
+		gap: 12px;
+	}
+}
+
+// =============================================================================
+// Drawer content normalization
+// The Announcements / Q&A components carry sidebar-tuned sizing (large padding,
+// 50px avatars, wide two-column meta). Re-scale them for the narrow drawer so
+// the typography reads clean and consistent. Scoped to the drawer body only.
+// =============================================================================
+.academy-learn-drawer__body {
+	// --- Q&A ---
+	.academy-lesson-browseqa-wrap {
+		border: none;
+		padding: 6px 18px 18px;
+		align-items: stretch;
+		justify-content: flex-start;
+	}
+
+	.academy-question-lists {
+		align-items: stretch;
+		justify-content: flex-start;
+		gap: 16px;
+		.academy-question-not-found {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		&__ques-img {
+			border: 1px solid var(--academy-border-color);
+			border-radius: 999px;
+			padding: 10px;
+		}
+	}
+
+	.academy-qa {
+		max-width: none;
+		margin-top: 0;
+
+		&__question {
+			flex-direction: column;
+			align-items: stretch;
+			margin-bottom: 16px;
+			
+			border-radius: 4px;
+		}
+
+		&__meta {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 12px;
+
+			.academy-qa-text-avator {
+				width: 40px;
+				height: 40px;
+				font-size: 14px;
+				line-height: 34px;
+				flex-shrink: 0;
+				border-radius: 999px;
+			}
+
+			.academy-qa-user-info {
+				text-align: left;
+			}
+
+			.academy-qa-username {
+				font-size: 14px;
+				margin: 0;
+			}
+			
+			.academy-qa-time {
+				font-size: 12px;
+				margin:  4px 0 0 0;
+			}
+		}
+
+		&__body {
+			flex-direction: row;
+			align-items: flex-start;
+			gap: 10px;
+		}
+
+		&__body-left {
+			min-width: 0;
+			flex: 1;
+		}
+
+		&__body-right {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 8px;
+			flex-shrink: 0;
+			.academy-btn {
+				&--question-answer {
+					gap: 4px;
+				}
+			}
+		}
+
+		// Reply thread: a connector line off the question, not a filled box —
+		// every other element in this drawer is border-based, so a solid gray
+		// fill here read as a stray, disconnected block. Replies get their own
+		// (smaller) avatar scale and a hairline divider between them so a
+		// multi-reply thread stays scannable instead of running together.
+		&__answer {
+			display: flex;
+			flex-direction: column;
+			margin: 10px 0 14px 20px;
+			padding-left: 18px;
+			border-left: 2px solid var(--academy-border-color);
+
+			.academy-qa {
+				padding: 12px 0;
+				border-bottom: 1px solid var(--academy-border-color);
+
+				&:last-child {
+					border-bottom: none;
+					padding-bottom: 0;
+				}
+			}
+
+			.academy-qa__meta {
+				gap: 8px;
+
+				.academy-qa-text-avator {
+					width: 26px;
+					height: 26px;
+					font-size: 10px;
+					line-height: 22px;
+				}
+
+				.academy-qa-username {
+					font-size: 12.5px;
+				}
+
+				.academy-qa-time {
+					font-size: 11px;
+				}
+			}
+
+			.academy-qa .academy-qa__body {
+				margin-top: 6px;
+			}
+		}
+
+		.academy-anwser-form {
+			text-align: right;
+			margin: 0 0 16px 20px;
+			.academy-btn{
+				margin-left: auto;
+			}
+
+			form {
+				textarea {
+					width: 100%;
+					padding: 15px;
+					border: 1px solid var(--academy-border-color);
+					margin-bottom: 15px;
+					outline: none;
+				}
+
+				button.academy-btn {
+					margin-left: auto;
+				}
+			}
+		}
+	}
+
+	.academy-qa-title {
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1.4;
+		margin-bottom: 4px;
+	}
+
+	// question / answer body text
+	.academy-qa__body-left > div,
+	.academy-qa__answer .academy-qa__body > div {
+		font-size: 13px;
+		line-height: 1.6;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	// ask-a-question form
+	.academy-question-form {
+		max-width: none;
+
+		&__heading {
+			font-size: 15px;
+			margin-bottom: 4px;
+		}
+
+		form {
+			input,
+			textarea {
+				padding: 11px 12px;
+				margin-bottom: 10px;
+				font-size: 13px;
+				border-radius: 8px;
+			}
+
+			button.academy-btn {
+				padding: 10px 18px;
+				font-size: 13px;
+			}
+		}
+	}
+
+	// --- Announcements ---
+	.academy-announcements-wrap {
+		align-items: stretch;
+		justify-content: flex-start;
+		padding: 6px 18px 18px;
+		gap: 12px;
+	}
+
+	.academy-announcement-item {
+		max-width: none;
+		margin-bottom: 0;
+		padding: 14px 16px;
+
+		h3 {
+			font-size: 14.5px;
+			font-weight: 600;
+			line-height: 1.35;
+		}
+
+		p,
+		.academy-announcement-item__content {
+			font-size: 13px;
+			line-height: 1.6;
+		}
+	}
+}

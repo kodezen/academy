@@ -1,0 +1,29 @@
+
+.academy-download-attachment {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	height: 80px;
+	border: 1px solid var(--academy-border-color);
+	background: var(--academy-surface-color);
+	padding: 0 20px;
+	border-radius: 15px;
+	text-decoration: none;
+	&__name {
+		font-size: 18px;
+		margin: 0;
+		color: var(--academy-text-color);
+	}
+	img {
+		height: 50px;
+	}
+}
+
+@media all and (max-width: 480px) {
+	.academy-download-attachment {
+		&__name {
+			font-size: 14px;
+		}
+	}
+}

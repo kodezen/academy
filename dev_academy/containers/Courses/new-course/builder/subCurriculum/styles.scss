@@ -1,0 +1,158 @@
+.academy-course-builder-sub-curriculum {
+    box-shadow: none;
+    &__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 8px;
+        padding: 0;
+        &__body {
+            .panel-control {
+                display: flex;
+                align-items: center;
+                column-gap: 15px;
+                margin: 15px;
+
+                .academy-btn--add-content {
+                    padding: 0;
+                    border-radius: 8px;
+                    border: none;
+                    color: var(--academy-primary-color);
+                }
+
+                button.components-button {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    background: rgba(123, 104, 238, 0.2);
+                    color: var(--academy-primary-color);
+                    cursor: pointer;
+                    text-align: center;
+                    height: auto;
+                    border-radius: 8px;
+                    box-sizing: border-box;
+                    padding: 10px 20px;
+                    margin: 0;
+                    border: 0;
+                    transition: all 0.3 ease;
+
+                    &:hover {
+                        color: var(--academy-primary-color);
+                    }
+                }
+            }
+        }
+
+        .academy-topic-form {
+            padding-top: 0 !important;
+            width: 100%;
+            &--heading {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                span {
+                    font-size: 20px;
+                    font-weight: 500;
+                }
+
+                .academy-btn {
+                    width: 34px;
+                    height: 34px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: transparent;
+                    border: 0;
+                    &:focus, &:hover {
+                        background: transparent;
+                        border: 0;
+                    }
+                }
+
+                .academy-form-close-button {
+                    .academy-form-close-icon {
+                        pointer-events: none;
+                        padding-top: 4px;
+                        .academy-icon {
+                            font-size: 10px;
+                        }
+                    }
+                }
+
+                .academy-icon {
+                    &--close {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+                >label {
+                    display: block;
+                    margin-bottom: 5px;
+                    font-weight: 500;
+                }
+
+                input {
+                    padding: 15px;
+                    border-radius: 4px;
+                    border: 1px solid var(--academy-border-color);
+                    &:focus-visible {
+                        border: 1px solid var(--academy-border-color);
+                        outline: none;
+                    }
+                }
+
+                .academy-summary-close {
+                    width: 100%;
+                    textarea {
+                        width: 100%;
+                        padding: 15px;
+                        border-radius: 4px;
+                        border: 1px solid var(--academy-border-color);
+                        &:focus {
+                            border: 1px solid var(--academy-border-color);
+                            outline: none;
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+
+            .academy-flex {
+                margin-top: 4px;
+            }
+
+            .academy-sub-curriculum {
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .academy-topic-form {
+        .form-group {
+            textarea {
+                width: 250px !important;
+            }
+        }
+    }
+
+    .academy-course-builder-sub-curriculum__head {
+        .academy-topic-form {
+            .form-group {
+                textarea {
+                    width: 250px !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,281 @@
+// academy elementor addons
+body.academy-single-course {
+	padding: 0;
+	margin: 0;
+}
+
+.academy-player-control-duration input[type=range]::-webkit-slider-runnable-track, .plyr input[type=range]::-webkit-slider-runnable-track {
+	box-shadow: none !important;
+}
+.academy-player-control-duration input[type=range]::-moz-range-track, .plyr input[type=range]::-moz-range-track {
+	box-shadow: none !important;
+}
+.academy-player-control-duration input[type=range]::-ms-fill-lower, .plyr input[type=range]::-ms-fill-lower {
+	box-shadow: none !important;
+}
+.academy-player-control-duration input[type=range]::-ms-fill-upper, .plyr input[type=range]::-ms-fill-upper {
+	box-shadow: none !important;
+}
+
+// Course descriptions pasted from Elementor keep its inline fixed heights on
+// .elementor-widget-container, which clip the text and make paragraphs overlap.
+.academy-single-course__content-item--description {
+	.elementor-widget-container {
+		height: auto !important;
+		min-height: 0 !important;
+	}
+}
+
+// oceanwp-theme
+.oceanwp-theme {
+	.academy-reg-form {
+		.academy-btn {
+			height: 50px;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 20px;
+		}
+	}
+	.academy-lessons__entry-left {
+		.academy-anwser-form {
+			.academy-btn {
+				background: var(--academy-primary-color);
+				text-transform: capitalize;
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: 500;
+				padding: 15px;
+				&--preset-light-purple {
+					background: var(--academy-secondary-color);
+				}
+			}
+		}
+		.academy-question-form {
+			.academy-btn {
+				background: var(--academy-primary-color);
+				text-transform: capitalize;
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: 500;
+				padding: 15px;
+			}
+		}
+	}
+	.academy-dashboard-settings {
+		.academy-btn {
+			background: var(--academy-primary-color);
+			text-transform: capitalize;
+		}
+		&__profile-form,
+		&__withdraw,
+		&__reset-form {
+			.academy-btn {
+				height: 50px;
+				font-weight: 700;
+				font-size: 14px;
+				line-height: 20px;
+			}
+		}
+	}
+	.academy-dashboard-withdrawal {
+		.academy-btn {
+			padding: 14px;
+		}
+	}
+	.academy-react-modal {
+		.academy-withdrawal-modal {
+			.academy-btn {
+				background: var(--academy-primary-color);
+				text-transform: capitalize;
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: 500;
+				padding: 15px;
+			}
+		}
+	}
+	.academy-widget-enroll {
+		&__add-to-cart,
+		&__complete-form,
+		&__enroll-form {
+			.academy-btn {
+				height: 50px;
+				font-weight: 600;
+				letter-spacing: unset;
+				font-size: 14px;
+				line-height: 20px;
+				text-transform: capitalize;
+				width: 100% !important;
+				display: block !important;
+				padding: 15px;
+				background: var(--academy-primary-color);
+    			color: #fff;
+				border-radius: 8px;
+				border: none;
+				&--preset-light-purple {
+					background: var(--academy-secondary-color);
+    				color: var(--academy-primary-color);
+				}
+			}
+		}
+		
+	}
+	.academy-single-course {
+		.academy-review-form--open-form {
+			.form-submit {
+				.academy-btn {
+					text-transform: capitalize;
+					letter-spacing: unset;
+				}
+			}
+		}
+	}
+	.academy-loggged-in-modal {
+		.academy-btn {
+			background: var(--academy-primary-color);
+    		color: #fff;
+			font-size: 14px;
+			padding: 15px;
+			border-radius: 8px;
+			text-transform: capitalize;
+		}
+	}
+	.academy-list-wrap{
+		.rdt_Pagination {
+			svg {
+				top: 0px;
+				right: 4px;
+			}
+		}
+	}
+	.academy-editor{
+		&__title-submit {
+			.academy-select {
+				.academy-react-select {
+					&__control {
+						.academy-react-select__input-container {
+							margin: 0;
+							padding: 0;
+						}
+					}
+				}
+			}
+		}
+		&__content-sidebar{
+			.academy-widget {
+				.academy-btn {
+					padding: 9px;
+					font-size: 13px;
+				}
+			}
+		}
+	}
+}
+
+// twenty twenty one
+.theme-twentytwentyone {
+	.academy-search-component {
+		input[type=text] {
+			padding-left: 40px ;
+			padding-right: 30px ;
+		}
+	}
+	.academy-editor{
+		&__title-submit {
+			.academy-select {
+				.academy-react-select {
+					&__control {
+						.academy-react-select__input-container {
+							margin: 0;
+							padding: 2px;
+						}
+					}
+				}
+			}
+			.academy-btn{
+				padding: 11px 20px;
+			}
+		}
+	}
+	.academy-course-builder{
+		&__item {
+			.control {
+				.academy-btn {
+					border: none;
+					background: none;
+				}
+			}
+		}
+	}
+	.academy-postbox{
+		.meta-tab-content {
+			.meta-field {
+				&--course-type, &--difficulty-level  {
+					.meta-field__body {
+						display: flex;
+						align-items: center;
+						input {
+							width: 20px;
+							height: 20px;
+						}
+					}
+				}
+			}
+			.meta-field__body {
+				label {
+					display: flex;
+					align-items: center;
+					gap: 5px;
+				}
+			}
+		}
+	}
+}
+
+.oceanwp-theme {
+	.academy-courses--archive {
+		.academy-widget-enroll__add-to-cart .academy-btn, .academy-widget-enroll__complete-form .academy-btn, .academy-widget-enroll__enroll-form .academy-btn {
+			height: auto;
+			padding: 6px 12px;
+		}
+		.academy-widget-enroll__enroll-form{
+			padding: 0;
+		}
+	}
+}
+
+// twenty twenty three
+.theme-twentytwentythree, .theme-twentytwentytwo {
+	.academy-list-wrap{
+		.rdt_Pagination {
+			svg {
+				top: 0px;
+				right: 4px;
+			}
+		}
+	}
+}
+
+// All theme
+.components-tab-panel__tabs-item:focus:not(:disabled) {
+	box-shadow: unset;
+}
+
+// Theme wabi Sabi
+.wp-theme-wabi-sabi{
+	.academy-lesson-quiz__body{
+		h3#ship-to-different-address label .input-checkbox, input[type="radio"], input[type="checkbox"], .edd_price_options ul > li > label > input[type="radio"], .edd_price_options ul > li > label > input[type="checkbox"], .wpcf7-radio input[type="radio"], .wpcf7-checkbox input[type="checkbox"], .wpcf7-acceptance input[type="checkbox"]{
+			position: relative !important;
+		}
+	}
+}
+
+// Theme Flatsome
+.theme-flatsome .academy-review-form-rating .stars a {
+	color: var(--wp--preset--color--luminous-vivid-amber) !important;
+	display: inline-block;
+	font-family: fl-icons;
+	font-size: 16px;
+	margin-left: 0;
+	overflow: hidden;
+}

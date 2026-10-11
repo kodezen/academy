@@ -1,0 +1,102 @@
+.academy-notes-wrapper {
+    &__floating {
+        right: 30% !important;
+        bottom: 20% !important;
+        width: 500px !important;
+    }
+    
+    &__content {
+        background: var(--academy-surface-color);
+        z-index: 99999;
+        position: fixed;
+        right: -20px;
+        bottom: 0;
+        width: 400px;
+        height: 600px;
+        border: 1px solid var(--academy-border-color);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: none;
+        margin-right: 22px;
+    }
+
+    &__input {
+        width: 100%;
+        height: 100%;
+        border-top: 1px solid var(--academy-border-color);
+        textarea {
+            min-width: 100%;
+            min-height: 100%;
+            border: none;
+            padding: 12px 16px;
+        }
+    }
+    &__editable {
+        min-width: 100%;
+        min-height: 100%;
+        border: none;
+        padding: 12px 16px;
+        white-space: pre-wrap;
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    &__header {
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &__title {
+        padding: 0 12px;
+    }
+    &__actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 0 12px;
+    }
+
+    .academy-btn {
+        &--note-book {
+            position: fixed;
+            right: -25px;
+            top: 45%;
+            rotate: -90deg;
+            z-index: 99999;
+        }
+        &--lesson-note {
+            padding: 10px 16px;
+            background: var(--academy-surface-color);
+            border: 1px solid var(--academy-border-color);
+            .academy-btn--label {
+                color: var(--academy-text-color);
+            }
+        }
+
+        &--notes-header {
+            padding: 4px;
+            .academy-icon {
+                &::before {
+                    color: var(--academy-text-color);
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 485px) {
+    .academy-notes-wrapper {
+        &__content {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+}

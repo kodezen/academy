@@ -1,0 +1,180 @@
+/*
+ * Accordion-style question builder (QuizPress-like): a list of self-contained
+ * question cards whose headers toggle an in-place editor.
+ */
+.academy-questions {
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 16px;
+
+		&-info {
+			display: flex;
+			align-items: baseline;
+			gap: 8px;
+		}
+	}
+
+	&__title {
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--academy-text-color);
+		margin: 0;
+		line-height: 24px;
+	}
+
+	&__count {
+		font-size: 12px;
+		color: var(--academy-secondary-gray-color);
+	}
+}
+
+.academy-question-cards {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-bottom: 24px;
+}
+
+.academy-question-card {
+	border: 1px solid var(--academy-border-color);
+	border-radius: 8px;
+	background: var(--academy-surface-color);
+
+	&__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 12px 16px;
+		cursor: pointer;
+		user-select: none;
+		border-radius: 8px;
+
+		&:hover {
+			background: var(--academy-gray-color);
+		}
+
+		&--active {
+			background: var(--academy-gray-color);
+			border-radius: 8px 8px 0 0;
+			border-bottom: 1px solid var(--academy-border-color);
+		}
+
+		&-left {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			min-width: 0;
+		}
+
+		&-right {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			flex-shrink: 0;
+		}
+	}
+
+	&__drag {
+		cursor: grab;
+		color: var(--academy-secondary-gray-color);
+		// The global .academy-icon { pointer-events: none } would swallow the
+		// grab, so re-enable it on the handle.
+		pointer-events: auto;
+
+		&:active {
+			cursor: grabbing;
+		}
+	}
+
+	&__index {
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--academy-secondary-gray-color);
+		flex-shrink: 0;
+	}
+
+	&__title {
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--academy-text-color);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	&__chevron {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__body {
+		padding: 16px;
+	}
+
+	&--new {
+		border-color: var(--academy-primary-color);
+	}
+}
+
+// Inside a card the shared question form is already framed by the card. As a
+// standalone bottom form it was a fixed 60%-wide, 450px-tall, scrollable box
+// with its own border — reset all of that so it fills the card naturally.
+.academy-question-card__body .academy-question-form-wrap {
+	width: 100%;
+	padding: 0;
+	border: 0;
+	box-shadow: none;
+
+	.academy-question-form {
+		overflow: visible;
+		padding: 0;
+	}
+
+	// Footer save/cancel row: keep the top divider but align to the card edges.
+	// margin-top governs the gap above the divider (between the last field —
+	// e.g. an open answer's "Save and Update Answer" button — and the
+	// footer); padding-top is the separate gap below the divider, before
+	// Close/Add Question, and is untouched. Raised from 4px towards the
+	// standalone form's own default (.academy-question-form-wrap--footer in
+	// _questionform.scss uses 16px) — 4px read as visually compressed here.
+	.academy-question-form-wrap--footer {
+		padding: 16px 0 0 0;
+		margin-top: 20px;
+	}
+}
+
+// The question form's Save/Reset bar is portaled up into the questions header
+// (top row), so it no longer needs its in-form divider or vertical spacing.
+.academy-questions__head-portal .academy-question-form-wrap--header {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+// The same Save/Reset bar is also portaled up into the quiz wizard's sticky
+// page header (course builder / standalone Quizzes) while a question card is
+// open, so it stays reachable without scrolling back down. Reset the divider
+// and spacing meant for its original in-card position.
+.academy-quiz-header-question-actions {
+	display: flex;
+	align-items: center;
+
+	// Collapse out of the header's flex gap entirely when nothing has
+	// portaled in (i.e. no question card is open), instead of sitting there
+	// as an empty item that still eats a gap on either side.
+	&:empty {
+		display: none;
+	}
+
+	.academy-question-form-wrap--header {
+		padding: 0;
+		margin: 0;
+		border: 0;
+	}
+}

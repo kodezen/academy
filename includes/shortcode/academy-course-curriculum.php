@@ -1,0 +1,135 @@
+<?php
+namespace Academy\Shortcode;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	return;
+}
+
+class AcademyCourseCurriculum {
+
+	public function __construct() {
+		add_shortcode('academy_course_curriculum_topbar', [
+			$this,
+			'course_topbar',
+		]);
+		add_shortcode('academy_course_curriculums', [
+			$this,
+			'course_curriculums',
+		]);
+		add_shortcode('academy_course_curriculum_content', [
+			$this,
+			'curriculum_content',
+		]);
+		add_shortcode( 'academy_course_announcements', [
+			$this,
+			'course_announcements',
+		]);
+		add_shortcode( 'academy_course_questions_answers', [
+			$this,
+			'course_questions_answers',
+		]);
+		add_shortcode( 'academy_course_lesson_comments', [
+			$this,
+			'course_lesson_comments',
+		]);
+	}
+
+	public function course_topbar( $attributes, $content = '' ) {
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+		extract( shortcode_atts([
+			'progress_ber_text' => __( 'Your Progress', 'academy' ),
+		], $attributes ) );
+
+		ob_start();
+
+		\Academy\Helper::get_template('curriculums/topbar.php', [
+			'course_id' => \Academy\Helper::get_the_current_course_id(),
+			'progress_ber_text' => $progress_ber_text,
+		]);
+
+		$output = ob_get_clean();
+
+		return apply_filters( 'academy/templates/shortcode/course_topbar', $output );
+	}
+
+	public function course_curriculums( $attributes, $content = '' ) {
+		$course_id = \Academy\Helper::get_the_current_course_id();
+		$curriculums = \Academy\Helper::get_course_curriculum( $course_id, true );
+		ob_start();
+		\Academy\Helper::get_template('curriculums/course-curriculums.php', [
+			'curriculums' => $curriculums,
+		]);
+		$output = ob_get_clean();
+		return apply_filters( 'academy/templates/shortcode/course_curriculums', $output );
+	}
+
+
+	public function curriculum_content( $attributes, $content = '' ) {
+		$slug = get_query_var( 'name' );
+		$type = get_query_var( 'curriculum_type' );
+		$id = \Academy\Helper::get_topic_id_by_topic_name_and_topic_type(
+			$slug,
+			$type
+		);
+		$is_previewable = \Academy\Helper::get_lesson_meta( (int) $id, 'is_previewable' );
+		ob_start();
+
+		\Academy\Helper::get_template('curriculums/content.php', [
+			'id' => $id,
+			'type' => $type,
+			'course_id' => \Academy\Helper::get_the_current_course_id(),
+			'is_previewable' => $is_previewable,
+		]);
+
+		$output = ob_get_clean();
+
+		return apply_filters( 'academy/templates/shortcode/course_curriculum_content', $output );
+	}
+
+	public function course_announcements( $attributes, $content = '' ) {
+		$course_id = \Academy\Helper::get_the_current_course_id();
+		$announcements = \Academy\Helper::get_course_announcements_by_course_id( $course_id );
+
+		ob_start();
+
+		\Academy\Helper::get_template('curriculums/announcements.php', [
+			'announcements' => $announcements,
+		]);
+
+		$output = ob_get_clean();
+
+		return apply_filters( 'academy/templates/shortcode/course_announcements', $output );
+	}
+
+	public static function course_questions_answers( $attributes, $content = '' ) {
+		$course_id = \Academy\Helper::get_the_current_course_id();
+		$qas = \Academy\Helper::get_course_qas( $course_id );
+
+		ob_start();
+
+		\Academy\Helper::get_template( 'curriculums/questions-answers.php', [
+			'qas' => $qas,
+		]);
+
+		$output = ob_get_clean();
+
+		return apply_filters( 'academy/templates/shortcode/course_questions_answers', $output );
+	}
+
+	public static function course_lesson_comments( $attributes, $content = '' ) {
+		$course_id = \Academy\Helper::get_the_current_course_id();
+		$topic_slug = get_query_var( 'name' );
+		$lesson_post = \Academy\Helper::get_lesson_by_slug( $topic_slug );
+		$comments = \Academy\Helper::get_course_lesson_comments( $lesson_post['ID'] ?? 0 );
+		ob_start();
+
+		\Academy\Helper::get_template( 'curriculums/lesson-comments.php', [
+			'comments' => $comments,
+			'course_id' => $course_id,
+		]);
+
+		$output = ob_get_clean();
+
+		return apply_filters( 'academy/templates/shortcode/course_lesson_comments', $output );
+	}
+}

@@ -1,0 +1,414 @@
+.academy-react-modal--lesson-form {
+    .academy-react-modal {
+        &__content {
+            .academy-lesson-form {
+                &__title{
+                    input {
+                        &:focus{
+                            outline: none;
+                        }
+                    }
+
+                    .academy-editor__title-input{
+                        width: 100%;
+                    }
+                }
+                .academy-warning-text {
+                    .academy-icon {
+                        &--information {
+                            margin-right: 12px;
+                            &::before {
+                                color: var(--academy-warning-color);
+                            }
+                        }
+                        &--go-on {
+                            margin-left: 6px;
+                            &::before {
+                                color: var(--academy-primary-color);
+                            }
+                        }
+                    }
+                }
+
+                &--container {
+                    &-body {
+                        .academy-lesson-form__meta-item {
+                            .academy-lesson-form__meta-item-label {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 4px;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: var(--academy-text-color);
+                                margin: 0;
+                                span {
+                                    font-size: 12px;
+                                    font-weight: 400;
+                                    color: var(--academy-secondary-gray-color);
+                                }
+                            }
+
+                            &-label {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 4px;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: var(--academy-text-color);
+                                margin-top: 0;
+                            }
+            
+                            &-content {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-start;
+                                gap: 12px;
+                                p {
+                                    margin: 0;
+                                }
+            
+                                input {
+                                    margin: 0;
+                                    &:focus{
+                                        outline: none;
+                                    }
+                                }
+
+                                textarea {
+                                    width: 100%;
+                                    padding: 15px;
+                                    min-height: 80px;
+                                    border: 1px solid var(--academy-border-color);
+                                }
+            
+                                input[type="number"], select {
+                                    margin: 0;
+                                    height: 42px;
+                                    background: var(--academy-surface-color);
+                                    border: 1px solid var(--academy-border-color);
+                                    border-radius: 8px;
+                                    width: 100%;
+                                    max-width: unset !important;
+                                    padding: 0 24px;
+                                }
+
+                                .academy-lesson-timer {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    gap: 8px;
+                                    .group-field {
+                                        label {
+                                            input {
+                                                display: block;
+                                                margin-bottom: 7px;
+                                                width: 100px;
+                                            }
+                                        }
+                        
+                                        &__items {
+                                            display: flex;
+                                            align-items: flex-end;
+                                            border-radius: 4px;
+                                            input[type=number] {
+                                                width: 80px;
+                                                height: 40px;
+                                                margin: 8px 0 0 0;
+                                                border-radius: initial;
+                                                border-radius: 4px 0 0 4px;
+                                                padding: 12px;
+                                                &:focus {
+                                                    box-shadow: none;
+                                                }
+                                            }
+                        
+                                            span {
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                width: 48px;
+                                                height: 38px;
+                                                border: 1px solid var(--academy-border-color);
+                                                border-left: none;
+                                                background: var(--academy-gray-color);
+                                                color: var(--academy-secondary-gray-color);
+                                                font-size: 12px;
+                                                border-radius: 0 4px 4px 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .academy-component-video-upload {
+                            justify-content: flex-end;
+                            &__video {
+                                .academy-component-video-upload__container {
+                                    .academy-component-video-upload__video__wrapper {
+                                        min-width: 300px;
+                                    }
+                                }
+                            }
+                        }
+
+                        textarea {
+                            border: 1px solid var(--academy-border-color);
+                            padding: 8px 12px;
+                            width: 100%;
+                            margin-top: 8px;
+                            &:focus {
+                                border: 1px solid var(--academy-primary-color);
+                                box-shadow: none;
+                                outline: none;
+                            }
+                        }
+
+                        &--video-source {
+                            .academy-custom-select {
+                                margin-bottom: 8px;
+                                &--lesson-video-source {
+                                    .academy-custom-select--container {
+                                        width: 170px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                .academy-editor{
+                    &__upload-image {
+                        .academy-upload-image{
+                            flex-wrap: wrap;
+                        }
+                    }
+                }
+                
+                .academy-postbox--scorm  {
+                    margin-bottom: 12px !important;
+                    &__body {
+                        padding-top: 0 !important;
+                    }
+
+                    .meta-field {
+                        margin: 0;
+                        display: flex;
+                        align-items: center;
+                        gap: 24px;
+                        &__label {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: flex-start;
+                            gap: 10px;
+                            width: 100%;
+                            span {
+                                font-size: 14px;
+                            }
+
+                            .academy-file-desc {
+                                color: var(--academy-secondary-gray-color);
+                                font-size: 12px;
+                                margin-bottom: 20px;
+                            }
+                        }
+
+                        &__body {
+                            display: flex;
+                            justify-content: flex-end;
+                        }
+
+                        &--scorm {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: flex-end;
+                            padding: 12px;
+                            &--container {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                gap: 12px;
+                                .meta-field__body {
+                                    min-width: 200px;
+                                    height: 136px;
+                                    border-radius: 4px;
+                                    .academy-scrom-file-upload {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        flex-direction: column;
+                                        width: 200px;
+                                        height: 134px;
+                                        background: var(--academy-gray-color);
+                                        border: 1px dashed var(--academy-border-color);
+                                        border-radius: 4px;
+                                        &--linear {
+                                            height: 80px;
+                                            width: 80px;
+                                            background: linear-gradient(180deg, rgba(229, 229, 229, 0.48) 50%, rgba(247, 248, 248, 0.00) 100%, rgba(229, 229, 229, 0.00) 100%);
+                                            border-radius: 50%;
+                                            .academy-icon {
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                background: var(--academy-surface-color);
+                                                border: 1px solid var(--academy-border-color);
+                                                border-radius: 50%;
+                                                box-shadow: none;
+                                                &::before {
+                                                    font-size: 24px;
+                                                    padding: 16px;
+                                                }
+                                                
+                                                &--scorm {
+                                                    height: 56px;
+                                                    width: 56px;
+                                                    margin: 12px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .academy-btn-delete {
+                                padding: 0;
+                                border: 0;
+                                background: transparent;
+                                cursor: pointer;
+                                .academy-icon::before {
+                                    font-size: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__footer {
+            border-top: 1px solid var(--academy-border-color);
+            box-shadow: none;
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+	.academy-react-modal--lesson-form {
+        width: 100%;
+	}
+
+    .academy-react-modal {
+        &__content{
+            .academy-lesson-form{
+                &__meta-item{
+                    .meta-field__body{
+                        .attachmentfile {
+                            flex-direction: column;
+                            align-items: flex-start !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/*
+ * Lesson slug edit row: label, input, OK and Cancel all on one line. The
+ * input must not wrap onto its own line (as .academy-input's width: 100%
+ * would otherwise force in a flex row), so it's shrunk to fit next to the
+ * label and buttons instead.
+ */
+.academy-lesson-slug-edit {
+    flex-wrap: nowrap;
+
+    .academy-lesson-slug-input {
+        width: auto;
+        flex: 1 1 auto;
+        min-width: 0;
+        // Match the Edit/OK/Cancel buttons' height (Tailwind h-7) so the row
+        // stays the same height switching between the collapsed and edit
+        // states — otherwise the browser's default input height is taller
+        // and the whole line jumps.
+        min-height: 28px !important;
+        max-height: 28px !important;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid var(--academy-border-color);
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            border: 0;
+            border-bottom: 1px solid var(--academy-border-color);
+            box-shadow: none;
+            outline: none;
+        }
+    }
+
+    .academy-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+}
+
+// Lesson editor sidebar cards (Feature Image, Attachment): a title, a
+// one-line hint, then the compact upload card.
+.academy-lesson-sidebar-card {
+    .academy-ai-generate--item-wrap {
+        margin: 0;
+    }
+
+    // `h3` too: beats the admin's generic heading margins.
+    & h3#{&}__title,
+    &__title {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22px;
+        color: var(--academy-text-color-black);
+    }
+
+    &__hint {
+        margin: 2px 0 14px;
+        font-size: 12px;
+        line-height: 18px;
+        color: var(--academy-secondary-gray-color);
+    }
+}
+
+/*
+ * Route-based lesson editor: the Feature Image sits in the narrow settings
+ * sidebar, so stack the shared UploadImage (dropzone above the details)
+ * instead of its wide side-by-side row.
+ */
+.academy-lesson-sidebar-image .academy-upload-image {
+    &-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        width: 100%;
+    }
+
+    &-container--wrap,
+    &-container--wrap--img,
+    &-container--wrap--img--uploaded {
+        width: 100%;
+    }
+}
+
+// The video-source select's dropdown is portaled to <body> (AcademySelect),
+// so it's no longer a DOM descendant of .academy-react-modal--lesson-form —
+// this can't be nested under that wrapper the way the rest of this file is.
+// The full option list (incl. the Attendance-locked Online/Offline items
+// appended last) can run past the shared 250px dropdown cap with no visible
+// scrollbar hint (it's hidden) — give this one more room so nothing sits
+// below the fold unnoticed.
+.academy-custom-select--options--lesson-video-source {
+    max-height: 340px;
+}

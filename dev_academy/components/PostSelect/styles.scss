@@ -1,0 +1,60 @@
+.academy-post-form-group {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:not(:last-child) {
+        margin-bottom: 16px;
+    }
+    .academy-post-form-info{
+        label {
+            font-weight: 500;
+            display: block;
+            width: 200px;
+        }
+
+        // No title/subtitle passed in (just the select on its own, e.g.
+        // CourseInstructor's author select) — this column would otherwise
+        // still take up its own empty flex slot and shove the select over
+        // via the group's `space-between`.
+        &:empty {
+            display: none;
+        }
+    }
+
+	.academy-post-form-control {
+		margin: 0;
+		height: 44px;
+		padding: 0 15px 2px 15px;
+		border-radius: 8px;
+		border: 1px solid var(--academy-border-color);
+		color: var(--academy-text-color);
+		font-size: 14px;
+		width: 100%;
+		outline: 0;
+		&:hover,
+		&:focus {
+			border-color: var(--academy-primary-color);
+		}
+	}
+
+    .academy-custom-select--course-post-select {
+        width: 250px !important;
+    }
+
+    .academy-post-form-body {
+        // Sibling to the fixed-width `.academy-post-form-info` label above,
+        // in a `justify-content: space-between` row with no explicit width
+        // of its own — it was shrink-wrapping to the select's content (the
+        // selected label + clear/arrow icons) instead of filling the rest
+        // of the row, squeezing e.g. "Learn Page" onto two lines.
+        flex: 1;
+        min-width: 0;
+        max-width: 250px;
+
+        .academy-desc {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 18px;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.academy-accordion {
+    &__content {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        padding: 0 12px;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        border-radius: 0 0 4px 4px;
+        transition: 
+            max-height 0.5s ease,
+            opacity 0.5s ease,
+            padding 0.5s ease,
+            border 0.5s ease;
+    }
+
+    &__content--open {
+        max-height: 1000px;
+        opacity: 1;
+        padding: 0px;
+        // border-left: 1px solid var(--academy-border-color);
+        // border-right: 1px solid var(--academy-border-color);
+        // border-bottom: 1px solid var(--academy-border-color);
+    }
+}

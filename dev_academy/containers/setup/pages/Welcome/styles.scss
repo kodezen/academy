@@ -1,0 +1,229 @@
+.academy-setup-screen--first {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    width: 100%;
+    height: 100%;
+    &__header {
+        margin-top: 60px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .academy-entry-icon {
+            margin-bottom: 24px;
+        }
+    }
+
+    &__content {
+        width: 100%;
+    }
+
+    /* todo: uncomment this section if video is used infuture */
+    // &__video {
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     width: 100%;
+    //     margin: 32px 0;
+    //     padding-bottom: 100px;
+    //     iframe {
+    //         background: rgba(241, 239, 253, 0.94);
+    //         border-radius: 4px;
+    //         width: 100%;
+    //         max-width: 568px;
+    //     }
+    // }
+
+    &__illustration {
+        width: 100%;
+        img {
+            width: 100%;
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 40px;
+        width: calc(100% - 80px);
+        gap: 24px;
+        background: #fff;
+        &-message {
+            text-align: canter;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 18px;
+            .academy-btn {
+                &--we-collect {
+                    display: inline;
+                    padding: 0;
+                    .academy-btn--label {
+                        color: var(--academy-primary-color);
+                    }
+                }
+            }
+        }
+
+        a {
+            text-decoration: none;
+            &:hover {
+                color: var(--academy-primary-color);
+            }
+        }
+    }
+
+    &__bottom-message { 
+        text-align: center;
+        .academy-title {
+            text-align: center;
+            p {
+                margin-top: 4px;
+            }
+        }
+    }   
+
+    &__bottom-sub-title {
+        padding: 10px 0;
+        display: block;
+        margin: 0;
+    }
+
+    .academy-title--declaration {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .academy-btn--declaration {
+            padding: 0;
+            border: none;
+            .academy-btn--label {
+                text-decoration: underline;
+                color: var(--academy-primary-color);
+            }
+        }
+    }
+}
+
+// Welcome step typography: a clear heading, a readable intro, and a quiet
+// consent line / skip link under the primary action.
+.academy-setup-screen--first {
+    .academy-setup-screen--first__header {
+        .academy-entry-icon {
+            height: 36px;
+            margin-bottom: 28px;
+        }
+    }
+
+    .academy-setup-screen__title {
+        margin: 0 0 12px;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 44px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: var(--academy-text-color-black);
+    }
+
+    .academy-setup-screen__subtitle {
+        max-width: 560px;
+        margin: 0 auto 40px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 26px;
+        text-align: center;
+        text-wrap: balance;
+        color: var(--academy-secondary-gray-color);
+    }
+
+    // Beat the setup screen's global `span` size/colour: part of the sentence.
+    .academy-setup-screen__subtitle .academy-setup-screen__brand {
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        color: inherit;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+        .academy-setup-screen__title {
+            font-size: 28px;
+            line-height: 36px;
+        }
+
+        .academy-setup-screen__subtitle {
+            font-size: 15px;
+            line-height: 24px;
+        }
+    }
+
+    .academy-setup-screen--first__bottom {
+        gap: 16px;
+    }
+
+    .academy-title--declaration {
+        flex-wrap: wrap;
+        gap: 4px;
+        font-size: 13px;
+        line-height: 20px;
+        color: var(--academy-secondary-gray-color);
+
+        .academy-btn--declaration {
+            height: auto;
+            min-height: 0;
+            background: transparent;
+
+            .academy-btn--label {
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 20px;
+                text-decoration: none;
+            }
+
+            &:hover .academy-btn--label,
+            &:focus-visible .academy-btn--label {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .academy-setup-screen--first__bottom-message .academy-title p {
+        max-width: 560px;
+        margin: 8px auto 0;
+        font-size: 13px;
+        line-height: 20px;
+        color: var(--academy-secondary-gray-color);
+    }
+
+    .academy-btn--lets-start {
+        min-width: 220px;
+        justify-content: center;
+        padding: 12px 24px;
+
+        .academy-btn--label {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 22px;
+        }
+    }
+
+    .academy-screen-steps-footer-text {
+        font-size: 14px;
+        line-height: 20px;
+
+        .academy-btn--label {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            color: var(--academy-secondary-gray-color);
+        }
+
+        &:hover .academy-btn--label,
+        &:focus-visible .academy-btn--label {
+            color: var(--academy-primary-color);
+        }
+    }
+}

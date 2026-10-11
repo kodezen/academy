@@ -1,0 +1,141 @@
+// Three stacked lines: thumbnail, then name+link, then ID — overrides
+// `.academy-table-title-wrap`'s shared row layout (`_listTable.scss`) with
+// its own column one, scoped to this modifier class so other tables using
+// that same base class keep their normal row layout.
+.academy-category-title-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+}
+
+.academy-table-title__category-thumb {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+// Its own line below the name+link row now (used to sit inline between
+// them) — kept visually secondary to the name with a muted color.
+.academy-table-title__category-id {
+    font-size: 12px;
+    color: var(--academy-secondary-gray-color);
+}
+
+.academy-category-form {
+    &__name-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .academy-change-slug-btn {
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--academy-primary-color);
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .academy-upload-image {
+        // `justify-content: space-between` in the base component (`UploadImage/
+        // styles.scss`) is meant to push this row's two children (the preview
+        // box + the delete button) apart. With no explicit width, the single
+        // child below only claims its own intrinsic content width, and the
+        // rest of this row sits as unused flex free space to the right —
+        // that's the empty diagonal-hatched gap DevTools shows. Stretching
+        // the child to the full row fixes it.
+        > .academy-upload-image-container {
+            width: 100%;
+        }
+    }
+
+    .academy-upload-image-container {
+        flex-direction: column;
+        // Base component sets `align-items: center` for its row layout (icon
+        // box centered next to the details column). In this column layout
+        // `--wrap` gets an explicit `width: 100%` so it ignores this either
+        // way, but `--details` (label/support-text/button) has no explicit
+        // width, so it was still floating centered under the full-width box
+        // instead of starting flush against its left edge.
+        align-items: flex-start;
+        gap: 12px;
+
+        &--wrap {
+            width: 100%;
+
+            // `UploadImage`'s own box is a fixed 200x134 (`UploadImage/
+            // styles.scss`) — stretching only the width to 100% here left
+            // the height fixed at 134px, so a wider box no longer matched
+            // the 700:430 "Recommended size" ratio its own copy advertises.
+            // `background-size: contain` then letterboxed even a correctly
+            // -sized upload, which read as "the image isn't using the full
+            // width" — matching the box's own aspect ratio to that same
+            // 700:430 fixes it at any width.
+            &--img,
+            &--img--uploaded {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 700 / 430;
+                // The 700:430 ratio above keeps the box's shape matching the
+                // "Recommended size" text at any width, but at this sidebar
+                // column's width that's still a fairly tall box — capping it
+                // shrinks the box without touching that ratio (or width),
+                // just letting it stop growing taller past this point.
+                max-height: 120px;
+            }
+        }
+    }
+}
+
+.academy-react-modal--term {
+    .academy-react-modal__content {
+        .academy-category-form {
+            &__field {
+                label {
+                    .academy-tooltip {
+                        &__text {
+                            width: 24vw;
+                            margin-left: 40px;
+                            &:after {
+                                left: 120px;
+                            }
+                        }
+
+                        .academy-icon {
+                            &--information {
+                                &::before {
+                                    color: var(--academy-secondary-gray-color);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 480px) {
+    .academy-react-modal {
+        &--term {
+            width: 100%;
+        }
+    }
+}

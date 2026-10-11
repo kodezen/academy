@@ -1,0 +1,60 @@
+.academy-react-modal__update{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px 40px;
+    position: relative;
+    .academy-btn-close{
+        position: absolute;
+        border: none;
+        background: transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        right: 24px;
+        top: 16px;
+        padding: 6px;
+        width: 32px;
+        height: 32px;
+        .academy-icon {
+            &--close {
+                &::before {
+                    color: var(--academy-dark-gray-color);
+                }
+            }
+        }
+        &:hover {
+            background: var(--academy-gray-color);
+            .academy-icon {
+                &--close {
+                    &::before {
+                        color: var(--academy-primary-color);
+                    }
+                }
+            }
+        }
+    }
+    .academy-upgrade-image{
+        width: 250px;
+    }
+    p {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 30px;
+        color: var(--academy-secondary-gray-color);
+        text-align: center;
+        max-width: 385px;
+        margin: 16px 0 24px;
+        span {
+            color: var(--academy-primary-color);
+            font-weight: 500;
+        }
+    }
+    .academy-btn {
+        padding: 10px 16px;
+        gap: 8px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+}

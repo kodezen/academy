@@ -1,0 +1,24 @@
+.customize-control.customize-control-academy_separator {
+    margin-top: -1px;
+}
+.academy-customize-separator-control {
+    margin-left: -25px;
+    margin-right: -25px;
+    display: block;
+    padding: 13px 20px;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: var(--academy-border-color);
+    background-color: #fff;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1;
+    &__heading {
+        margin: 0;
+        color: #2271b1;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: left;
+    }
+}

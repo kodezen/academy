@@ -1,0 +1,36 @@
+/**
+ * Tailwind entry for the Academy admin app.
+ *
+ * Kept as a plain `.css` file (not `.scss`) so it goes straight through
+ * PostCSS/Tailwind without Sass touching the `@tailwind` directives. Imported
+ * from backend.js; webpack extracts it into the existing backend.css bundle.
+ *
+ * `base` carries no reset here (preflight is disabled in tailwind.config.js) —
+ * it is kept only so any future opt-in base styles have a home.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Border compatibility for preflight-off.
+ *
+ * Tailwind's `border` utility only sets `border-width` and relies on Preflight
+ * for `border-style: solid` + a default color. Preflight is disabled (so it
+ * can't touch WP-admin chrome), so we re-add just the border reset here.
+ *
+ * Scoped with `:where()` — zero specificity, so utility classes like
+ * `border-academy-border` still win, and only the Academy app roots are
+ * affected (never the surrounding WP admin). Portaled overlays (Modal /
+ * Dropdown) render outside these roots and carry an explicit `border-solid`.
+ */
+@layer base {
+	:where( #academywrap, #academysetupscreenwrap, .academy-portal ),
+	:where( #academywrap, #academysetupscreenwrap, .academy-portal ) *,
+	:where( #academywrap, #academysetupscreenwrap, .academy-portal ) ::before,
+	:where( #academywrap, #academysetupscreenwrap, .academy-portal ) ::after {
+		border-width: 0;
+		border-style: solid;
+		border-color: currentColor;
+	}
+}

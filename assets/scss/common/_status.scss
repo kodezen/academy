@@ -1,0 +1,106 @@
+.academy-publish,
+.academy-completed,
+.academy-pending,
+.academy-processing,
+.academy-passed,
+.academy-pass,
+.academy-answered,
+.academy-submitted,
+.academy-draft,
+.academy-rejected,
+.academy-failed,
+.academy-skipped,
+.academy-trash,
+.academy-success,
+.academy-approved,
+.academy-completed,
+.academy-cancel,
+.academy-expired,
+.academy-active,
+.label-status-processing,
+.label-status-completed,
+.label-status-cancelled,
+.label-status-approved,
+.label-status-incomplete,
+.label-status-on-hold,
+.label-status-rejected,
+.label-status-pending {
+    min-width: 50px;
+    padding: 8px 20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: capitalize;
+    border-radius: 45px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    .academy-icon {
+        &::before {
+            font-size: 10px !important;
+        }
+    }
+}
+
+.academy-approved,
+.academy-rejected {
+    min-width: 70px;
+}
+
+.label-status-completed,
+.label-status-approved,
+.academy-approved,
+.academy-completed,
+.academy-passed,
+.academy-pass,
+.academy-success,
+.academy-completed,
+.academy-answered,  
+.academy-active,
+.academy-publish {
+    color: #24A148;
+    background: rgba(36, 161, 72, 0.1);
+}
+.academy-pending,
+.academy-processing,
+.label-status-processing, 
+.academy-submitted,
+.label-status-pending {
+    color: #EC9814;
+    background: rgba(236, 152, 20, 0.12);
+}
+.academy-draft, .label-status-on-hold {
+    color: var(--academy-secondary-gray-color);
+    background: var(--academy-gray-color);
+}
+.academy-failed,
+.academy-cancel,
+.academy-trash,
+.label-status-cancelled,
+.academy-rejected,
+.academy-expired,
+.label-status-rejected,
+.label-status-rejected,
+.label-status-incomplete {
+    color: #F4483F;
+    background: rgba(244, 72, 63, 0.12);
+}
+
+
+.label-status-completed,
+.label-status-processing,
+.label-status-cancelled,
+.label-status-approved,
+.label-status-incomplete,
+.label-status-rejected,
+.label-status-pending {
+    min-width: 120px;
+    padding: 8px 12px;
+}
+
+.academy-skipped{
+    background: var(--academy-gray-color);
+    color: #e7404e;
+}

@@ -1,0 +1,280 @@
+.is-style-academylms {
+  br {
+    display: none;
+  }
+
+  li {
+    // list-style: none;
+
+    :focus {
+      border: none;
+      outline: 0;
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    :focus {
+      border: none;
+      outline: 0;
+    }
+  }
+
+  .is-style-customcategoriesstyle a {
+    font-weight: 600;
+    font-size: 14px;
+    color: #308add;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--academy-secondary-color);
+    padding: 4px 8px;
+    border-radius: 999px;
+    margin: 0 6px 6px 0;
+  }
+
+  .academy-post-terms__category-thumb {
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .wp-block-post-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 46px;
+  }
+
+  .wp-block-post-featured-image img, .wp-block-post-featured-image .block-editor-media-placeholder, .wp-block-post-featured-image .wp-block-post-featured-image__overlay {
+    border-radius: 10px;
+  }
+
+  .academy-widget-enroll__wishlist-and-share {
+    justify-content: space-between;
+  }
+
+  .academy-archive-course-widget--search input.academy-archive-course-search {
+    outline: none;
+    padding-left: 10px;
+  }
+
+  .default-feture-image, div#academyPlayer {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .academy-courses-featured-image img{
+    height: auto;
+  }
+
+  img.academy-default-featured-image {
+    width: -webkit-fill-available;
+  }
+  .academy-sub-lesson-list__item {
+    font-size: 16px;
+  }
+
+  .academy-courses__header {
+    p {
+      display: none;
+    }
+
+    .academy-courses__header-result-count {
+      display: block;
+    }
+  }
+
+  .academy-prerequisites-message {
+    font-size: 15px;
+  }
+
+  .academy-prerequisites-lists {
+    margin: 15px 0;
+
+    a {
+      font-size: 14px;
+    }
+  }
+
+  .academy-review-form-rating {
+    font-size: 16px;
+  }
+
+  .academy-review-form-review {
+    margin-bottom: 15px;
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+    }
+  }
+
+  .academy-review-form {
+    p {
+      display: none;
+    }
+  }
+
+  .academy-review-form.academy-review-form--open-form {
+    p {
+      display: block;
+    }
+  }
+.g-plus p:empty{
+  display: none;
+}
+}
+
+// Block themes size the dashboard through alignwide/alignfull (theme's wide
+// width / whole page); this cap is only for everything else.
+.academy-frontend-dashboard:not(.academy-frontend-dashboard--full):not(.alignwide):not(.alignfull) {
+  max-width: 1200px !important;
+}
+
+.wp-block-column.is-style-academylmssticky {
+  position: sticky !important;
+  top: 60px;
+}
+
+.page-template-academy-canvas .is-layout-constrained.wp-block-post-content-is-layout-constrained .academy-frontend-dashboard:not(.alignwide):not(.alignfull) {
+  max-width: 1200px;
+}
+
+.academy-review-form {
+  .academy-review-form-rating {
+    p.stars {
+      a:before {
+        font-family: 'academy-icon' !important;
+        content: "\e931";
+      }
+    }
+  }
+}
+.academy-review-form{
+  .academy-review-form-rating{
+    p.stars.selected a.active::before{
+      content: "\e932";
+    }
+  }
+}
+.academy-review-form{
+  .academy-review-form-rating{
+    p.stars a:hover ~ a::before{
+      content: "\e931";
+    }
+  }
+}
+.academy-review-form{
+  .academy-review-form-rating{
+    p.stars:hover a::before {
+      content: "\e932";
+    }
+  }
+}
+.academy-review-form{
+  .academy-review-form-rating{
+    p.stars.selected a.active ~ a::before{
+      content: "\e931";
+    }
+  }
+}
+.academy-review-form
+{
+  .academy-review-form-rating{
+    p.stars.selected a:not(.active)::before{
+      content: "\e932";
+    }
+  }
+}
+
+.academy-single-course__content-item--feedback {
+  .academy-student-course-feedback-ratings {
+    .academy-ratings-list-item {
+      .academy-ratings-list-item-fill-bar {
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .is-style-academylms {
+    .academy-widget-enroll__wishlist-and-share {
+      gap: 2px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1140px) and (min-width: 780px) {
+  .is-style-academylms {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+
+    .academy-widget-enroll__wishlist-and-share {
+      flex-wrap: wrap;
+
+      button, p {
+        width: 100%;
+      }
+    }
+
+    .academy-single-course__content-item--feedback .academy-student-course-feedback-ratings .academy-ratings-list-item .academy-ratings-list-item-fill {
+      width: 156px;
+    }
+
+    .academy-single-course__content-item--feedback .academy-student-course-feedback-ratings .academy-ratings-list-item .academy-ratings-list-item-fill-bar {
+      width: 152px;
+      border-radius: 50px;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+  .is-style-academylms {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+
+    .academy-single-course__content-item--feedback .academy-student-course-feedback-ratings .academy-ratings-list .academy-ratings-list-item .academy-ratings-list-item-fill {
+      width: 211px;
+    }
+
+    .academy-single-course__content-item--feedback .academy-student-course-feedback-ratings .academy-ratings-list-item .academy-ratings-list-item-fill-bar {
+      border-radius: 50px;
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .is-style-academylms {
+    .academy-widget-enroll__wishlist-and-share {
+      flex-direction: column;
+      column-gap: 10px;
+      row-gap: 10px;
+
+      .academy-share-wrap {
+        margin-top: 0;
+      }
+    }
+
+    .academy-courses__header-filter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .academy-single-course__content-item--feedback .academy-student-course-feedback-ratings .academy-ratings-list .academy-ratings-list-item .academy-ratings-list-item-fill {
+      width: 49%;
+    }
+
+    .academy-single-course__content-item--feedback .academy-student-course-feedback-ratings .academy-ratings-list-item .academy-ratings-list-item-fill-bar {
+      border-radius: 50px;
+    }
+  }
+}

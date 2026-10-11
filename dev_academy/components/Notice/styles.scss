@@ -1,0 +1,98 @@
+.academy-notice {
+	display: flex;
+	gap: 12px;
+	padding: 16px 24px;
+	align-items: center;
+	border: none;
+	background: var(--academy-surface-color) !important;
+	box-shadow: none;
+	margin: 0;
+	border-top: 1px solid var(--academy-border-color);
+	&:first-child {
+		border-top: 0;
+	}
+	&__icon {
+		position: relative;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--academy-primary-color) !important;
+		padding: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		.academy-icon {
+			font-size: 20px;
+			&::before{
+                color: #fff;
+            }
+		}
+		span {
+			display: inline;
+			font-size: 50px;
+			color: var(--academy-primary-color);
+		}
+	}
+	&__content {
+		p{ 
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 20px;
+		color: var(--academy-text-color);
+	}
+	}
+	&__control {
+		// .academy-btn defaults to display: flex (a block-level flex
+		// container, since <a>/<button> aren't given inline-flex), so without
+		// this the action link and the dismiss (close) button stack
+		// vertically instead of sitting side by side — only visible once a
+		// notice has both an action button *and* dismissible: true together.
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-shrink: 0;
+		// WordPress underlines every link in a .notice; an action button isn't
+		// a text link.
+		.academy-btn,
+		.academy-btn:hover,
+		.academy-btn:focus {
+			text-decoration: none;
+		}
+		.academy-btn{
+			padding: 12px 35px;
+			color: #fff;
+			font-weight: 600;
+			font-size: 14px;
+			line-height: 17px;
+		}
+		.academy-btn--close {
+			padding: 8px;
+			background: transparent;
+			color: var(--academy-text-color);
+		}
+	}
+}
+
+.notice-info {
+    .academy-notice__icon {
+        background: var(--academy-primary-color);
+    }
+}
+
+.notice-warning {
+    .academy-notice__icon {
+        background: var(--academy-warning-color);
+    }
+}
+
+.notice-error {
+    .academy-notice__icon {
+        background: var(--academy-danger-color);
+    }
+}
+
+.notice-success {
+    .academy-notice__icon {
+        background: var(--academy-success-color);
+    }
+}

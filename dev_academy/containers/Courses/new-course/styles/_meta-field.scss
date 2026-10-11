@@ -1,0 +1,704 @@
+.meta-field {
+	display: flex;
+	margin-bottom: 15px;
+	&__label {
+		min-width: 200px;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		.meta-field__info {
+			display: block;
+			font-size: 13px;
+			font-weight: 400;
+			line-height: 20px;
+			color: var(--academy-dark-gray-color);
+		}
+
+		.sub-title {
+			font-size: 12px;
+			color: var(--academy-secondary-gray-color);
+		}
+	}
+
+	&__body {
+		label.disable {
+			opacity: 0.5;
+		}
+
+		select, input, textarea {
+			border: 1px solid var(--academy-border-color);
+			box-shadow: none;
+		}
+
+		input[type="number"], input[type="text"] {
+			height: 44px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 15px;
+		}
+
+		>label {
+			margin: 5px;
+			font-weight: 400;
+		}
+
+		p.description {
+			font-size: 13px;
+			font-weight: 400;
+			margin-bottom: 0;
+		}
+
+		p.error {
+			color: #FF0000;
+		}
+
+		.group-field {
+			display: flex;
+		}
+
+		.announcement {
+			&__item {
+				border: 1px solid var(--academy-border-color);
+				background: var(--academy-background-gray-color);
+				border-radius: 10px;
+				padding: 20px;
+				margin-bottom: 20px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				.announcement-entry-title {
+					margin-top: 0;
+					margin-bottom: 15px;
+				}
+
+				.announcement-entry-content {
+					margin: 0;
+				}
+
+				&-control {
+					display: -webkit-box;
+					display: -ms-flexbox;
+					display: flex;
+					-webkit-column-gap: 10px;
+					-moz-column-gap: 10px;
+					column-gap: 10px;
+					button {
+						padding: 0;
+
+						.academy-icon {
+							padding: 2px;
+						}
+					}
+
+					.academy-btn {
+						&:hover {
+							.academy-icon {
+								&--edit {
+									&::before {
+										color: var(--academy-primary-color);
+									}
+								}
+
+								&--delete {
+									&::before {
+										color: #FF0000;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&--qa, &--ratings, &--buddyboss, &--buddypress, &--comming-soon {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		.academy-courese-comming-soon-date{
+			width: 250px;
+		}
+	}
+	&--buddyboss, &--buddypress{
+		.academy-select {
+			width: 400px;
+			min-height: 42px;
+			height: 100%;
+			.academy-react-select{
+				
+				&__value-container {
+					padding: 4px 8px 0 8px;
+					margin-top: -2px;
+				}
+			}
+					
+		}
+	}
+
+	&--ratings {
+		margin-bottom: 0;
+	}
+
+	&--maximum-students, &--expire-enrollment, &--difficulty-level, &--languages, &--course-benefits, &--target-audience, &--requirements, &--materials, &--prerequisite-type {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+	}
+
+	&--difficulty-level {
+		.academy-select {
+			width: 190px !important;
+		}
+		.meta-field__body {
+			display: flex;
+		}
+		label[for="beginner"], label[for="intermediate"], label[for="experts"] {
+			display: flex;
+			align-items: flex-end;
+			gap: 5px;
+		}
+	}
+
+	&--course-benefits, &--target-audience, &--requirements, &--materials {
+		.sub-title {
+			font-size: 12px;
+			color: var(--academy-secondary-gray-color);
+		}
+
+		textarea {
+			width: 356px;
+			// .academy-input's base height (40px) is sized for single-line
+			// inputs; these are multi-line fields, so give them room back.
+			height: auto;
+			min-height: 100px;
+		}
+	}
+
+	&--playback-time {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 10px;
+		.meta-field__body {
+			.group-field {
+				justify-content: flex-end;
+				flex-wrap: nowrap;
+				column-gap: 15px;
+				label {
+					input {
+						display: block;
+						margin-bottom: 7px;
+						width: 100px;
+					}
+				}
+
+				&__items {
+					display: flex;
+					align-items: center;
+					border-radius: 4px;
+					input[type=number] {
+						margin-bottom: 0;
+						border: none;
+						background: transparent;
+						color: var(--academy-text-color);
+					}
+
+					span {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 48px;
+						height: 38px;
+						border-left: 1px solid var(--academy-border-color);
+						background: var(--academy-gray-color);
+						color: var(--academy-secondary-gray-color);
+						font-size: 12px;
+						border-radius: 0 4px 4px 0;
+					}
+				}
+
+				.academy-input {
+					padding: 0;
+				}
+			}
+		}
+	}
+
+	&--disabled {
+		opacity: 0.5;
+	}
+
+	&--woocommerce, &--course-type {
+		.meta-field {
+			&__label {
+				min-width: 200px;
+			}
+		}
+	}
+	&--course-intro{
+		.invalidLink{
+			border: 1px solid red;
+		}
+	}
+
+	&--woocommerce {
+		flex-direction: column;
+		gap: 10px;
+		padding: 0 16px;
+		label {
+			padding: 0 !important;
+		}
+
+		input[type=number] {
+			width: 100%;
+		}
+	}
+
+	&--course-type {
+		gap: 10px;
+		flex-direction: column;
+		margin: 0;
+		// padding-top: 10px;
+		.meta-field {
+			align-items: flex-start !important;
+			&__body {
+				display: flex;
+				flex-direction: column;
+				&__types {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+				}
+
+				.academy-label-pro-disabled {
+					pointer-events: none;
+					opacity: 0.5;
+				}
+
+				// The Price row sits directly above its own detail block
+				// (price input + payment options) — both outside
+				// `&__types`' flex `gap`, since Public/GameEngine/etc. no
+				// longer share a row with it, so the gap has to be set
+				// explicitly here instead of inherited from that list.
+				.academy-course-types-label__price {
+					margin-bottom: 10px;
+				}
+
+				.meta-field--price-section {
+					margin-bottom: 16px;
+
+					.academy-sub-title {
+						margin: 0 0 10px 0;
+					}
+				}
+
+				// The Paid/Free toggle (and its Unlockable/Paid-or-Unlockable
+				// twin in `GameEngineSection`) match the design system's
+				// SegmentedGroup component (Figma node 13819:25076/25078):
+				// a light grey track holding both segments with a small gap
+				// between them — not a bordered pill split down the middle
+				// — with the active segment reading as its own small filled
+				// purple chip, not a divider-separated half.
+				.academy-price-status-toggle {
+					display: inline-flex;
+					align-items: center;
+					gap: 4px;
+					background: var(--academy-gray-color);
+					border-radius: 4px;
+					padding: 2px;
+					box-shadow: none;
+
+					.academy-price-status-badge {
+						cursor: pointer;
+
+						// The un-picked segment — transparent instead of
+						// filled, so the active one still reads as the
+						// real state.
+						&.is-inactive {
+							background: transparent;
+							color: var(--academy-secondary-gray-color);
+
+							&:hover {
+								color: var(--academy-text-color);
+							}
+						}
+					}
+				}
+
+				.academy-price-status-badge {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					// Renders as a real <button> once it's a manual toggle
+					// rather than a plain label — a <button> doesn't
+					// inherit the page font by default.
+					font-family: inherit;
+					font-size: 12px;
+					font-weight: 400;
+					line-height: 18px;
+					text-transform: uppercase;
+					padding: 2px 8px;
+					border: 0;
+					border-radius: 4px;
+					color: var(--academy-secondary-gray-color);
+					background: transparent;
+
+					// The picked segment — a small filled chip inside the
+					// grey track, same treatment regardless of which
+					// specific toggle (Paid/Free vs Unlockable/Paid-or-
+					// Unlockable) it belongs to, so `is-paid`/`is-free`/
+					// `is-unlockable`/`is-hybrid` stay purely semantic
+					// hooks and carry no styling of their own.
+					&.is-active {
+						background: var(--academy-primary-color);
+						color: #fff;
+						font-weight: 500;
+						box-shadow: none;
+					}
+				}
+
+				.academy-post-form-group-wrapper {
+					border: 1px solid var(--academy-border-color);
+					padding: 16px 0 1px 0;
+					background: var(--academy-gray-color);
+				}
+	
+				.academy-post-form-group {
+					padding: 0 16px;
+					flex-direction: column;
+					align-items: flex-start;
+					gap: 10px;
+					.academy-post-form-info {
+						display: flex;
+						flex-direction: column;
+						gap: 8px;
+						label {
+							padding: 0;
+						}
+	
+						.sub-title {
+							font-size: 12px;
+							font-weight: 400;
+							line-height: 20px;
+						}
+					}
+	
+					.academy-post-form-body {
+						display: flex;
+						flex-direction: column;
+						gap: 8px;
+						font-size: 12px;
+						font-weight: 400;
+						line-height: 20px;
+					}
+				}
+				.academy-warning-message {
+					&__top-title {
+						font-size: 16px;
+					}
+					.academy-icon {
+						&::before {
+							font-size: 20px;
+						}
+					}
+				}
+			}
+		}
+
+		&__rcp {
+			// Was flush against the tile above it (radius rounded only at
+			// the bottom, no top border) — now detached with a small gap,
+			// so it needs its own full border to read as a standalone box
+			// rather than a panel missing its top edge. Same gap repeated
+			// on the bottom so the box doesn't sit flush against whatever
+			// tile (e.g. Public) follows it either.
+			margin-top: 8px;
+			margin-bottom: 8px;
+			padding: 16px;
+			background: var(--academy-gray-color);
+			border: 1px solid var(--academy-border-color);
+			border-radius: 4px;
+		}
+	}
+}
+
+// Shared "course type" radio-row primitives — used by the Public/RCP/
+// MemberPress/Price rows in the Standard Course tab (`CourseTypeBox`) AND
+// the "Enable GameEngine Unlock" row in the Gamified Course tab
+// (`GameEngineSection`), since both represent the same kind of mutually
+// exclusive `academy_course_type` choice. Previously scoped inside
+// `.meta-field--course-type .meta-field__body`, which only ever wrapped the
+// Standard Course markup — GameEngineSection lives in a sibling tab outside
+// that scope, so its row silently got none of this (no border/padding/
+// active-state), and its Pro-nudge "disabled" wrapper and
+// ContentRestriction's misconfigured-value warning were unstyled for the
+// same reason. Hoisted here so anything using these classes gets them
+// regardless of which tab it renders in.
+.academy-course-types-label {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	padding: 14px 18px;
+	border: 1px solid var(--academy-border-color);
+	border-radius: 6px;
+	margin: 0;
+	cursor: pointer;
+	position: relative;
+
+	&__indicator {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-shrink: 0;
+	}
+
+	.academy-pro-badge--label {
+		position: static;
+		margin: 0;
+	}
+}
+
+.academy-label-is-active {
+	border: 1px solid var(--academy-primary-color);
+}
+
+.meta-field--price-disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.academy-warning-text {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 4px 8px;
+	font-size: 12px;
+	margin: 12px 0 0 0;
+	p {
+		margin: 0;
+	}
+	.academy-icon {
+		&::before {
+			color: var(--academy-warning-color);
+			font-size: 16px;
+		}
+	}
+}
+
+// The "no eCommerce engine configured" notice, matching the Figma reference
+// (node 13804:25292): an outer bordered card (soft yellow border, matches
+// the warning being non-urgent — a price without an engine, not an error),
+// a gray notice strip with the "Please Select eCommerce Engine from
+// settings" message, and a labeled inline picker below it.
+.academy-engine-warning {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-bottom: 12px;
+	padding: 16px;
+	background: var(--academy-surface-color);
+	border: 1px solid #fecd74;
+	border-radius: 4px;
+	box-shadow: none;
+
+	&__notice {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		padding: 8px 12px;
+		background: var(--academy-gray-color);
+		border-radius: 4px;
+	}
+
+	&__icon {
+		flex-shrink: 0;
+		margin-top: 3px;
+
+		&::before {
+			color: var(--academy-secondary-gray-color);
+			font-size: 16px;
+		}
+	}
+
+	&__text {
+		margin: 0;
+		font-size: 14px;
+		line-height: 20px;
+		color: var(--academy-secondary-gray-color);
+	}
+
+	&__link {
+		font-weight: 500;
+		color: var(--academy-primary-color);
+		text-decoration: underline;
+	}
+
+	&__field {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	&__field-label {
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--academy-text-color-black);
+	}
+
+	&__select-wrap {
+		position: relative;
+	}
+
+	&__select-icon {
+		position: absolute;
+		left: 12px;
+		top: 50%;
+		width: 16px;
+		height: 16px;
+		transform: translateY(-50%);
+		// The select's own click/toggle handling lives on its container,
+		// underneath this icon — let clicks fall through to it.
+		pointer-events: none;
+		z-index: 1;
+	}
+}
+
+.academy-select-engine-inline {
+	width: 100%;
+
+	.academy-custom-select--container {
+		padding-left: 34px;
+	}
+}
+
+// `.academy-sub-heading` (ContentRestriction's own "Content Restriction
+// (Free)" label) and `.academy-gameengine-divider` (between the GameEngine
+// Unlock tile's content and Content Restriction) both render inside
+// `.meta-field--course-type .meta-field__body` now that Course Type is one
+// flat list rather than a separate GameEngine tab/box — kept unscoped here
+// (not nested under `&--course-type` above) since `.academy-sub-heading` is
+// a generic-sounding class other, unrelated sections might reuse later.
+.academy-sub-heading {
+	font-size: 14px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.academy-gameengine-divider {
+	border: none;
+	border-top: 1px solid var(--academy-border-color);
+	margin: 20px 0;
+}
+
+// Sits between the Price section and the GameEngine toggle to read as a
+// genuine "priced normally, OR unlock with points" choice rather than the
+// toggle looking like a random extra setting tacked onto pricing. Same
+// flex + ::before/::after line-split technique as the frontend's social
+// login divider (`_ajaxLogin.scss`'s `.academy-social-login__divider`),
+// rebuilt here against this module's own CSS variables since that one is
+// frontend-scoped and hardcodes its line color.
+.academy-gameengine-or-divider {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 4px 0;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	color: var(--academy-dark-gray-color);
+
+	&::before,
+	&::after {
+		content: '';
+		flex: 1;
+		border-top: 1px solid var(--academy-border-color);
+	}
+}
+
+// The "Course Type" box sits in the narrow (~28%-width) sidebar column, not
+// the wide main content area the shared `.meta-tabs` style (Course Settings)
+// was sized for — "Standard Course"/"Gamified Course" wrap to two lines
+// there at the default 15px/8px-16px sizing. Shrink just this instance.
+.academy-course-type-tabs {
+	.meta-tab-link {
+		flex: 1;
+		font-size: 13px;
+		padding: 8px 4px;
+		text-align: center;
+		white-space: nowrap;
+	}
+}
+
+// The Course Type heading info tooltip carries a full explanatory sentence —
+// `Tooltip`'s default `&__text` is a fixed 120px box meant for a short label,
+// so widen and left-align it here rather than in the shared component (other
+// `Tooltip` usages elsewhere still want the compact default). `Tooltip`'s own
+// wrapper is already `display: inline-block`, so it sits inline next to the
+// heading text without touching `.academy-heading`.
+.academy-tooltip--course-type-info {
+	.academy-icon {
+		font-size: 14px;
+	}
+
+	.academy-tooltip__text {
+		width: 280px;
+		text-align: left;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 18px;
+	}
+}
+
+@media all and (max-width: 480px) {
+	.meta-field {
+		flex-direction: column;
+		&--scorm {
+			.meta-field {
+				&__body {
+					margin-top: 15px;
+					input {
+						width: 100%;
+					}
+				}
+			}
+		}
+
+		&--course-type {
+			flex-direction: column;
+			gap: 10px;
+			.meta-field {
+				&__body {
+					gap: 10px;
+					flex-direction: column;
+				}
+			}
+		}
+
+		&--course-benefits, &--target-audience, &--requirements, &--materials {
+			textarea {
+				width: 380px;
+				height: auto;
+				min-height: 100px;
+			}
+		}
+	}
+
+	.meta-tab-content {
+		.meta-field {
+			&--qa, &--difficulty-level {
+				flex-direction: row !important;
+			}
+		}
+	}
+}
